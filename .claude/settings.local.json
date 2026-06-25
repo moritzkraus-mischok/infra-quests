@@ -17,7 +17,8 @@
       "Bash(grep *)",
       "Bash(printf '%s\\\\n' projekt-*.html)",
       "Bash(rtk proxy *)",
-      "Bash(git commit -m 'feat: integrate cloud-init into projects 1, 10, and 13 *)"
+      "Bash(git commit -m 'feat: integrate cloud-init into projects 1, 10, and 13 *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
