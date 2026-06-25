@@ -118,7 +118,7 @@ sudo dpkg-reconfigure -plow unattended-upgrades</code></pre>
 <ul>
 <li class="unchecked">Cron-Job für automatische Backups:</li>
 </ul>
-<pre><code class="language-bash">0 2 &lt;em&gt; &lt;/em&gt; * rsync -av /home/ /backup/home/ --delete</code></pre>
+<pre><code class="language-bash">0 2 * * * rsync -av /home/ /backup/home/ --delete</code></pre>
 <ul>
 <li class="unchecked">Backup-Lösung testen (Recovery durchführen)</li>
 </ul>
