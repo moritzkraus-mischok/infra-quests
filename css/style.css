@@ -80,7 +80,7 @@ svg {
 
 .skills-container {
     position: relative;
-    width: 2000px;
+    width: 1000px;
     height: 1400px;
     padding: 40px;
 }
@@ -205,22 +205,30 @@ svg {
 }
 
 /* Connection Lines */
-line {
+line, path {
     stroke-width: 2;
-    stroke-opacity: 0.3;
+    stroke-opacity: 0.4;
     transition: all 0.3s ease;
 }
 
 .connection {
     stroke: #00ccff;
     filter: drop-shadow(0 0 8px rgba(0, 204, 255, 0.5));
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .skill-node.active ~ svg .connection[data-to],
 .skill-node:hover ~ svg .connection[data-from] {
-    stroke-opacity: 0.8;
+    stroke-opacity: 1;
     stroke-width: 3;
-    filter: drop-shadow(0 0 12px rgba(0, 255, 200, 0.8));
+    filter: drop-shadow(0 0 12px rgba(0, 255, 200, 0.8)) drop-shadow(0 0 4px rgba(0, 255, 200, 0.6));
+}
+
+path.connection {
+    fill: none;
+    stroke-linecap: round;
 }
 
 /* Tooltip */
