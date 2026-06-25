@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt 13: Kleine Unternehmens-IT-Infrastruktur</title>
+    <title>Projekt 10: Ansible Infrastruktur-Automatisierung</title>
     <style>
         * {
             margin: 0;
@@ -295,17 +295,17 @@
 
     <div class="container">
         <header>
-            <h1>🏭 KLEINE UNTERNEHMENS-IT-INFRASTRUKTUR</h1>
-            <div class="subtitle">PROJEKT 13 • SYSTEMADMINISTRATION</div>
+            <h1>⚙️ ANSIBLE INFRASTRUKTUR-AUTOMATISIERUNG</h1>
+            <div class="subtitle">PROJEKT 10 • SYSTEMADMINISTRATION</div>
 
             <div class="project-info">
                 <div class="info-card">
                     <div class="info-card-label">Schwierigkeitsgrad</div>
-                    <div class="info-card-value">Expert</div>
+                    <div class="info-card-value">Fortgeschritten → Expert</div>
                 </div>
                 <div class="info-card">
                     <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">4-6 Wochen</div>
+                    <div class="info-card-value">2-3 Wochen</div>
                 </div>
             </div>
         </header>
@@ -314,61 +314,283 @@
         <section class="section">
             <h2 class="section-title">📋 Projektbeschreibung</h2>
             <div class="content-box">
-                Integrationsprojekt, das mehrere Fähigkeiten kombiniert. Aufbau einer kompletten, funktionsfähigen IT-Infrastruktur für ein kleines Unternehmen mit realistischen Anforderungen.
-            </div>
+Infrastructure as Code mit Ansible. Automatisierung von Konfiguration, Deployment und Management über viele Server hinweg.
+</div>
         </section>
 
         <!-- Lernziele -->
         <section class="section">
             <h2 class="section-title">🎯 Lernziele</h2>
             <div class="content-box">
-                - Integration mehrerer Systeme und Services<br>- Unternehmens-Anforderungen umsetzen<br>- Skalierbarkeit und Wartbarkeit<br>- Sicherheit auf allen Ebenen<br>- Dokumentation für Betrieb<br>- Support und Troubleshooting in Produktivumgebung
-            </div>
+<ul>
+<li>Ansible Installation und Grundlagen</li>
+<li>Playbooks und Tasks schreiben</li>
+<li>Rollen (Roles) für Wiederverwendbarkeit</li>
+<li>Inventory Management</li>
+<li>Facts und Conditional Logic</li>
+<li>Error Handling und Debugging</li>
+<li>Beste Praktiken und Performance</li>
+</ul>
+</div>
         </section>
 
         <!-- Anforderungen -->
         <section class="section">
             <h2 class="section-title">🔧 Anforderungen</h2>
             <div class="content-box">
-                - Ubuntu Server 22.04 LTS (mehrere VMs)<br>- Min. 16GB RAM Gesamt<br>- 100GB+ Speicherplatz<br>- Alle vorherigen Projekt-Skills empfohlen<br>- Grundverständnis: Business Requirements, Project Management
-            </div>
+<ul>
+<li>Ubuntu Server 22.04 LTS (Control Node)</li>
+<li>Min. 3 zusätzliche VMs (Managed Nodes)</li>
+<li>SSH-Keys konfiguriert zwischen Nodes</li>
+<li>Grundverständnis: YAML, Shell Scripting</li>
+</ul>
+</div>
         </section>
 
         <!-- Aufgaben -->
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-                ### Infrastruktur-Anforderungen<br><br>#### Szenario: "TechStart GmbH"<br>- 50 Mitarbeiter<br>- Gemischte Umgebung: Windows + Linux<br>- 2 Office-Standorte<br>- Einige Remote-Worker<br>- Datenschutz-Anforderungen (DSGVO)<br><br>### Phase 1: Anforderungsanalyse & Planung (Tag 1-3)<br>- [ ] Geschäfts-Anforderungen definieren:<br>  - [ ] Verfügbarkeitsanforderungen (wie viel Downtime ist akzeptabel?)<br>  - [ ] Performance-Anforderungen<br>  - [ ] Compliance-Anforderungen (DSGVO, etc.)<br>  - [ ] Budget-Constraints<br>- [ ] IT-Infrastruktur auswählen<br>- [ ] Disaster-Recovery RTO/RPO<br>- [ ] Skalierungspläne<br>- [ ] Security-Level definieren<br>- [ ] Dokumentations-Struktur planen<br><br>### Phase 2: Kern-Infrastruktur (Tag 4-8)<br>- [ ] **Virtualisierung / Bare Metal:**<br>  - [ ] Hypervisor (KVM/Proxmox)<br>  - [ ] Netzwerk-Segmentierung<br>  <br>- [ ] **Zentrales Verzeichnis (FreeIPA/Samba AD):**<br>  - [ ] User Management<br>  - [ ] Group Policies<br>  - [ ] Authentication für alle Services<br>  <br>- [ ] **Dateiserver:**<br>  - [ ] Samba für Windows-Clients<br>  - [ ] NFS für Linux<br>  - [ ] Quotas und Berechtigungen<br>  - [ ] Snapshots für schnelle Recovery<br>  <br>- [ ] **Backup & DR:**<br>  - [ ] Automatisierte Backups<br>  - [ ] Off-site Backups<br>  - [ ] Recovery-Testing<br><br>### Phase 3: Sicherheitsinfrastruktur (Tag 9-12)<br>- [ ] **Firewall & Segmentierung:**<br>  - [ ] DMZ für öffentliche Services<br>  - [ ] Interne Netzwerk-Segmente<br>  - [ ] VPN für Remote-Worker<br>  <br>- [ ] **Mail-Server:**<br>  - [ ] Postfix/Dovecot<br>  - [ ] SPF, DKIM, DMARC<br>  - [ ] Mail-Filtering (Spam, Malware)<br>  <br>- [ ] **Monitoring & Logging:**<br>  - [ ] Prometheus + Grafana für Metrics<br>  - [ ] ELK Stack für Logs<br>  - [ ] Alerts für kritische Events<br>  <br>- [ ] **Patch Management:**<br>  - [ ] Automated Security Updates<br>  - [ ] Update-Testing<br>  - [ ] Patch-Scheduling<br><br>### Phase 4: Services & Anwendungen (Tag 13-16)<br>- [ ] **Web-Infrastruktur:**<br>  - [ ] LAMP/LEMP Stack<br>  - [ ] SSL/TLS für alle Web-Services<br>  - [ ] Load-Balancing (optional)<br>  <br>- [ ] **Datenbank-Services:**<br>  - [ ] PostgreSQL/MySQL für Geschäfts-Apps<br>  - [ ] Backup-Strategie<br>  - [ ] HA-Setup (optional)<br>  <br>- [ ] **Interne Services:**<br>  - [ ] Wiki/Dokumentation<br>  - [ ] Issue-Tracker<br>  - [ ] Git-Repository (optional)<br><br>### Phase 5: Automation & Verwaltung (Tag 17-19)<br>- [ ] **Ansible für Configuration Management:**<br>  - [ ] Playbooks für jeden Service-Typ<br>  - [ ] Automatische Provisioning<br>  - [ ] Change-Management<br>  <br>- [ ] **Deployment-Pipeline:**<br>  - [ ] Automated Testing<br>  - [ ] Blue-Green Deployments<br>  - [ ] Rollback-Pläne<br><br>### Phase 6: Dokumentation (Tag 20-22)<br>- [ ] **Technische Dokumentation:**<br>  - [ ] Infrastruktur-Diagramme (Netzwerk, Systeme)<br>  - [ ] Service-Dokumentation<br>  - [ ] API-Dokumentation<br>  <br>- [ ] **Runbooks:**<br>  - [ ] Daily/Weekly/Monthly Tasks<br>  - [ ] Troubleshooting-Guides<br>  - [ ] Disaster-Recovery Procedures<br>  - [ ] Escalation-Procedures<br>  <br>- [ ] **Policies & Procedures:**<br>  - [ ] Passwort-Policy<br>  - [ ] Backup-Policy<br>  - [ ] Security-Policy<br>  - [ ] Change-Management-Procedure<br><br>### Phase 7: Testing & Validation (Tag 23-25)<br>- [ ] **Functional Testing:**<br>  - [ ] Alle Services funktionieren<br>  - [ ] User-Logins funktionieren<br>  - [ ] File-Zugriff funktioniert<br>  <br>- [ ] **Performance Testing:**<br>  - [ ] Response Times akzeptabel<br>  - [ ] Unter Last stabil<br>  <br>- [ ] **Security Testing:**<br>  - [ ] Schwachstellen-Scan<br>  - [ ] Penetration Testing Grundlagen<br>  <br>- [ ] **DR Testing:**<br>  - [ ] Recovery-Szenarien durchspielen<br>  - [ ] RTO/RPO überprüfen<br><br>### Phase 8: Produktion & Übergabe (Tag 26-30)<br>- [ ] **Go-Live Planning:**<br>  - [ ] Migration-Plan<br>  - [ ] Cutover-Window<br>  - [ ] Rollback-Plan<br>  <br>- [ ] **User-Schulung:**<br>  - [ ] Passwort-Reset Prozess<br>  - [ ] VPN-Zugang<br>  - [ ] Dateiserver-Nutzung<br>  <br>- [ ] **Handover:**<br>  - [ ] Dokumentations-Review<br>  - [ ] Support-Team Training<br>  - [ ] Operations-Übersicht<br>  <br>- [ ] **Post-Go-Live Support:**<br>  - [ ] Issue-Tracking und Fixes<br>  - [ ] Performance-Monitoring<br>  - [ ] User-Feedback Integration
-            </div>
+<h3>Phase 1: Ansible Installation & Setup (Tag 1-2)</h3>
+<ul>
+<li class="unchecked">Ansible installieren: <code>sudo apt install ansible</code></li>
+<li class="unchecked">SSH-Keys zwischen Nodes konfigurieren</li>
+<li class="unchecked">Inventory Datei erstellen: <code>/etc/ansible/hosts</code></li>
+</ul>
+<pre><code class="language-ini">[webservers]
+web1 ansible_host=192.168.1.10
+web2 ansible_host=192.168.1.11
+
+[databases]
+db1 ansible_host=192.168.1.20</code></pre>
+<ul>
+<li class="unchecked">Connectivity testen: <code>ansible all -m ping</code></li>
+<li class="unchecked">Ansible.cfg verstehen</li>
+<li class="unchecked">Verschiedene Inventory-Formate (INI, YAML)</li>
+</ul>
+
+<h3>Phase 2: Basic Commands & Ad-Hoc Tasks (Tag 3)</h3>
+<ul>
+<li class="unchecked">Ad-hoc Commands:</li>
+</ul>
+<pre><code class="language-bash">ansible all -m apt -a "name=vim state=present"
+ansible webservers -m service -a "name=nginx state=started"
+ansible all -m shell -a "cat /etc/hostname"</code></pre>
+<ul>
+<li class="unchecked">Verschiedene Module kennenlernen:</li>
+<li class="unchecked">apt, yum (Package Management)</li>
+<li class="unchecked">service, systemd (Service Management)</li>
+<li class="unchecked">file, copy (File Management)</li>
+<li class="unchecked">user, group (User Management)</li>
+<li class="unchecked">Variablen in Ad-hoc Commands</li>
+</ul>
+
+<h3>Phase 3: Playbooks schreiben (Tag 4-6)</h3>
+<ul>
+<li class="unchecked">Playbook YAML-Struktur verstehen</li>
+<li class="unchecked">Einfaches Playbook:</li>
+</ul>
+<pre><code class="language-yaml">---
+&lt;ul&gt;
+&lt;li&gt;hosts: webservers&lt;/li&gt;
+&lt;/ul&gt;
+become: yes
+tasks:
+&lt;ul&gt;
+&lt;li&gt;name: Update apt cache&lt;/li&gt;
+&lt;/ul&gt;
+apt:
+update_cache: yes
+
+&lt;ul&gt;
+&lt;li&gt;name: Install nginx&lt;/li&gt;
+&lt;/ul&gt;
+apt:
+name: nginx
+state: present
+
+&lt;ul&gt;
+&lt;li&gt;name: Start nginx&lt;/li&gt;
+&lt;/ul&gt;
+service:
+name: nginx
+state: started
+enabled: yes</code></pre>
+<ul>
+<li class="unchecked">Variables definieren und nutzen</li>
+<li class="unchecked">Handlers für Notifications</li>
+<li class="unchecked">Multiple Plays in einem Playbook</li>
+<li class="unchecked">Playbooks ausführen: <code>ansible-playbook site.yml</code></li>
+</ul>
+
+<h3>Phase 4: Roles für Wiederverwendbarkeit (Tag 7-8)</h3>
+<ul>
+<li class="unchecked">Role Struktur verstehen:</li>
+</ul>
+<pre><code>roles/
+nginx/
+tasks/
+handlers/
+templates/
+files/
+vars/</code></pre>
+<ul>
+<li class="unchecked">Nginx Role erstellen</li>
+<li class="unchecked">Role Templates verwenden (Jinja2)</li>
+<li class="unchecked">Role Variables</li>
+<li class="unchecked">Multiple Roles in Playbooks</li>
+<li class="unchecked">Role Dependencies</li>
+<li class="unchecked">Galaxy Roles (optional): <code>ansible-galaxy install</code></li>
+</ul>
+
+<h3>Phase 5: Facts & Conditionals (Tag 9)</h3>
+<ul>
+<li class="unchecked">Facts sammeln: <code>setup</code> Module</li>
+<li class="unchecked">Custom Facts</li>
+<li class="unchecked">Facts in Playbooks nutzen:</li>
+</ul>
+<pre><code class="language-yaml">&lt;ul&gt;
+&lt;li&gt;name: Install vim on Ubuntu&lt;/li&gt;
+&lt;/ul&gt;
+apt:
+name: vim
+state: present
+when: ansible_distribution == "Ubuntu"</code></pre>
+<ul>
+<li class="unchecked">Loop-Strukturen:</li>
+</ul>
+<pre><code class="language-yaml">&lt;ul&gt;
+&lt;li&gt;name: Create users&lt;/li&gt;
+&lt;/ul&gt;
+user:
+name: "{{ item }}"
+state: present
+loop:
+&lt;ul&gt;
+&lt;li&gt;alice&lt;/li&gt;
+&lt;li&gt;bob&lt;/li&gt;
+&lt;li&gt;charlie&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<ul>
+<li class="unchecked">Conditional Loops</li>
+</ul>
+
+<h3>Phase 6: Templates & Dynamic Content (Tag 10)</h3>
+<ul>
+<li class="unchecked">Jinja2 Templates verstehen</li>
+<li class="unchecked">Config-Files mit Templates:</li>
+</ul>
+<pre><code class="language-jinja2">server {
+listen {{ nginx_port }};
+server&lt;em&gt;name {{ server&lt;/em&gt;name }};
+...
+}</code></pre>
+<ul>
+<li class="unchecked">Template Module nutzen</li>
+<li class="unchecked">Variable Interpolation</li>
+<li class="unchecked">Conditionals in Templates</li>
+<li class="unchecked">Loops in Templates</li>
+</ul>
+
+<h3>Phase 7: Error Handling & Debugging (Tag 11)</h3>
+<ul>
+<li class="unchecked">ignore<em>errors, failed</em>when</li>
+<li class="unchecked">register für Output-Handling</li>
+<li class="unchecked">block/rescue für Error Handling</li>
+<li class="unchecked">debug Module nutzen</li>
+<li class="unchecked">Verbose Logging: <code>ansible-playbook -vvv</code></li>
+<li class="unchecked">Playbook-Syntax prüfen: <code>ansible-playbook --syntax-check</code></li>
+</ul>
+
+<h3>Phase 8: Erweiterte Konzepte (Tag 12-13)</h3>
+<ul>
+<li class="unchecked">Include/Import</li>
+<li class="unchecked">Pre-tasks, Post-tasks</li>
+<li class="unchecked">Tags für Selektive Ausführung</li>
+<li class="unchecked">Vault für Secrets:</li>
+</ul>
+<pre><code class="language-bash">ansible-vault encrypt secrets.yml</code></pre>
+<ul>
+<li class="unchecked">Limits und Batching</li>
+<li class="unchecked">Dry-run: <code>--check</code> Mode</li>
+</ul>
+
+<h3>Phase 9: Praxisprojekt: Multi-Tier App (Tag 14-15)</h3>
+<ul>
+<li class="unchecked">Web Tier (Nginx)</li>
+<li class="unchecked">Application Tier (Python/Node)</li>
+<li class="unchecked">Database Tier (PostgreSQL)</li>
+<li class="unchecked">Load Balancer</li>
+<li class="unchecked">Komplettes Playbook für gesamte Stack</li>
+<li class="unchecked">Idempotenz gewährleisten</li>
+<li class="unchecked">Rolling Updates</li>
+</ul>
+</div>
         </section>
 
         <!-- Ressourcen -->
         <section class="section">
             <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
             <div class="content-box">
-                & Dokumentation<br><br>### Typische Architektur<br>```<br>┌─────────────────────────────────────┐<br>│  Internet                           │<br>└────────────────┬────────────────────┘<br>                 │<br>          ┌──────┴──────┐<br>          │   Firewall  │<br>          └──────┬──────┘<br>                 │<br>      ┌──────────┼──────────┐<br>      │                     │<br>   ┌──┴──┐            ┌────┴────┐<br>   │ DMZ │ Web-Stack  │ Internal │<br>   │     │ Mail       │ Network  │<br>   │     │ VPN        │          │<br>   └─────┘            └────┬────┘<br>                           │<br>         ┌─────────────────┼─────────────────┐<br>         │                 │                 │<br>    ┌────┴────┐      ┌────┴────┐      ┌────┴────┐<br>    │   FreeIPA      │ Fileserver     │ Backup  │<br>    │   (Auth)       │ (NAS/Samba)    │ Storage │<br>    └─────────┘      └─────────┘      └─────────┘<br>```
-            </div>
+& Dokumentation
+
+<h3>Wichtige Dateien</h3>
+<ul>
+<li><code>/etc/ansible/ansible.cfg</code> - Config</li>
+<li><code>/etc/ansible/hosts</code> - Inventory</li>
+<li><code>playbook.yml</code> - Playbook Definition</li>
+<li><code>roles/</code> - Role Directory</li>
+</ul>
+
+<h3>Wichtige Befehle</h3>
+<pre><code># Setup &amp; Connectivity
+ansible all -m ping
+ansible all -m setup
+
+<h1>Ad-hoc Commands</h1>
+ansible all -m apt -a "name=vim state=present"
+ansible webservers -m service -a "name=nginx state=started"
+
+<h1>Playbooks</h1>
+ansible-playbook site.yml
+ansible-playbook site.yml -t webservers
+ansible-playbook site.yml --check
+ansible-playbook site.yml -vvv
+
+<h1>Vault</h1>
+ansible-vault encrypt vars.yml
+ansible-playbook site.yml --ask-vault-pass
+
+<h1>Syntax Check</h1>
+ansible-lint playbook.yml</code></pre>
+</div>
         </section>
 
         <!-- Deliverables -->
         <section class="section">
             <h2 class="section-title">📋 Deliverables</h2>
             <div class="content-box">
-                1. **Infrastruktur-Dokumentation**<br>   - Netzwerk-Diagramm<br>   - System-Architektur<br>   - Service-Matrix<br><br>2. **Operative Dokumentation**<br>   - Runbook für Daily Operations<br>   - Troubleshooting-Guide<br>   - Escalation-Procedures<br>   - DR-Plan<br><br>3. **Automatisierung**<br>   - Ansible Playbooks<br>   - Automated Backup-Scripts<br>   - Monitoring-Configuration<br><br>4. **Test-Reports**<br>   - Funktions-Tests<br>   - Performance-Tests<br>   - Security-Audit<br>   - DR-Test-Ergebnisse<br><br>5. **Übergabe-Dokumentation**<br>   - User-Guides<br>   - IT-Admin-Manual<br>   - Support-Procedures
-            </div>
+<ol>
+<li><strong>Inventory:</strong> Organisierte Host-Definition</li>
+<li><strong>Playbooks:</strong> Funktionsfähige Automation</li>
+<li><strong>Roles:</strong> Wiederverwendbare, dokumentierte Roles</li>
+<li><strong>Documentation:</strong> Best-Practices Guide</li>
+<li><strong>Troubleshooting:</strong> Debugging Guide</li>
+</ol>
+</div>
         </section>
 
-        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+        <a href="../skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
 
         <footer>
-            <p>Projekt 13: Kleine Unternehmens-IT-Infrastruktur | Skill Tree Umschüler-Projekte</p>
+            <p>Projekt 10: Ansible Infrastruktur-Automatisierung | Skill Tree Umschüler-Projekte</p>
             <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
         </footer>
     </div>
     <script>
         // Initialize task checkboxes
         function initializeTaskCheckboxes() {
-            const projectId = 'projekt-13';
+            const projectId = 'projekt-10';
             const checkedTasks = JSON.parse(localStorage.getItem(`${projectId}-tasks`) || '{}');
 
             document.querySelectorAll('li.unchecked, li.checked').forEach((li, index) => {

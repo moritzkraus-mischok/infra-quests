@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt 11: FreeIPA / Samba AD - Enterprise Identity Management</title>
+    <title>Projekt 12: Backup & Disaster Recovery</title>
     <style>
         * {
             margin: 0;
@@ -295,8 +295,8 @@
 
     <div class="container">
         <header>
-            <h1>🏢 FREEIPA / SAMBA AD - ENTERPRISE IDENTITY MANAGEMENT</h1>
-            <div class="subtitle">PROJEKT 11 • SYSTEMADMINISTRATION</div>
+            <h1>💾 BACKUP & DISASTER RECOVERY</h1>
+            <div class="subtitle">PROJEKT 12 • SYSTEMADMINISTRATION</div>
 
             <div class="project-info">
                 <div class="info-card">
@@ -314,61 +314,265 @@
         <section class="section">
             <h2 class="section-title">📋 Projektbeschreibung</h2>
             <div class="content-box">
-                Zentralisierte Benutzer- und Authentifizierungsverwaltung für Unix/Linux Netzwerke. Alternative zu Microsoft Active Directory mit Open Source Tools.
-            </div>
+Strategische Planung und Implementierung von Backup- und Disaster-Recovery-Lösungen. Eine kritische Verantwortung für Systemintegratoren.
+</div>
         </section>
 
         <!-- Lernziele -->
         <section class="section">
             <h2 class="section-title">🎯 Lernziele</h2>
             <div class="content-box">
-                - FreeIPA Grundlagen und Setup<br>- LDAP Directory Service<br>- Kerberos Authentication<br>- Zentrale Benutzer-Verwaltung<br>- Samba AD (Samba Active Directory) als AD-Alternative<br>- Berechtigungen und Policies<br>- Integration mit Clients<br>- Häufige Probleme beheben
-            </div>
+<ul>
+<li>Backup-Strategien verstehen (Full, Incremental, Differential)</li>
+<li>Backup-Software konfigurieren (Bacula, Bareos, Restic)</li>
+<li>RPO und RTO Konzepte</li>
+<li>Recovery-Planung und -Testing</li>
+<li>Verschlüsselte Backups</li>
+<li>Off-site Backup Storage</li>
+<li>Monitoring von Backup-Jobs</li>
+<li>Disaster-Recovery Runbooks</li>
+</ul>
+</div>
         </section>
 
         <!-- Anforderungen -->
         <section class="section">
             <h2 class="section-title">🔧 Anforderungen</h2>
             <div class="content-box">
-                - Ubuntu Server 22.04 LTS oder CentOS (FreeIPA auf RHEL besser)<br>- Min. 4GB RAM, 20GB Disk für FreeIPA Server<br>- Client-VMs für Joining zum Verzeichnis<br>- Grundverständnis: LDAP, Kerberos, Active Directory Konzepte
-            </div>
+<ul>
+<li>Ubuntu Server 22.04 LTS</li>
+<li>Mehrere VMs/Systeme zum Backup</li>
+<li>Backup-Storage (zusätzliches Verzeichnis oder Festplatte)</li>
+<li>Min. 50GB verfügbarer Speicher</li>
+<li>Grundverständnis: Partitionen, Dateisysteme</li>
+</ul>
+</div>
         </section>
 
         <!-- Aufgaben -->
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-                ### Phase 1: FreeIPA Installation & Setup (Tag 1-3)<br>- [ ] Voraussetzungen prüfen (DNS, Hostname)<br>- [ ] FreeIPA installieren: `sudo apt install freeipa-server freeipa-server-trust-ad`<br>- [ ] Installation durchführen: `sudo ipa-server-install`<br>  ```<br>  Realm: EXAMPLE.COM<br>  Directory Manager password: (starkes Passwort)<br>  IPA admin password: (starkes Passwort)<br>  ```<br>- [ ] Installation verifizieren<br>- [ ] IPA Web UI zugreifen (https://ipa.example.com)<br>- [ ] LDAP-Backend verstehen<br>- [ ] Kerberos KDC konfiguriert<br><br>### Phase 2: FreeIPA Benutzer & Gruppen (Tag 4-5)<br>- [ ] Admin-Benutzer kennenlernen<br>- [ ] Neue Benutzer erstellen:<br>  ```bash<br>  ipa user-add alice --first=Alice --last=Smith --email=alice@example.com<br>  ipa user-add bob --first=Bob --last=Jones<br>  ```<br>- [ ] Benutzer-Passwörter setzen<br>- [ ] Benutzer deaktivieren/aktivieren<br>- [ ] Gruppen erstellen:<br>  ```bash<br>  ipa group-add developers --desc="Development Team"<br>  ipa group-add-member developers --users=alice,bob<br>  ```<br>- [ ] Nested Groups<br>- [ ] Benutzer-Policies (Passwort-Ablauf, etc.)<br><br>### Phase 3: LDAP & Kerberos Verständnis (Tag 6-7)<br>- [ ] LDAP Directory-Struktur verstehen<br>- [ ] LDAP Queries durchführen:<br>  ```bash<br>  ldapsearch -H ldap://ipa.example.com -x -b "dc=example,dc=com"<br>  ```<br>- [ ] Kerberos Tickets anzeigen: `klist`<br>- [ ] TGT (Ticket Granting Ticket) verstehen<br>- [ ] Kinit für Authentifizierung:<br>  ```bash<br>  kinit alice@EXAMPLE.COM<br>  ```<br>- [ ] Kerberos Service Principals<br>- [ ] Cross-Realm Trust (optional)<br><br>### Phase 4: Linux Clients zu FreeIPA joinen (Tag 8-9)<br>- [ ] FreeIPA Client-Tools installieren<br>- [ ] Client zu FreeIPA Domain joinen:<br>  ```bash<br>  sudo apt install freeipa-client<br>  sudo ipa-client-install --domain=example.com --realm=EXAMPLE.COM --mkhomedir<br>  ```<br>- [ ] Nss-ldap für Benutzer-Auflösung<br>- [ ] PAM für Login-Authentifizierung<br>- [ ] Auto Home Directory Erstellung bei Login<br>- [ ] SSSD (System Security Services Daemon) Konfiguration<br>- [ ] Test: Mit FreeIPA-User einloggen<br><br>### Phase 5: Samba AD Alternative (Tag 10-12)<br>- [ ] Samba AD Unterschied zu Samba klassisch<br>- [ ] Samba AD als Domain Controller:<br>  ```bash<br>  sudo apt install samba-dsdb-modules samba-vfs-modules samba-testsuite<br>  samba-tool domain provision --use-rfc2307 --realm EXAMPLE.COM --domain EXAMPLE<br>  ```<br>- [ ] Samba als Kerberos KDC<br>- [ ] Windows Client Joining (optional)<br>- [ ] Benutzer in Samba AD verwalten:<br>  ```bash<br>  samba-tool user create alice Password123!<br>  samba-tool group add developers<br>  samba-tool group addmembers developers alice,bob<br>  ```<br>- [ ] Berechtigungen in Samba AD<br><br>### Phase 6: Berechtigungen & Policies (Tag 13-14)<br>- [ ] FreeIPA/Samba Berechtigungen verstehen<br>- [ ] Sudo-Regeln in FreeIPA:<br>  ```bash<br>  ipa sudorule-add "Allow developers to sudo"<br>  ipa sudorule-add-host "Allow developers to sudo" --hosts=web1<br>  ipa sudorule-add-user "Allow developers to sudo" --users=alice,bob<br>  ipa sudorule-add-allow-command "Allow developers to sudo" --allow-cmds=/usr/bin/systemctl<br>  ```<br>- [ ] Host-basierte Zugriffskontrolle (HBAC)<br>- [ ] Passwort-Policies<br>- [ ] Account Lockout Policies<br><br>### Phase 7: Integration mit Services (Tag 15-16)<br>- [ ] Postfix mit LDAP-Authentifizierung<br>- [ ] Apache mit Kerberos Auth<br>- [ ] Samba File Shares mit Domain-Benutzer<br>- [ ] SSH Public Key Management über FreeIPA<br>- [ ] Web-Anwendungen mit LDAP-Auth<br><br>### Phase 8: Backup & Disaster Recovery (Tag 17)<br>- [ ] FreeIPA Backup durchführen:<br>  ```bash<br>  sudo ipa-backup<br>  ```<br>- [ ] Restore durchführen<br>- [ ] LDAP-Dumps für Backup<br>- [ ] Kerberos DB Backup<br><br>### Phase 9: Troubleshooting & Monitoring (Tag 18)<br>- [ ] Häufige Probleme:<br>  - [ ] Benutzer kann sich nicht anmelden<br>  - [ ] Kerberos Ticket-Probleme<br>  - [ ] SSSD Caching Issues<br>  - [ ] LDAP Connection Errors<br>- [ ] sssd-debuglog für Debugging<br>- [ ] LDAP Queries für Verifikation<br>- [ ] Kerberos KDC Logs: `/var/log/krb5kdc.log`
-            </div>
+<h3>Phase 1: Backup-Grundlagen & Strategien (Tag 1-2)</h3>
+<ul>
+<li class="unchecked">Backup-Konzepte verstehen:</li>
+<li class="unchecked">Full Backup - komplette Kopie</li>
+<li class="unchecked">Incremental - nur seit letztem Backup geänderte Daten</li>
+<li class="unchecked">Differential - nur seit letztem Full Backup</li>
+<li class="unchecked">Mirror/Snapshot - aktuelle Kopie</li>
+<li class="unchecked">RPO (Recovery Point Objective) vs. RTO (Recovery Time Objective)</li>
+<li class="unchecked">3-2-1 Backup-Regel verstehen (3 Kopien, 2 Medien, 1 off-site)</li>
+<li class="unchecked">Retention Policies planen</li>
+<li class="unchecked">Backup-Windows planen</li>
+</ul>
+
+<h3>Phase 2: Rsync basierte Backups (Tag 3-4)</h3>
+<ul>
+<li class="unchecked">Rsync Grundlagen</li>
+<li class="unchecked">Inkrementelle Backups mit Rsync:</li>
+</ul>
+<pre><code class="language-bash">rsync -av --delete /home/ /backup/home/</code></pre>
+<ul>
+<li class="unchecked">SSH-basierte Remote Backups:</li>
+</ul>
+<pre><code class="language-bash">rsync -av -e ssh /home/ user@backup-server:/backups/home/</code></pre>
+<ul>
+<li class="unchecked">Cron-Jobs für Automated Backups</li>
+<li class="unchecked">Bandbreite limitieren</li>
+<li class="unchecked">Dry-run testen: <code>rsync -av --dry-run</code></li>
+</ul>
+
+<h3>Phase 3: Bacula/Bareos Setup (Tag 5-8)</h3>
+<ul>
+<li class="unchecked">Bacula/Bareos Architektur verstehen (Director, Storage Daemon, File Daemon)</li>
+<li class="unchecked">Installation:</li>
+</ul>
+<pre><code class="language-bash">sudo apt install bareos-director bareos-storage bareos-filedaemon</code></pre>
+<ul>
+<li class="unchecked">Konfiguration <code>/etc/bareos/</code>:</li>
+<li class="unchecked">Director config</li>
+<li class="unchecked">Storage Daemon config</li>
+<li class="unchecked">File Daemon config</li>
+<li class="unchecked">Pool Definitions</li>
+<li class="unchecked">Jobs definieren:</li>
+</ul>
+<pre><code>Job {
+Name = "Full Backup"
+JobDefs = "DefaultJob"
+Level = Full
+Schedule = "WeeklyCycle"
+RunScript { Command = "pre-backup-check" }
+}</code></pre>
+<ul>
+<li class="unchecked">Volumes und Pools</li>
+<li class="unchecked">Katalog (Database) Setup</li>
+<li class="unchecked">bconsole für Backup-Kontrolle</li>
+</ul>
+
+<h3>Phase 4: Backup-Jobs Konfigurieren (Tag 9-10)</h3>
+<ul>
+<li class="unchecked">Mehrere Clients hinzufügen</li>
+<li class="unchecked">Verschiedene Job-Typen:</li>
+<li class="unchecked">Full Backups (Weekly)</li>
+<li class="unchecked">Incremental (Daily)</li>
+<li class="unchecked">Differential (Semi-daily)</li>
+<li class="unchecked">Schedules definieren</li>
+<li class="unchecked">Retention-Policies setzen</li>
+<li class="unchecked">Backup-Prioritäten</li>
+<li class="unchecked">Parallel-Jobs</li>
+</ul>
+
+<h3>Phase 5: Restore & Recovery (Tag 11-12)</h3>
+<ul>
+<li class="unchecked">Verschiedene Restore-Szenarien:</li>
+<li class="unchecked">Einzelne Datei</li>
+<li class="unchecked">Verzeichnis</li>
+<li class="unchecked">Kompletter Filesystem</li>
+<li class="unchecked">Kompletter Server</li>
+<li class="unchecked">Restore-Jobs durchführen</li>
+<li class="unchecked">Alternativer Restore-Ort</li>
+<li class="unchecked">Restore-Verificaton</li>
+<li class="unchecked">Point-in-Time Recovery üben</li>
+</ul>
+
+<h3>Phase 6: Encryption & Security (Tag 13)</h3>
+<ul>
+<li class="unchecked">Backup-Verschlüsselung:</li>
+</ul>
+<pre><code>Storage {
+Name = MyStorage
+...
+TLS Require = yes
+TLS Certificate = /etc/bareos/certs/storage.pem
+}</code></pre>
+<ul>
+<li class="unchecked">TLS für Client-Server Kommunikation</li>
+<li class="unchecked">Passwort-Schutz für Backups</li>
+<li class="unchecked">Verschlüsselte Backups testen</li>
+<li class="unchecked">Key Management</li>
+</ul>
+
+<h3>Phase 7: Off-site Backups (Tag 14)</h3>
+<ul>
+<li class="unchecked">Externe Backup-Storage:</li>
+<li class="unchecked">NAS</li>
+<li class="unchecked">Cloud Storage (S3, Azure)</li>
+<li class="unchecked">Tape (optional)</li>
+<li class="unchecked">Restic für Cloud-Backups:</li>
+</ul>
+<pre><code class="language-bash">restic -r s3:s3.amazonaws.com/bucket init
+restic -r s3:s3.amazonaws.com/bucket backup /home/</code></pre>
+<ul>
+<li class="unchecked">Verschlüsselung bei Cloud-Backups</li>
+<li class="unchecked">Bandbreiten-Management</li>
+<li class="unchecked">Kosten-Analyse</li>
+</ul>
+
+<h3>Phase 8: Disaster Recovery Planung (Tag 15-16)</h3>
+<ul>
+<li class="unchecked">DR Runbook erstellen</li>
+<li class="unchecked">Recovery Procedures:</li>
+<li class="unchecked">Hardware-Fehler</li>
+<li class="unchecked">Datenbank-Corruption</li>
+<li class="unchecked">Ransomware/Sicherheitsvorfall</li>
+<li class="unchecked">Kompletter Datencenter-Ausfall</li>
+<li class="unchecked">Recovery-Testing durchführen</li>
+<li class="unchecked">Recovery-Zeitestimate</li>
+<li class="unchecked">Automatisierte Recovery (Disaster Recovery Automation)</li>
+</ul>
+
+<h3>Phase 9: Monitoring & Verification (Tag 17)</h3>
+<ul>
+<li class="unchecked">Backup-Job Logs analysieren</li>
+<li class="unchecked">Failed Jobs identifizieren und beheben</li>
+<li class="unchecked">Catalog-Integrität überprüfen:</li>
+</ul>
+<pre><code class="language-bash">dbcheck</code></pre>
+<ul>
+<li class="unchecked">Regelmäßige Restore-Tests</li>
+<li class="unchecked">Monitoring und Alerting für Backups</li>
+<li class="unchecked">SLA-Compliance überprüfen</li>
+</ul>
+
+<h3>Phase 10: Praxisprojekt: Enterprise Backup (Tag 18-20)</h3>
+<ul>
+<li class="unchecked">Mehrere Server mit verschiedenen Backup-Profilen</li>
+<li class="unchecked">Mix von Full, Incremental, Differential</li>
+<li class="unchecked">Off-site Backups</li>
+<li class="unchecked">Encryption und TLS</li>
+<li class="unchecked">Disaster Recovery Simulations</li>
+<li class="unchecked">Dokumentierte Runbooks</li>
+</ul>
+</div>
         </section>
 
         <!-- Ressourcen -->
         <section class="section">
             <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
             <div class="content-box">
-                & Dokumentation<br><br>### Wichtige Dateien<br>- `/etc/ipa/` - FreeIPA Config<br>- `/etc/sssd/sssd.conf` - SSSD Config<br>- `/etc/krb5.conf` - Kerberos Config<br>- `/etc/samba/smb.conf` - Samba Config (wenn genutzt)<br><br>### Wichtige Befehle<br>```bash<br># FreeIPA<br>ipa user-add, ipa user-list, ipa user-del<br>ipa group-add, ipa group-add-member<br>ipa sudorule-add, ipa hbactest<br><br># Kerberos<br>kinit user@REALM<br>klist<br>kdestroy<br><br># LDAP<br>ldapsearch, ldapmodify<br>getent passwd alice<br><br># Samba<br>samba-tool user add, samba-tool group add<br>samba-tool domain demote (wenn Migration)<br>```<br><br>### Wichtige Links<br>- https://www.freeipa.org<br>- https://wiki.samba.org/index.php/Samba4<br>- Kerberos: https://web.mit.edu/kerberos/
-            </div>
+& Dokumentation
+
+<h3>Wichtige Tools</h3>
+<ul>
+<li><strong>Bacula/Bareos</strong> - Enterprise Backup</li>
+<li><strong>Restic</strong> - Modern, einfach, verschlüsselt</li>
+<li><strong>Duplicity</strong> - Encrypted incremental backups</li>
+<li><strong>rsync</strong> - Simple file sync</li>
+<li><strong>Amanda</strong> - Network backup system</li>
+</ul>
+
+<h3>Wichtige Befehle</h3>
+<pre><code># Rsync
+rsync -av /source/ /dest/
+
+<h1>Bareos</h1>
+bconsole
+*run job="Full Backup"
+*restore
+*estimate job="JobName"
+
+<h1>Restic</h1>
+restic backup /path/
+restic restore latest -t /restore/
+
+<h1>Testing</h1>
+*show schedule
+*estimate job="JobName"</code></pre>
+
+<h3>Wichtige Dateien</h3>
+<ul>
+<li><code>/etc/bareos/bareos-dir.conf</code> - Director Config</li>
+<li><code>/etc/bareos/bareos-sd.conf</code> - Storage Daemon Config</li>
+<li><code>/etc/bareos/bareos-fd.conf</code> - File Daemon Config</li>
+</ul>
+</div>
         </section>
 
         <!-- Deliverables -->
         <section class="section">
             <h2 class="section-title">📋 Deliverables</h2>
             <div class="content-box">
-                1. **Installation Guide:** FreeIPA/Samba AD Setup<br>2. **Client-Join Guide:** Anleitung für Clients<br>3. **Policies & Rules:** Dokumentierte Sudo-Rules, HBAC<br>4. **Troubleshooting:** Common Issues & Solutions<br>5. **Backup & Recovery:** Disaster Recovery Procedures
-            </div>
+<ol>
+<li><strong>Backup-Strategie:</strong> Dokumentierter Plan mit RPO/RTO</li>
+<li><strong>Backup-Konfiguration:</strong> Bacula/Restic/Rsync Configs</li>
+<li><strong>Recovery Runbooks:</strong> Schritt-für-Schritt Recovery Guides</li>
+<li><strong>Test-Reports:</strong> Backup & Recovery Tests dokumentiert</li>
+<li><strong>Monitoring-Setup:</strong> Alerts und Logging für Backups</li>
+</ol>
+</div>
         </section>
 
-        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+        <a href="../skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
 
         <footer>
-            <p>Projekt 11: FreeIPA / Samba AD - Enterprise Identity Management | Skill Tree Umschüler-Projekte</p>
+            <p>Projekt 12: Backup & Disaster Recovery | Skill Tree Umschüler-Projekte</p>
             <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
         </footer>
     </div>
     <script>
         // Initialize task checkboxes
         function initializeTaskCheckboxes() {
-            const projectId = 'projekt-11';
+            const projectId = 'projekt-12';
             const checkedTasks = JSON.parse(localStorage.getItem(`${projectId}-tasks`) || '{}');
 
             document.querySelectorAll('li.unchecked, li.checked').forEach((li, index) => {

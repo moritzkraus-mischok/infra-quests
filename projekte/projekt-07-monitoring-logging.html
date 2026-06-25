@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt 06: OpenSSH & VPN Setup</title>
+    <title>Projekt 07: Monitoring & Logging (ELK/Prometheus)</title>
     <style>
         * {
             margin: 0;
@@ -295,8 +295,8 @@
 
     <div class="container">
         <header>
-            <h1>🔐 OPENSSH & VPN SETUP</h1>
-            <div class="subtitle">PROJEKT 06 • SYSTEMADMINISTRATION</div>
+            <h1>📊 MONITORING & LOGGING (ELK/PROMETHEUS)</h1>
+            <div class="subtitle">PROJEKT 07 • SYSTEMADMINISTRATION</div>
 
             <div class="project-info">
                 <div class="info-card">
@@ -305,7 +305,7 @@
                 </div>
                 <div class="info-card">
                     <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">2-3 Wochen</div>
+                    <div class="info-card-value">3-4 Wochen</div>
                 </div>
             </div>
         </header>
@@ -314,61 +314,241 @@
         <section class="section">
             <h2 class="section-title">📋 Projektbeschreibung</h2>
             <div class="content-box">
-                Sichere Remote-Zugriff auf Systeme. Von SSH-Hardening bis zur Einrichtung von VPN-Netzwerken für sichere Datenübertragung.
-            </div>
+Aufbau einer Infrastruktur zur Überwachung von Systemen und zentralisierten Logging. Essentiell für Troubleshooting, Performance-Analyse und Security-Audits.
+</div>
         </section>
 
         <!-- Lernziele -->
         <section class="section">
             <h2 class="section-title">🎯 Lernziele</h2>
             <div class="content-box">
-                - SSH erweiterte Konfiguration und Sicherheit<br>- SSH-Tunnel und Port-Forwarding<br>- VPN-Grundlagen (OpenVPN oder WireGuard)<br>- Netzwerk-Segmentierung mit VPNs<br>- Certificate-based Authentication<br>- Monitoring von Remote-Sessions
-            </div>
+<ul>
+<li>Prometheus für Metriken-Erfassung</li>
+<li>Grafana für Visualisierung</li>
+<li>Elasticsearch/Logstash/Kibana (ELK Stack) für Log-Aggregation</li>
+<li>Custom Alerts und Notifications</li>
+<li>Log-Parsing und Analyse</li>
+<li>Performance-Monitoring</li>
+<li>Security Event Logging</li>
+</ul>
+</div>
         </section>
 
         <!-- Anforderungen -->
         <section class="section">
             <h2 class="section-title">🔧 Anforderungen</h2>
             <div class="content-box">
-                - Ubuntu Server 22.04 LTS (mind. 2 Systeme)<br>- OpenSSH installiert<br>- Grundverständnis: PKI, Netzwerk, Kryptographie<br>- VPN-Testumgebung (mehrere VMs)
-            </div>
+<ul>
+<li>Ubuntu Server 22.04 LTS (mindestens 4GB RAM für Stack)</li>
+<li>Docker installiert (optional aber empfohlen)</li>
+<li>Mehrere Systeme zum Monitoren</li>
+<li>Grundverständnis: JSON, REST APIs</li>
+</ul>
+</div>
         </section>
 
         <!-- Aufgaben -->
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-                ### Phase 1: SSH Erweiterte Konfiguration (Tag 1-3)<br>- [ ] SSH-Key-Paare mit verschiedenen Algorithmen:<br>  ```bash<br>  ssh-keygen -t ed25519  # Modern, 256-bit<br>  ssh-keygen -t rsa -b 4096  # Traditional, 4096-bit<br>  ```<br>- [ ] SSH-Config lokal für einfachere Verbindungen:<br>  ```<br>  Host server1<br>    HostName 192.168.1.10<br>    User alice<br>    IdentityFile ~/.ssh/server1_key<br>    Port 2222<br>  ```<br>- [ ] SSH-Agent für Key-Management<br>- [ ] SSH-Key-Passphrases<br>- [ ] Multiple Keys pro User<br>- [ ] Key-Rotation implementieren<br><br>### Phase 2: SSH Server Hardening (Tag 4-5)<br>- [ ] `/etc/ssh/sshd_config` optimieren:<br>  ```<br>  Port 2222<br>  PermitRootLogin no<br>  PasswordAuthentication no<br>  PubkeyAuthentication yes<br>  X11Forwarding no<br>  MaxAuthTries 3<br>  LoginGraceTime 1m<br>  MaxSessions 10<br>  ```<br>- [ ] AllowUsers / DenyUsers konfigurieren<br>- [ ] Match-Blöcke für conditional Config<br>- [ ] Fail2ban Integration<br>- [ ] Syntax prüfen: `sudo sshd -t`<br><br>### Phase 3: SSH-Tunneling & Port-Forwarding (Tag 6-7)<br>- [ ] Local Port Forwarding (Port auf Remote-System zugreifen):<br>  ```bash<br>  ssh -L 8080:localhost:80 user@remote.com<br>  ```<br>- [ ] Remote Port Forwarding (Remote-Port auf Local-System):<br>  ```bash<br>  ssh -R 8080:localhost:80 user@remote.com<br>  ```<br>- [ ] Dynamic Port Forwarding (SOCKS Proxy):<br>  ```bash<br>  ssh -D 1080 user@remote.com<br>  ```<br>- [ ] Persistente SSH-Tunnel mit systemd<br>- [ ] Anwendungsfall: Sichere Datenbank-Zugriffe<br><br>### Phase 4: Certificate-based Authentication (Tag 8)<br>- [ ] SSH CA (Certificate Authority) Setup<br>- [ ] Host-Keys mit Zertifikat signieren<br>- [ ] User-Zertifikate ausstellen<br>- [ ] Zertifikat-Validierung auf Server<br>- [ ] Zertifikat-Revocation-Listen (optional)<br><br>### Phase 5: OpenVPN Installation & Setup (Tag 9-11)<br>**Oder WireGuard als Alternative**<br><br>#### OpenVPN<br>- [ ] OpenVPN installieren: `sudo apt install openvpn easy-rsa`<br>- [ ] PKI (Public Key Infrastructure) aufbauen:<br>  ```bash<br>  /usr/share/easy-rsa/easyrsa init-pki<br>  /usr/share/easy-rsa/easyrsa build-ca<br>  /usr/share/easy-rsa/easyrsa gen-req server<br>  /usr/share/easy-rsa/easyrsa sign-req server server<br>  ```<br>- [ ] OpenVPN-Server konfigurieren (`/etc/openvpn/server.conf`)<br>- [ ] Netzwerk-Einstellungen (10.8.0.0/24)<br>- [ ] TLS-Authentication für DDoS-Schutz<br>- [ ] Server starten und testen<br><br>### Phase 6: OpenVPN Clients (Tag 12)<br>- [ ] Client-Zertifikate generieren<br>- [ ] Client-Konfiguration erstellen (`.ovpn` Datei)<br>- [ ] Mehrere Clients verbinden<br>- [ ] Verbindungsstabilität testen<br>- [ ] Logs analysieren<br><br>### Phase 7: VPN Netzwerk-Segmentierung (Tag 13)<br>- [ ] VPN als Zugang zu Private-Network<br>- [ ] Routing konfigurieren (iroute, push routes)<br>- [ ] Firewall-Regeln für VPN-Clients<br>- [ ] DNS über VPN pushen<br>- [ ] Split-Tunneling vs. Full-Tunneling<br><br>### Phase 8: WireGuard als Alternative (Tag 14)<br>- [ ] WireGuard installieren: `sudo apt install wireguard`<br>- [ ] Keys generieren: `wg genkey | tee private.key | wg pubkey > public.key`<br>- [ ] Interface konfigurieren (`wg0`)<br>- [ ] Clients hinzufügen<br>- [ ] Performance-Vergleich mit OpenVPN<br><br>### Phase 9: Monitoring & Troubleshooting (Tag 15)<br>- [ ] Aktive SSH-Sessions monitoring: `who`, `w`, `ss`<br>- [ ] SSH-Logs analysieren: `/var/log/auth.log`<br>- [ ] OpenVPN-Clients monitoring: `openvpn-status.log`<br>- [ ] VPN-Connectivity testen: `ping`, `traceroute`, `mtr`<br>- [ ] Häufige Probleme:<br>  - [ ] Authentifizierung fehlgeschlagen<br>  - [ ] Routing-Probleme<br>  - [ ] DNS nicht auflösend in VPN<br>  - [ ] Intermittent Connections
-            </div>
+<h3>Phase 1: Prometheus Setup (Tag 1-4)</h3>
+<ul>
+<li class="unchecked">Prometheus installieren oder Docker nutzen</li>
+<li class="unchecked">prometheus.yml konfigurieren:</li>
+</ul>
+<pre><code class="language-yaml">global:
+scrape_interval: 15s
+scrape_configs:
+&lt;ul&gt;
+&lt;li&gt;job_name: 'linux'&lt;/li&gt;
+&lt;/ul&gt;
+static_configs:
+&lt;ul&gt;
+&lt;li&gt;targets: ['localhost:9100']&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<ul>
+<li class="unchecked">Node Exporter installieren auf Ziel-Systemen</li>
+<li class="unchecked">Prometheus UI testen (<code>http://localhost:9090</code>)</li>
+<li class="unchecked">PromQL (Prometheus Query Language) lernen</li>
+<li class="unchecked">Basis-Queries schreiben:</li>
+</ul>
+<pre><code>node&lt;em&gt;memory&lt;/em&gt;MemAvailable_bytes / 1024 / 1024 / 1024
+rate(node&lt;em&gt;cpu&lt;/em&gt;seconds_total[5m])</code></pre>
+<ul>
+<li class="unchecked">Service-Discovery (optional)</li>
+</ul>
+
+<h3>Phase 2: Grafana Dashboards (Tag 5-7)</h3>
+<ul>
+<li class="unchecked">Grafana installieren oder Docker</li>
+<li class="unchecked">Prometheus als Data Source hinzufügen</li>
+<li class="unchecked">Vordefinierte Dashboards importieren</li>
+<li class="unchecked">Custom Dashboards erstellen:</li>
+<li class="unchecked">CPU Usage</li>
+<li class="unchecked">Memory Usage</li>
+<li class="unchecked">Disk I/O</li>
+<li class="unchecked">Network Traffic</li>
+<li class="unchecked">Variables für Systeme/Instanzen</li>
+<li class="unchecked">Alert-Bedingungen definieren</li>
+<li class="unchecked">Dashboard exportieren/versionieren</li>
+</ul>
+
+<h3>Phase 3: Alerting (Tag 8-9)</h3>
+<ul>
+<li class="unchecked">Alertmanager installieren</li>
+<li class="unchecked">Alert-Regeln definieren:</li>
+</ul>
+<pre><code class="language-yaml">groups:
+&lt;ul&gt;
+&lt;li&gt;name: node_alerts&lt;/li&gt;
+&lt;/ul&gt;
+rules:
+&lt;ul&gt;
+&lt;li&gt;alert: HighMemoryUsage&lt;/li&gt;
+&lt;/ul&gt;
+expr: (1 - (node&lt;em&gt;memory&lt;/em&gt;MemAvailable&lt;em&gt;bytes / node&lt;/em&gt;memory&lt;em&gt;MemTotal&lt;/em&gt;bytes)) &gt; 0.85
+for: 5m</code></pre>
+<ul>
+<li class="unchecked">Alert-Benachrichtigungen:</li>
+<li class="unchecked">Email</li>
+<li class="unchecked">Slack</li>
+<li class="unchecked">PagerDuty (optional)</li>
+<li class="unchecked">Alert-Templates</li>
+<li class="unchecked">Alert-Routing konfigurieren</li>
+</ul>
+
+<h3>Phase 4: Elasticsearch/Logstash Setup (Tag 10-12)</h3>
+<ul>
+<li class="unchecked">Elasticsearch installieren (oder Docker)</li>
+<li class="unchecked">Logstash konfigurieren für Log-Parsing</li>
+<li class="unchecked">Input-Plugins (File, Syslog, Beats)</li>
+<li class="unchecked">Filter für Log-Parsing (Grok-Patterns)</li>
+<li class="unchecked">Output zu Elasticsearch</li>
+<li class="unchecked">Beispiel-Logstash-Pipeline:</li>
+</ul>
+<pre><code>input { syslog { port =&gt; 5000 } }
+filter { grok { match =&gt; { "message" =&gt; "%{SYSLOGLINE}" } } }
+output { elasticsearch { hosts =&gt; ["localhost"] } }</code></pre>
+<ul>
+<li class="unchecked">Logstash Performance testen</li>
+</ul>
+
+<h3>Phase 5: Kibana Visualisierungen (Tag 13-14)</h3>
+<ul>
+<li class="unchecked">Kibana installieren (oder Docker)</li>
+<li class="unchecked">Elasticsearch Index-Patterns erstellen</li>
+<li class="unchecked">Discover - Log-Daten durchsuchen</li>
+<li class="unchecked">Visualisierungen erstellen:</li>
+<li class="unchecked">Error-Rate Trends</li>
+<li class="unchecked">Top Error Messages</li>
+<li class="unchecked">Request Duration Distribution</li>
+<li class="unchecked">Geographic Map (falls IP-Geolokalisation)</li>
+<li class="unchecked">Dashboards zusammenstellen</li>
+<li class="unchecked">Saved Searches für häufige Queries</li>
+<li class="unchecked">Alert-Bedingungen basierend auf Log-Patterns</li>
+</ul>
+
+<h3>Phase 6: Log-Sources integrieren (Tag 15-16)</h3>
+<ul>
+<li class="unchecked">Verschiedene Log-Sources:</li>
+<li class="unchecked">Systemd Logs (journalctl)</li>
+<li class="unchecked">Syslog</li>
+<li class="unchecked">Application Logs (z.B. Apache, Nginx)</li>
+<li class="unchecked">Custom App Logs</li>
+<li class="unchecked">Filebeat/Metricbeat für einfache Log-Forwarding</li>
+<li class="unchecked">Log-Format standardisieren</li>
+<li class="unchecked">Zentralisierte Log-Sammlung</li>
+</ul>
+
+<h3>Phase 7: ELK Stack mit Docker (Tag 17-18)</h3>
+<ul>
+<li class="unchecked">Docker Compose für kompletten Stack:</li>
+</ul>
+<pre><code class="language-yaml">services:
+elasticsearch:
+image: docker.elastic.co/elasticsearch/elasticsearch:8.0.0
+logstash:
+image: docker.elastic.co/logstash/logstash:8.0.0
+kibana:
+image: docker.elastic.co/kibana/kibana:8.0.0</code></pre>
+<ul>
+<li class="unchecked">Stack starten und testen</li>
+<li class="unchecked">Daten-Persistierung</li>
+<li class="unchecked">SSL/TLS aktivieren</li>
+<li class="unchecked">X-Pack Sicherheit (falls Enterprise)</li>
+</ul>
+
+<h3>Phase 8: Advanced Use Cases (Tag 19-20)</h3>
+<ul>
+<li class="unchecked">Anomaly Detection</li>
+<li class="unchecked">Machine Learning mit ELK (X-Pack)</li>
+<li class="unchecked">Custom Metrics mit Prometheus Pushgateway</li>
+<li class="unchecked">Distributed Tracing (optional, mit Jaeger)</li>
+<li class="unchecked">Log-Retention-Policies</li>
+<li class="unchecked">Backup/Restore von Elasticsearch</li>
+</ul>
+</div>
         </section>
 
         <!-- Ressourcen -->
         <section class="section">
             <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
             <div class="content-box">
-                & Dokumentation<br><br>### Wichtige Dateien<br>- `/etc/ssh/sshd_config` - SSH Server Config<br>- `~/.ssh/config` - SSH Client Config<br>- `/etc/openvpn/server.conf` - OpenVPN Server Config<br>- `/etc/wireguard/wg0.conf` - WireGuard Config (wenn genutzt)<br><br>### Wichtige Befehle<br>```bash<br># SSH<br>ssh-keygen -t ed25519<br>ssh-copy-id -i ~/.ssh/id_ed25519.pub user@host<br>ssh -L 8080:localhost:80 user@host<br><br># OpenVPN<br>openvpn --config /etc/openvpn/server.conf<br>openvpn --config client.ovpn<br><br># WireGuard<br>sudo wg-quick up wg0<br>sudo wg show<br>wg-quick strip wg0 | tee wg0.conf<br><br># Monitoring<br>who<br>w<br>ss -tlnp | grep ssh<br>cat /var/log/auth.log | grep ssh<br>```
-            </div>
+& Dokumentation
+
+<h3>Wichtige Dateien</h3>
+<ul>
+<li><code>/etc/prometheus/prometheus.yml</code></li>
+<li><code>/etc/prometheus/alert.rules.yml</code></li>
+<li><code>/etc/logstash/conf.d/*.conf</code></li>
+<li><code>/etc/grafana/provisioning/</code></li>
+<li><code>docker-compose.yml</code> (für ELK)</li>
+</ul>
+
+<h3>Wichtige Links & Befehle</h3>
+<pre><code># Prometheus
+curl http://localhost:9090/api/v1/query?query=node<em>memory</em>MemAvailable_bytes
+
+<h1>Grafana</h1>
+http://localhost:3000 (default: admin/admin)
+
+<h1>Elasticsearch</h1>
+curl http://localhost:9200/_cat/indices
+
+<h1>Kibana</h1>
+http://localhost:5601
+
+<h1>Systemd Logs</h1>
+journalctl -u nginx -f
+journalctl --since today</code></pre>
+</div>
         </section>
 
         <!-- Deliverables -->
         <section class="section">
             <h2 class="section-title">📋 Deliverables</h2>
             <div class="content-box">
-                1. **SSH-Dokumentation:** Konfigurationen und Best-Practices<br>2. **VPN-Setup-Guide:** Schritt-für-Schritt Anleitung<br>3. **Client-Konfigurationen:** Ready-to-use Dateien für Clients<br>4. **Troubleshooting-Guide:** Häufige Probleme und Lösungen<br>5. **Monitoring-Setup:** Log-Analyse und Alerts
-            </div>
+<ol>
+<li><strong>Prometheus-Konfiguration:</strong> Scrape-Configs dokumentiert</li>
+<li><strong>Grafana-Dashboards:</strong> Exportierte JSON-Dateien</li>
+<li><strong>Alert-Rules:</strong> Dokumentierte Alert-Definitionen</li>
+<li><strong>ELK-Stack:</strong> Docker Compose oder Installation Guide</li>
+<li><strong>Betriebshandbuch:</strong> Wie man Alerts reagiert, Logs durchsucht</li>
+</ol>
+</div>
         </section>
 
-        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+        <a href="../skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
 
         <footer>
-            <p>Projekt 06: OpenSSH & VPN Setup | Skill Tree Umschüler-Projekte</p>
+            <p>Projekt 07: Monitoring & Logging (ELK/Prometheus) | Skill Tree Umschüler-Projekte</p>
             <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
         </footer>
     </div>
     <script>
         // Initialize task checkboxes
         function initializeTaskCheckboxes() {
-            const projectId = 'projekt-06';
+            const projectId = 'projekt-07';
             const checkedTasks = JSON.parse(localStorage.getItem(`${projectId}-tasks`) || '{}');
 
             document.querySelectorAll('li.unchecked, li.checked').forEach((li, index) => {

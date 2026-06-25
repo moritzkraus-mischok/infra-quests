@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt 15: Scripting Projekt - Automation mit Bash/Python</title>
+    <title>Projekt 01: Ubuntu Server Setup & Hardening</title>
     <style>
         * {
             margin: 0;
@@ -295,17 +295,17 @@
 
     <div class="container">
         <header>
-            <h1>🐚 SCRIPTING PROJEKT - AUTOMATION MIT BASH/PYTHON</h1>
-            <div class="subtitle">PROJEKT 15 • SYSTEMADMINISTRATION</div>
+            <h1>⚡ UBUNTU SERVER SETUP & HARDENING</h1>
+            <div class="subtitle">PROJEKT 01 • SYSTEMADMINISTRATION</div>
 
             <div class="project-info">
                 <div class="info-card">
                     <div class="info-card-label">Schwierigkeitsgrad</div>
-                    <div class="info-card-value">Fortgeschritten</div>
+                    <div class="info-card-value">Anfänger → Fortgeschritten</div>
                 </div>
                 <div class="info-card">
                     <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">2-3 Wochen</div>
+                    <div class="info-card-value">1-2 Wochen</div>
                 </div>
             </div>
         </header>
@@ -314,61 +314,176 @@
         <section class="section">
             <h2 class="section-title">📋 Projektbeschreibung</h2>
             <div class="content-box">
-                Entwicklung von Automatisierungs-Skripten für häufige System-Administration Aufgaben. Praktische Fähigkeit, die die tägliche Arbeit deutlich effizienter macht.
-            </div>
+Installation und Konfiguration eines sicheren Ubuntu Server-Systems von Grund auf. Dieses Projekt vermittelt die Fundamentals der Linux-Systemadministration und Best Practices für Server-Sicherheit.
+</div>
         </section>
 
         <!-- Lernziele -->
         <section class="section">
             <h2 class="section-title">🎯 Lernziele</h2>
             <div class="content-box">
-                - Bash Scripting fortgeschritten (nicht nur Grundlagen)<br>- Python für System-Administration<br>- Error Handling und Logging<br>- Argument-Verarbeitung und Konfiguration<br>- Produktions-ready Code<br>- Testing von Skripten<br>- Git für Versionskontrolle<br>- Script-Distribution und Updates
-            </div>
+<ul>
+<li>Sichere Installation und Partitionierung von Ubuntu Server</li>
+<li>Grundlegende Systemkonfiguration und Bootloader-Management</li>
+<li>SSH-Zugriff konfigurieren und absichern</li>
+<li>Firewall-Regeln mit UFW verstehen und anwenden</li>
+<li>Software-Updates und Patch-Management durchführen</li>
+<li>Automatisierte Backups mit rsync einrichten</li>
+</ul>
+</div>
         </section>
 
         <!-- Anforderungen -->
         <section class="section">
             <h2 class="section-title">🔧 Anforderungen</h2>
             <div class="content-box">
-                - Ubuntu Server 22.04 LTS<br>- Grundverständnis: Bash, Systemadministration<br>- Optional: Python-Kenntnisse<br>- Text-Editor oder IDE (VS Code, PyCharm, vim)<br>- Git grundlegend nutzen können
-            </div>
+<ul>
+<li>VirtualBox/KVM VM oder physischer Server</li>
+<li>Ubuntu Server 22.04 LTS oder aktueller</li>
+<li>Mind. 20GB Speicher</li>
+<li>Internetzugang</li>
+<li>Texteditor (nano, vim)</li>
+</ul>
+</div>
         </section>
 
         <!-- Aufgaben -->
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-                ### Phase 1: Bash Scripting Fundamentals (Tag 1-2)<br>- [ ] Shebang und Script-Struktur<br>- [ ] Variablen und Arrays<br>- [ ] Kontrollfluss: if/else, case, loops<br>- [ ] Funktionen schreiben<br>- [ ] Parameter/Argumente verarbeiten: `$1, $2, shift`<br>- [ ] getopts für optionale Parameter<br>- [ ] Fehlerbehandlung: exit codes, trap<br>- [ ] Logging und Debug-Output<br><br>### Phase 2: Praktische Bash-Skripte (Tag 3-5)<br>Schreiben Sie folgende Skripte:<br><br>#### Skript 1: Backup-Script<br>```bash<br>#!/bin/bash<br># backup.sh - Automated backup of directories<br><br>SOURCE=$1<br>DEST=$2<br>DATE=$(date +%Y%m%d_%H%M%S)<br>LOGFILE="/var/log/backup_${DATE}.log"<br><br># Argument validation<br>[[ -z "$SOURCE" || -z "$DEST" ]] && {<br>  echo "Usage: $0 SOURCE DEST"<br>  exit 1<br>}<br><br># Backup mit Fehlerbehandlung<br>rsync -av "$SOURCE" "$DEST/backup_${DATE}/" 2>&1 | tee "$LOGFILE" || {<br>  echo "Backup fehlgeschlagen!" >&2<br>  exit 1<br>}<br><br>echo "Backup erfolgreich: $DEST/backup_${DATE}/"<br>```<br><br>#### Skript 2: User-Management Script<br>```bash<br>#!/bin/bash<br># user-manage.sh - Benutzer-Verwaltung<br><br>case "$1" in<br>  add)<br>    [[ $# -ne 3 ]] && { echo "Usage: $0 add USERNAME GROUPS"; exit 1; }<br>    sudo useradd -m -G "$3" "$2"<br>    sudo passwd "$2"<br>    ;;<br>  del)<br>    [[ $# -ne 2 ]] && { echo "Usage: $0 del USERNAME"; exit 1; }<br>    sudo userdel -r "$2"<br>    ;;<br>  list)<br>    getent passwd | cut -d: -f1<br>    ;;<br>  *)<br>    echo "Unknown command: $1"<br>    exit 1<br>    ;;<br>esac<br>```<br><br>#### Skript 3: System-Health Check<br>```bash<br>#!/bin/bash<br># health-check.sh - System-Überwachung<br><br>check_disk() {<br>  USAGE=$(df / | awk 'NR==2 {print $5}' | sed 's/%//')<br>  if [[ $USAGE -gt 80 ]]; then<br>    echo "WARNING: Disk usage at ${USAGE}%"<br>    return 1<br>  fi<br>  return 0<br>}<br><br>check_memory() {<br>  FREE=$(free | awk '/^Mem:/ {print $7}')<br>  if [[ $FREE -lt 1000000 ]]; then<br>    echo "WARNING: Low memory: ${FREE}KB"<br>    return 1<br>  fi<br>  return 0<br>}<br><br>check_disk && check_memory && echo "System OK" || echo "System ISSUES"<br>```<br><br>### Phase 3: Python für System-Administration (Tag 6-8)<br>- [ ] Python Basics für Sysadmin<br>- [ ] subprocess Module für Command-Ausführung<br>- [ ] os und sys Module<br>- [ ] Datei-Operations<br>- [ ] Regular Expressions (re)<br>- [ ] Logging in Python<br>- [ ] argparse für CLI-Arguments<br>- [ ] Exception Handling<br><br>### Phase 4: Python-Skripte schreiben (Tag 9-11)<br>Schreiben Sie folgende Python-Skripte:<br><br>#### Skript 1: Log-Parser<br>```python<br>#!/usr/bin/env python3<br>import re<br>import sys<br>from collections import defaultdict<br><br>def parse_access_log(logfile):<br>    """Parse Apache Access Log"""<br>    errors = defaultdict(int)<br>    <br>    try:<br>        with open(logfile, 'r') as f:<br>            for line in f:<br>                match = re.search(r'(\d{3})', line)<br>                if match:<br>                    status = match.group(1)<br>                    if status.startswith('4') or status.startswith('5'):<br>                        errors[status] += 1<br>    except FileNotFoundError:<br>        print(f"Error: {logfile} nicht gefunden", file=sys.stderr)<br>        return None<br>    <br>    return errors<br><br>if __name__ == '__main__':<br>    if len(sys.argv) != 2:<br>        print(f"Usage: {sys.argv[0]} LOGFILE")<br>        sys.exit(1)<br>    <br>    errors = parse_access_log(sys.argv[1])<br>    if errors:<br>        for status, count in sorted(errors.items()):<br>            print(f"{status}: {count} Fehler")<br>```<br><br>#### Skript 2: Systemüberwachung<br>```python<br>#!/usr/bin/env python3<br>import psutil<br>import logging<br>import sys<br><br>logging.basicConfig(level=logging.INFO)<br><br>def check_system_health():<br>    """Prüfe System-Health"""<br>    <br>    # CPU<br>    cpu_percent = psutil.cpu_percent(interval=1)<br>    if cpu_percent > 80:<br>        logging.warning(f"High CPU: {cpu_percent}%")<br>    <br>    # Memory<br>    memory = psutil.virtual_memory()<br>    if memory.percent > 85:<br>        logging.warning(f"High Memory: {memory.percent}%")<br>    <br>    # Disk<br>    disk = psutil.disk_usage('/')<br>    if disk.percent > 90:<br>        logging.warning(f"High Disk: {disk.percent}%")<br>    <br>    return cpu_percent < 80 and memory.percent < 85<br><br>if __name__ == '__main__':<br>    healthy = check_system_health()<br>    sys.exit(0 if healthy else 1)<br>```<br><br>#### Skript 3: Backup-Automator<br>```python<br>#!/usr/bin/env python3<br>import argparse<br>import subprocess<br>import logging<br>from pathlib import Path<br>from datetime import datetime<br><br>def backup_directory(source, destination, name):<br>    """Backup mit Logging"""<br>    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")<br>    dest_path = Path(destination) / f"{name}_{timestamp}"<br>    <br>    logging.info(f"Starting backup: {source} → {dest_path}")<br>    <br>    try:<br>        result = subprocess.run(<br>            ["rsync", "-av", source, str(dest_path)],<br>            capture_output=True,<br>            text=True,<br>            check=True<br>        )<br>        logging.info(f"Backup successful: {dest_path}")<br>        return True<br>    except subprocess.CalledProcessError as e:<br>        logging.error(f"Backup failed: {e.stderr}")<br>        return False<br><br>if __name__ == '__main__':<br>    parser = argparse.ArgumentParser(description="Backup Script")<br>    parser.add_argument('source', help='Source directory')<br>    parser.add_argument('destination', help='Backup destination')<br>    parser.add_argument('--name', default='backup', help='Backup name')<br>    <br>    args = parser.parse_args()<br>    success = backup_directory(args.source, args.destination, args.name)<br>    exit(0 if success else 1)<br>```<br><br>### Phase 5: Testing & Error Handling (Tag 12-13)<br>- [ ] Bash Unit Testing (bats, shunit2)<br>- [ ] Python unittest/pytest<br>- [ ] Input Validation<br>- [ ] Edge Cases testen<br>- [ ] Error Messages aussagekräftig machen<br>- [ ] Logging strategisch nutzen<br>- [ ] Script-Exit-Codes richtig setzen<br><br>### Phase 6: Code Quality & Best Practices (Tag 14)<br>- [ ] Code-Style (ShellCheck für Bash, pylint für Python)<br>- [ ] Documentation (Kommentare, README)<br>- [ ] Variable Naming<br>- [ ] DRY-Prinzip (Don't Repeat Yourself)<br>- [ ] Security überprüfen (keine hardcoded Passwörter!)<br>- [ ] Performance-Optimierung<br><br>### Phase 7: Versionskontrolle & Distribution (Tag 15)<br>- [ ] Git Repository erstellen<br>- [ ] Scripts mit Versionsnummern<br>- [ ] Changelog erstellen<br>- [ ] README mit Nutzungs-Dokumentation<br>- [ ] Installation/Update-Script<br>- [ ] Distribution (z.B. über Ansible)<br><br>### Phase 8: Praxisprojekt: Monitoring-Suite (Tag 16-20)<br>Erstellen Sie eine komplette Monitoring-Suite aus mehreren Skripten:<br><br>1. **System-Health-Check** (Bash)<br>   - CPU, Memory, Disk<br>   - Alert bei Schwellenwert-Überschreitung<br>   <br>2. **Log-Analyzer** (Python)<br>   - Parse verschiedene Log-Formate<br>   - Fehler-Trends identifizieren<br>   <br>3. **Backup-Manager** (Bash + Python)<br>   - Automatisierte tägliche Backups<br>   - Rotation (altes Backup löschen)<br>   - Status-Reports<br>   <br>4. **Service-Monitor** (Bash)<br>   - Überprüfe ob kritische Services laufen<br>   - Auto-Restart bei Fehler<br>   <br>5. **Report-Generator** (Python)<br>   - Wöchentliche Report aus allen Tools<br>   - Email-Versand
-            </div>
+<h3>Phase 1: Installation (Tag 1-2)</h3>
+<ul>
+<li class="unchecked">Ubuntu Server ISO herunterladen</li>
+<li class="unchecked">VM/Server erstellen mit verschiedenen Partitionierungsoptionen testen</li>
+<li class="unchecked">Standard LVM</li>
+<li class="unchecked">Custom Partitionierung</li>
+<li class="unchecked">Systemsprache, Tastaturlayout, Zeitzone konfigurieren</li>
+<li class="unchecked">Netzwerk-Einstellungen vornehmen</li>
+<li class="unchecked">Software-Auswahl (SSH-Server, build-essential)</li>
+</ul>
+
+<h3>Phase 2: Initiale Konfiguration (Tag 3-4)</h3>
+<ul>
+<li class="unchecked">Systemupdate durchführen: <code>sudo apt update && sudo apt upgrade</code></li>
+<li class="unchecked">Hostname setzen: <code>/etc/hostname</code>, <code>/etc/hosts</code></li>
+<li class="unchecked">Statische IP-Adresse konfigurieren (netplan)</li>
+<li class="unchecked">Sudo-Benutzer erstellen (nicht als root arbeiten)</li>
+<li class="unchecked">Root-Login per SSH deaktivieren</li>
+</ul>
+
+<h3>Phase 3: SSH-Hardening (Tag 5-6)</h3>
+<ul>
+<li class="unchecked">SSH-Key-Pair generieren (RSA 4096 oder Ed25519)</li>
+<li class="unchecked">Public Key in <code>~/.ssh/authorized_keys</code> eintragen</li>
+<li class="unchecked">SSH-Config anpassen:</li>
+<li class="unchecked">Port ändern (z.B. 2222 statt 22)</li>
+<li class="unchecked">PermitRootLogin no</li>
+<li class="unchecked">PasswordAuthentication no</li>
+<li class="unchecked">PubkeyAuthentication yes</li>
+<li class="unchecked">SSH-Dienst neu starten und testen</li>
+</ul>
+
+<h3>Phase 4: Firewall-Setup (Tag 7-8)</h3>
+<ul>
+<li class="unchecked">UFW aktivieren: <code>sudo ufw enable</code></li>
+<li class="unchecked">Regeln definieren:</li>
+<li class="unchecked">SSH-Port erlauben (neuer Port)</li>
+<li class="unchecked">HTTP/HTTPS öffnen (falls Web-Service später)</li>
+<li class="unchecked">Logging aktivieren</li>
+<li class="unchecked">Firewall-Status überprüfen: <code>sudo ufw status verbose</code></li>
+</ul>
+
+<h3>Phase 5: Updates & Backups (Tag 9-10)</h3>
+<ul>
+<li class="unchecked">Automatische Updates aktivieren:</li>
+</ul>
+<pre><code class="language-bash">sudo apt install unattended-upgrades
+sudo dpkg-reconfigure -plow unattended-upgrades</code></pre>
+<ul>
+<li class="unchecked">Cron-Job für automatische Backups:</li>
+</ul>
+<pre><code class="language-bash">0 2 &lt;em&gt; &lt;/em&gt; * rsync -av /home/ /backup/home/ --delete</code></pre>
+<ul>
+<li class="unchecked">Backup-Lösung testen (Recovery durchführen)</li>
+</ul>
+
+<h3>Phase 6: Sicherheits-Audits (Tag 11-12)</h3>
+<ul>
+<li class="unchecked">fail2ban installieren und konfigurieren</li>
+<li class="unchecked">Log-Datei analysieren: <code>/var/log/auth.log</code></li>
+<li class="unchecked">Sicherheits-Checklist durchgehen (siehe unten)</li>
+</ul>
+</div>
         </section>
 
         <!-- Ressourcen -->
         <section class="section">
             <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
             <div class="content-box">
-                & Dokumentation<br><br>### Tools<br>- **ShellCheck:** Bash-Code Quality<br>- **pylint/flake8:** Python Code Quality<br>- **bats:** Bash Automated Testing System<br>- **pytest:** Python Testing Framework<br>- **GitHub/GitLab:** Hosting und Collaboration<br><br>### Wichtige Befehle<br>```bash<br># Bash<br>bash -x script.sh  # Debug-Modus<br>shellcheck script.sh<br><br># Python<br>python3 -m py_compile script.py<br>pylint script.py<br>pytest test_script.py<br>```
-            </div>
+& Dokumentation
+
+<h3>Offizielle Dokumentation</h3>
+<ul>
+<li>Ubuntu Server Guide: https://ubuntu.com/server/docs</li>
+<li>UFW Dokumentation: https://help.ubuntu.com/community/UFW</li>
+<li>SSH Best Practices: https://man7.org/linux/man-pages/man5/sshd_config.5.html</li>
+</ul>
+
+<h3>Wichtige Konfigurationsdateien</h3>
+<ul>
+<li><code>/etc/ssh/sshd_config</code> - SSH Server Config</li>
+<li><code>/etc/ufw/</code> - Firewall Rules</li>
+<li><code>/etc/hostname</code> - Hostname</li>
+<li><code>/etc/netplan/</code> - Netzwerk-Konfiguration</li>
+<li><code>/etc/apt/apt.conf.d/50unattended-upgrades</code> - Auto-Updates</li>
+</ul>
+
+<h3>Nützliche Befehle</h3>
+<pre><code># System-Info
+uname -a
+lsb_release -a
+df -h
+
+<h1>Netzwerk</h1>
+ip a show
+netplan apply
+systemctl restart networking
+
+<h1>SSH</h1>
+ssh -i ~/.ssh/id_ed25519 -p 2222 user@server
+sudo systemctl restart ssh
+
+<h1>Firewall</h1>
+sudo ufw status numbered
+sudo ufw allow 2222/tcp</code></pre>
+</div>
         </section>
 
         <!-- Deliverables -->
         <section class="section">
             <h2 class="section-title">📋 Deliverables</h2>
             <div class="content-box">
-                1. **Skript-Sammlung:** Alle funktionsfähigen Skripte<br>2. **Git-Repository:** Mit saubener History<br>3. **Tests:** Unit-Tests für alle Skripte<br>4. **Dokumentation:** README, Usage-Guide, Troubleshooting<br>5. **Code-Quality:** ShellCheck / pylint Reports<br>6. **Integration:** Z.B. Cronjobs, Ansible-Integration
-            </div>
+<ol>
+<li><strong>Dokumentation:</strong> Installationsanleitung mit Screenshots</li>
+<li><strong>Konfigurationsdateien:</strong> Backup der wichtigsten Config-Files</li>
+<li><strong>Runbook:</strong> Schritt-für-Schritt Wiederherstellungsanleitung</li>
+<li><strong>Checklisten:</strong> Security-Hardening Checklist</li>
+</ol>
+</div>
         </section>
 
-        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+        <a href="../skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
 
         <footer>
-            <p>Projekt 15: Scripting Projekt - Automation mit Bash/Python | Skill Tree Umschüler-Projekte</p>
+            <p>Projekt 01: Ubuntu Server Setup & Hardening | Skill Tree Umschüler-Projekte</p>
             <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
         </footer>
     </div>
+
     <script>
         // Initialize task checkboxes
         function initializeTaskCheckboxes() {
-            const projectId = 'projekt-15';
+            const projectId = 'projekt-01';
             const checkedTasks = JSON.parse(localStorage.getItem(`${projectId}-tasks`) || '{}');
 
             document.querySelectorAll('li.unchecked, li.checked').forEach((li, index) => {

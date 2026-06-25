@@ -314,51 +314,196 @@
         <section class="section">
             <h2 class="section-title">📋 Projektbeschreibung</h2>
             <div class="content-box">
-                Aufbau einer Virtualisierungs-Plattform für effiziente Ressourcen-Nutzung. Moderne IT-Infrastruktur basiert auf Virtualisierung.
-            </div>
+Aufbau einer Virtualisierungs-Plattform für effiziente Ressourcen-Nutzung. Moderne IT-Infrastruktur basiert auf Virtualisierung.
+</div>
         </section>
 
         <!-- Lernziele -->
         <section class="section">
             <h2 class="section-title">🎯 Lernziele</h2>
             <div class="content-box">
-                - KVM/QEMU Hypervisor verstehen<br>- Proxmox VE als Management-Plattform<br>- Virtual Machine Lifecycle<br>- Snapshots und Klone<br>- Live-Migration<br>- Networking mit virtuellen Komponenten<br>- Storage-Backends<br>- Performance-Optimierung
-            </div>
+<ul>
+<li>KVM/QEMU Hypervisor verstehen</li>
+<li>Proxmox VE als Management-Plattform</li>
+<li>Virtual Machine Lifecycle</li>
+<li>Snapshots und Klone</li>
+<li>Live-Migration</li>
+<li>Networking mit virtuellen Komponenten</li>
+<li>Storage-Backends</li>
+<li>Performance-Optimierung</li>
+</ul>
+</div>
         </section>
 
         <!-- Anforderungen -->
         <section class="section">
             <h2 class="section-title">🔧 Anforderungen</h2>
             <div class="content-box">
-                - Physical Server mit Virtualisierungs-Support (Intel VT-x oder AMD-V)<br>- Min. 32GB RAM<br>- 500GB+ Storage<br>- Ubuntu Server oder Proxmox VE<br>- Grundverständnis: Linux, Netzwerk, Speicher
-            </div>
+<ul>
+<li>Physical Server mit Virtualisierungs-Support (Intel VT-x oder AMD-V)</li>
+<li>Min. 32GB RAM</li>
+<li>500GB+ Storage</li>
+<li>Ubuntu Server oder Proxmox VE</li>
+<li>Grundverständnis: Linux, Netzwerk, Speicher</li>
+</ul>
+</div>
         </section>
 
         <!-- Aufgaben -->
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-                ### Phase 1: KVM Grundlagen (Tag 1-2)<br>- [ ] Virtualisierungs-Extensions aktivieren<br>- [ ] KVM/QEMU installieren: `sudo apt install qemu-kvm libvirt-daemon`<br>- [ ] Virtualisierung prüfen: `kvm-ok`<br>- [ ] Libvirt verstehen (Management-Layer über KVM)<br>- [ ] virt-manager GUI (optional)<br>- [ ] QEMU-Befehle kennenlernen<br><br>### Phase 2: Proxmox VE Installation (Tag 3-4)<br>- [ ] Proxmox VE installieren (Debian-basiert)<br>- [ ] Web-GUI verstehen und konfigurieren<br>- [ ] Cluster-Konzepte (Single Node Start)<br>- [ ] Netzwerk-Konfiguration<br>- [ ] Storage-Konfiguration<br>- [ ] HTTPS/SSL für Proxmox<br><br>### Phase 3: Virtual Machines erstellen (Tag 5-6)<br>- [ ] VM-Templates<br>- [ ] VM von ISO installieren<br>- [ ] VM-Ressourcen allokieren:<br>  - [ ] vCPU Zuordnung<br>  - [ ] RAM Zuordnung<br>  - [ ] Storage/Disk Zuordnung<br>- [ ] Boot-Reihenfolge<br>- [ ] BIOS vs. UEFI<br>- [ ] Guest-Tools installieren (QEMU Guest Agent)<br><br>### Phase 4: Snapshots & Klone (Tag 7-8)<br>- [ ] Snapshots verstehen und nutzen<br>- [ ] VM vor Änderungen snapshotten<br>- [ ] Snapshot-Rollback<br>- [ ] Klone von Snapshots<br>- [ ] Linked Clones für schnelle Provisionierung<br>- [ ] Template-VMs erstellen<br><br>### Phase 5: Networking (Tag 9-10)<br>- [ ] Virtual Bridges verstehen<br>- [ ] NAT vs. Bridged Networking<br>- [ ] vlan-Tagging<br>- [ ] Mehrere virtuelle Netzwerk-Interfaces<br>- [ ] PCI Passthrough (advanced, optional)<br>- [ ] QoS für Netzwerk-Limiting<br>- [ ] VM-zu-VM Kommunikation<br><br>### Phase 6: Storage Backends (Tag 11-12)<br>- [ ] Verschiedene Storage-Typen in Proxmox:<br>  - [ ] Local Storage (direkt auf Hypervisor)<br>  - [ ] iSCSI (Network Block Storage)<br>  - [ ] NFS (Network File Storage)<br>  - [ ] Ceph (Distributed, advanced)<br>- [ ] Storage-Pool konfigurieren<br>- [ ] Disk I/O Monitoring<br>- [ ] Thin vs. Thick Provisioning<br>- [ ] Backup von VMs auf Storage<br><br>### Phase 7: Live-Migration & High-Availability (Tag 13-14)<br>- [ ] Live-Migration zwischen Hosts (wenn Cluster)<br>- [ ] Storage-Migration<br>- [ ] VM HA-Policies<br>- [ ] Automated Recovery bei Host-Fehler<br>- [ ] Migration-Performance testen<br>- [ ] Downtime-freie Migrations<br><br>### Phase 8: Monitoring & Logging (Tag 15)<br>- [ ] Proxmox Monitoring Dashboard<br>- [ ] VM-Ressourcen überwachen<br>- [ ] Host-Ressourcen überwachen<br>- [ ] Event-Logging<br>- [ ] Syslog-Integration<br>- [ ] Externe Monitoring-Tools (Zabbix, Nagios)<br><br>### Phase 9: Backup & Recovery (Tag 16)<br>- [ ] VM-Backups in Proxmox<br>- [ ] Backup-Retention Policies<br>- [ ] Restore aus Backup<br>- [ ] Incremental Backups<br>- [ ] Backup-Validierung<br>- [ ] Off-site Backups<br><br>### Phase 10: Praxisprojekt: Multi-Tier Infrastructure (Tag 17-20)<br>- [ ] 5-10 VMs mit verschiedenen Rollen<br>- [ ] Netzwerk-Segmentierung zwischen VMs<br>- [ ] Storage-Pools für verschiedene Workloads<br>- [ ] Monitoring und Alerting<br>- [ ] VM-Backups und Recovery-Testing<br>- [ ] Performance-Tuning
-            </div>
+<h3>Phase 1: KVM Grundlagen (Tag 1-2)</h3>
+<ul>
+<li class="unchecked">Virtualisierungs-Extensions aktivieren</li>
+<li class="unchecked">KVM/QEMU installieren: <code>sudo apt install qemu-kvm libvirt-daemon</code></li>
+<li class="unchecked">Virtualisierung prüfen: <code>kvm-ok</code></li>
+<li class="unchecked">Libvirt verstehen (Management-Layer über KVM)</li>
+<li class="unchecked">virt-manager GUI (optional)</li>
+<li class="unchecked">QEMU-Befehle kennenlernen</li>
+</ul>
+
+<h3>Phase 2: Proxmox VE Installation (Tag 3-4)</h3>
+<ul>
+<li class="unchecked">Proxmox VE installieren (Debian-basiert)</li>
+<li class="unchecked">Web-GUI verstehen und konfigurieren</li>
+<li class="unchecked">Cluster-Konzepte (Single Node Start)</li>
+<li class="unchecked">Netzwerk-Konfiguration</li>
+<li class="unchecked">Storage-Konfiguration</li>
+<li class="unchecked">HTTPS/SSL für Proxmox</li>
+</ul>
+
+<h3>Phase 3: Virtual Machines erstellen (Tag 5-6)</h3>
+<ul>
+<li class="unchecked">VM-Templates</li>
+<li class="unchecked">VM von ISO installieren</li>
+<li class="unchecked">VM-Ressourcen allokieren:</li>
+<li class="unchecked">vCPU Zuordnung</li>
+<li class="unchecked">RAM Zuordnung</li>
+<li class="unchecked">Storage/Disk Zuordnung</li>
+<li class="unchecked">Boot-Reihenfolge</li>
+<li class="unchecked">BIOS vs. UEFI</li>
+<li class="unchecked">Guest-Tools installieren (QEMU Guest Agent)</li>
+</ul>
+
+<h3>Phase 4: Snapshots & Klone (Tag 7-8)</h3>
+<ul>
+<li class="unchecked">Snapshots verstehen und nutzen</li>
+<li class="unchecked">VM vor Änderungen snapshotten</li>
+<li class="unchecked">Snapshot-Rollback</li>
+<li class="unchecked">Klone von Snapshots</li>
+<li class="unchecked">Linked Clones für schnelle Provisionierung</li>
+<li class="unchecked">Template-VMs erstellen</li>
+</ul>
+
+<h3>Phase 5: Networking (Tag 9-10)</h3>
+<ul>
+<li class="unchecked">Virtual Bridges verstehen</li>
+<li class="unchecked">NAT vs. Bridged Networking</li>
+<li class="unchecked">vlan-Tagging</li>
+<li class="unchecked">Mehrere virtuelle Netzwerk-Interfaces</li>
+<li class="unchecked">PCI Passthrough (advanced, optional)</li>
+<li class="unchecked">QoS für Netzwerk-Limiting</li>
+<li class="unchecked">VM-zu-VM Kommunikation</li>
+</ul>
+
+<h3>Phase 6: Storage Backends (Tag 11-12)</h3>
+<ul>
+<li class="unchecked">Verschiedene Storage-Typen in Proxmox:</li>
+<li class="unchecked">Local Storage (direkt auf Hypervisor)</li>
+<li class="unchecked">iSCSI (Network Block Storage)</li>
+<li class="unchecked">NFS (Network File Storage)</li>
+<li class="unchecked">Ceph (Distributed, advanced)</li>
+<li class="unchecked">Storage-Pool konfigurieren</li>
+<li class="unchecked">Disk I/O Monitoring</li>
+<li class="unchecked">Thin vs. Thick Provisioning</li>
+<li class="unchecked">Backup von VMs auf Storage</li>
+</ul>
+
+<h3>Phase 7: Live-Migration & High-Availability (Tag 13-14)</h3>
+<ul>
+<li class="unchecked">Live-Migration zwischen Hosts (wenn Cluster)</li>
+<li class="unchecked">Storage-Migration</li>
+<li class="unchecked">VM HA-Policies</li>
+<li class="unchecked">Automated Recovery bei Host-Fehler</li>
+<li class="unchecked">Migration-Performance testen</li>
+<li class="unchecked">Downtime-freie Migrations</li>
+</ul>
+
+<h3>Phase 8: Monitoring & Logging (Tag 15)</h3>
+<ul>
+<li class="unchecked">Proxmox Monitoring Dashboard</li>
+<li class="unchecked">VM-Ressourcen überwachen</li>
+<li class="unchecked">Host-Ressourcen überwachen</li>
+<li class="unchecked">Event-Logging</li>
+<li class="unchecked">Syslog-Integration</li>
+<li class="unchecked">Externe Monitoring-Tools (Zabbix, Nagios)</li>
+</ul>
+
+<h3>Phase 9: Backup & Recovery (Tag 16)</h3>
+<ul>
+<li class="unchecked">VM-Backups in Proxmox</li>
+<li class="unchecked">Backup-Retention Policies</li>
+<li class="unchecked">Restore aus Backup</li>
+<li class="unchecked">Incremental Backups</li>
+<li class="unchecked">Backup-Validierung</li>
+<li class="unchecked">Off-site Backups</li>
+</ul>
+
+<h3>Phase 10: Praxisprojekt: Multi-Tier Infrastructure (Tag 17-20)</h3>
+<ul>
+<li class="unchecked">5-10 VMs mit verschiedenen Rollen</li>
+<li class="unchecked">Netzwerk-Segmentierung zwischen VMs</li>
+<li class="unchecked">Storage-Pools für verschiedene Workloads</li>
+<li class="unchecked">Monitoring und Alerting</li>
+<li class="unchecked">VM-Backups und Recovery-Testing</li>
+<li class="unchecked">Performance-Tuning</li>
+</ul>
+</div>
         </section>
 
         <!-- Ressourcen -->
         <section class="section">
             <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
             <div class="content-box">
-                & Dokumentation<br><br>### Wichtige Tools & Befehle<br>```bash<br># KVM/Libvirt<br>virsh list<br>virsh start vm-name<br>virsh snapshot-create vm-name<br>virt-clone<br><br># Proxmox API/CLI<br>qm list<br>qm create 100 --name vm-name<br>qm snapshot 100 --snapname snapshot1<br>```<br><br>### Wichtige Dateien<br>- `/etc/pve/` - Proxmox Konfiguration<br>- `/etc/pve/qemu-server/` - VM Configs<br>- `/var/lib/vz/` - VM Data (default)
-            </div>
+& Dokumentation
+
+<h3>Wichtige Tools & Befehle</h3>
+<pre><code># KVM/Libvirt
+virsh list
+virsh start vm-name
+virsh snapshot-create vm-name
+virt-clone
+
+<h1>Proxmox API/CLI</h1>
+qm list
+qm create 100 --name vm-name
+qm snapshot 100 --snapname snapshot1</code></pre>
+
+<h3>Wichtige Dateien</h3>
+<ul>
+<li><code>/etc/pve/</code> - Proxmox Konfiguration</li>
+<li><code>/etc/pve/qemu-server/</code> - VM Configs</li>
+<li><code>/var/lib/vz/</code> - VM Data (default)</li>
+</ul>
+</div>
         </section>
 
         <!-- Deliverables -->
         <section class="section">
             <h2 class="section-title">📋 Deliverables</h2>
             <div class="content-box">
-                1. **Proxmox-Setup:** Dokumentierte Installation und Konfiguration<br>2. **VM-Templates:** Ready-to-use Template VMs<br>3. **Backup-Strategie:** Automated Backup-Setup<br>4. **Runbooks:** VM-Verwaltung und Disaster-Recovery<br>5. **Performance-Report:** Baseline Metrics und Tuning-Ergebnisse
-            </div>
+<ol>
+<li><strong>Proxmox-Setup:</strong> Dokumentierte Installation und Konfiguration</li>
+<li><strong>VM-Templates:</strong> Ready-to-use Template VMs</li>
+<li><strong>Backup-Strategie:</strong> Automated Backup-Setup</li>
+<li><strong>Runbooks:</strong> VM-Verwaltung und Disaster-Recovery</li>
+<li><strong>Performance-Report:</strong> Baseline Metrics und Tuning-Ergebnisse</li>
+</ol>
+</div>
         </section>
 
-        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+        <a href="../skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
 
         <footer>
             <p>Projekt 14: Netzwerk-Virtualisierung (KVM/Proxmox) | Skill Tree Umschüler-Projekte</p>

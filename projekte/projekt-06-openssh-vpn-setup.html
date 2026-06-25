@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt 12: Backup & Disaster Recovery</title>
+    <title>Projekt 06: OpenSSH & VPN Setup</title>
     <style>
         * {
             margin: 0;
@@ -295,17 +295,17 @@
 
     <div class="container">
         <header>
-            <h1>💾 BACKUP & DISASTER RECOVERY</h1>
-            <div class="subtitle">PROJEKT 12 • SYSTEMADMINISTRATION</div>
+            <h1>🔐 OPENSSH & VPN SETUP</h1>
+            <div class="subtitle">PROJEKT 06 • SYSTEMADMINISTRATION</div>
 
             <div class="project-info">
                 <div class="info-card">
                     <div class="info-card-label">Schwierigkeitsgrad</div>
-                    <div class="info-card-value">Fortgeschritten → Expert</div>
+                    <div class="info-card-value">Fortgeschritten</div>
                 </div>
                 <div class="info-card">
                     <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">3-4 Wochen</div>
+                    <div class="info-card-value">2-3 Wochen</div>
                 </div>
             </div>
         </header>
@@ -314,61 +314,232 @@
         <section class="section">
             <h2 class="section-title">📋 Projektbeschreibung</h2>
             <div class="content-box">
-                Strategische Planung und Implementierung von Backup- und Disaster-Recovery-Lösungen. Eine kritische Verantwortung für Systemintegratoren.
-            </div>
+Sichere Remote-Zugriff auf Systeme. Von SSH-Hardening bis zur Einrichtung von VPN-Netzwerken für sichere Datenübertragung.
+</div>
         </section>
 
         <!-- Lernziele -->
         <section class="section">
             <h2 class="section-title">🎯 Lernziele</h2>
             <div class="content-box">
-                - Backup-Strategien verstehen (Full, Incremental, Differential)<br>- Backup-Software konfigurieren (Bacula, Bareos, Restic)<br>- RPO und RTO Konzepte<br>- Recovery-Planung und -Testing<br>- Verschlüsselte Backups<br>- Off-site Backup Storage<br>- Monitoring von Backup-Jobs<br>- Disaster-Recovery Runbooks
-            </div>
+<ul>
+<li>SSH erweiterte Konfiguration und Sicherheit</li>
+<li>SSH-Tunnel und Port-Forwarding</li>
+<li>VPN-Grundlagen (OpenVPN oder WireGuard)</li>
+<li>Netzwerk-Segmentierung mit VPNs</li>
+<li>Certificate-based Authentication</li>
+<li>Monitoring von Remote-Sessions</li>
+</ul>
+</div>
         </section>
 
         <!-- Anforderungen -->
         <section class="section">
             <h2 class="section-title">🔧 Anforderungen</h2>
             <div class="content-box">
-                - Ubuntu Server 22.04 LTS<br>- Mehrere VMs/Systeme zum Backup<br>- Backup-Storage (zusätzliches Verzeichnis oder Festplatte)<br>- Min. 50GB verfügbarer Speicher<br>- Grundverständnis: Partitionen, Dateisysteme
-            </div>
+<ul>
+<li>Ubuntu Server 22.04 LTS (mind. 2 Systeme)</li>
+<li>OpenSSH installiert</li>
+<li>Grundverständnis: PKI, Netzwerk, Kryptographie</li>
+<li>VPN-Testumgebung (mehrere VMs)</li>
+</ul>
+</div>
         </section>
 
         <!-- Aufgaben -->
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-                ### Phase 1: Backup-Grundlagen & Strategien (Tag 1-2)<br>- [ ] Backup-Konzepte verstehen:<br>  - [ ] Full Backup - komplette Kopie<br>  - [ ] Incremental - nur seit letztem Backup geänderte Daten<br>  - [ ] Differential - nur seit letztem Full Backup<br>  - [ ] Mirror/Snapshot - aktuelle Kopie<br>- [ ] RPO (Recovery Point Objective) vs. RTO (Recovery Time Objective)<br>- [ ] 3-2-1 Backup-Regel verstehen (3 Kopien, 2 Medien, 1 off-site)<br>- [ ] Retention Policies planen<br>- [ ] Backup-Windows planen<br><br>### Phase 2: Rsync basierte Backups (Tag 3-4)<br>- [ ] Rsync Grundlagen<br>- [ ] Inkrementelle Backups mit Rsync:<br>  ```bash<br>  rsync -av --delete /home/ /backup/home/<br>  ```<br>- [ ] SSH-basierte Remote Backups:<br>  ```bash<br>  rsync -av -e ssh /home/ user@backup-server:/backups/home/<br>  ```<br>- [ ] Cron-Jobs für Automated Backups<br>- [ ] Bandbreite limitieren<br>- [ ] Dry-run testen: `rsync -av --dry-run`<br><br>### Phase 3: Bacula/Bareos Setup (Tag 5-8)<br>- [ ] Bacula/Bareos Architektur verstehen (Director, Storage Daemon, File Daemon)<br>- [ ] Installation:<br>  ```bash<br>  sudo apt install bareos-director bareos-storage bareos-filedaemon<br>  ```<br>- [ ] Konfiguration `/etc/bareos/`:<br>  - [ ] Director config<br>  - [ ] Storage Daemon config<br>  - [ ] File Daemon config<br>  - [ ] Pool Definitions<br>- [ ] Jobs definieren:<br>  ```<br>  Job {<br>    Name = "Full Backup"<br>    JobDefs = "DefaultJob"<br>    Level = Full<br>    Schedule = "WeeklyCycle"<br>    RunScript { Command = "pre-backup-check" }<br>  }<br>  ```<br>- [ ] Volumes und Pools<br>- [ ] Katalog (Database) Setup<br>- [ ] bconsole für Backup-Kontrolle<br><br>### Phase 4: Backup-Jobs Konfigurieren (Tag 9-10)<br>- [ ] Mehrere Clients hinzufügen<br>- [ ] Verschiedene Job-Typen:<br>  - [ ] Full Backups (Weekly)<br>  - [ ] Incremental (Daily)<br>  - [ ] Differential (Semi-daily)<br>- [ ] Schedules definieren<br>- [ ] Retention-Policies setzen<br>- [ ] Backup-Prioritäten<br>- [ ] Parallel-Jobs<br><br>### Phase 5: Restore & Recovery (Tag 11-12)<br>- [ ] Verschiedene Restore-Szenarien:<br>  - [ ] Einzelne Datei<br>  - [ ] Verzeichnis<br>  - [ ] Kompletter Filesystem<br>  - [ ] Kompletter Server<br>- [ ] Restore-Jobs durchführen<br>- [ ] Alternativer Restore-Ort<br>- [ ] Restore-Verificaton<br>- [ ] Point-in-Time Recovery üben<br><br>### Phase 6: Encryption & Security (Tag 13)<br>- [ ] Backup-Verschlüsselung:<br>  ```<br>  Storage {<br>    Name = MyStorage<br>    ...<br>    TLS Require = yes<br>    TLS Certificate = /etc/bareos/certs/storage.pem<br>  }<br>  ```<br>- [ ] TLS für Client-Server Kommunikation<br>- [ ] Passwort-Schutz für Backups<br>- [ ] Verschlüsselte Backups testen<br>- [ ] Key Management<br><br>### Phase 7: Off-site Backups (Tag 14)<br>- [ ] Externe Backup-Storage:<br>  - [ ] NAS<br>  - [ ] Cloud Storage (S3, Azure)<br>  - [ ] Tape (optional)<br>- [ ] Restic für Cloud-Backups:<br>  ```bash<br>  restic -r s3:s3.amazonaws.com/bucket init<br>  restic -r s3:s3.amazonaws.com/bucket backup /home/<br>  ```<br>- [ ] Verschlüsselung bei Cloud-Backups<br>- [ ] Bandbreiten-Management<br>- [ ] Kosten-Analyse<br><br>### Phase 8: Disaster Recovery Planung (Tag 15-16)<br>- [ ] DR Runbook erstellen<br>- [ ] Recovery Procedures:<br>  - [ ] Hardware-Fehler<br>  - [ ] Datenbank-Corruption<br>  - [ ] Ransomware/Sicherheitsvorfall<br>  - [ ] Kompletter Datencenter-Ausfall<br>- [ ] Recovery-Testing durchführen<br>- [ ] Recovery-Zeitestimate<br>- [ ] Automatisierte Recovery (Disaster Recovery Automation)<br><br>### Phase 9: Monitoring & Verification (Tag 17)<br>- [ ] Backup-Job Logs analysieren<br>- [ ] Failed Jobs identifizieren und beheben<br>- [ ] Catalog-Integrität überprüfen:<br>  ```bash<br>  dbcheck<br>  ```<br>- [ ] Regelmäßige Restore-Tests<br>- [ ] Monitoring und Alerting für Backups<br>- [ ] SLA-Compliance überprüfen<br><br>### Phase 10: Praxisprojekt: Enterprise Backup (Tag 18-20)<br>- [ ] Mehrere Server mit verschiedenen Backup-Profilen<br>- [ ] Mix von Full, Incremental, Differential<br>- [ ] Off-site Backups<br>- [ ] Encryption und TLS<br>- [ ] Disaster Recovery Simulations<br>- [ ] Dokumentierte Runbooks
-            </div>
+<h3>Phase 1: SSH Erweiterte Konfiguration (Tag 1-3)</h3>
+<ul>
+<li class="unchecked">SSH-Key-Paare mit verschiedenen Algorithmen:</li>
+</ul>
+<pre><code class="language-bash">ssh-keygen -t ed25519  # Modern, 256-bit
+ssh-keygen -t rsa -b 4096  # Traditional, 4096-bit</code></pre>
+<ul>
+<li class="unchecked">SSH-Config lokal für einfachere Verbindungen:</li>
+</ul>
+<pre><code>Host server1
+HostName 192.168.1.10
+User alice
+IdentityFile ~/.ssh/server1_key
+Port 2222</code></pre>
+<ul>
+<li class="unchecked">SSH-Agent für Key-Management</li>
+<li class="unchecked">SSH-Key-Passphrases</li>
+<li class="unchecked">Multiple Keys pro User</li>
+<li class="unchecked">Key-Rotation implementieren</li>
+</ul>
+
+<h3>Phase 2: SSH Server Hardening (Tag 4-5)</h3>
+<ul>
+<li class="unchecked"><code>/etc/ssh/sshd_config</code> optimieren:</li>
+</ul>
+<pre><code>Port 2222
+PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes
+X11Forwarding no
+MaxAuthTries 3
+LoginGraceTime 1m
+MaxSessions 10</code></pre>
+<ul>
+<li class="unchecked">AllowUsers / DenyUsers konfigurieren</li>
+<li class="unchecked">Match-Blöcke für conditional Config</li>
+<li class="unchecked">Fail2ban Integration</li>
+<li class="unchecked">Syntax prüfen: <code>sudo sshd -t</code></li>
+</ul>
+
+<h3>Phase 3: SSH-Tunneling & Port-Forwarding (Tag 6-7)</h3>
+<ul>
+<li class="unchecked">Local Port Forwarding (Port auf Remote-System zugreifen):</li>
+</ul>
+<pre><code class="language-bash">ssh -L 8080:localhost:80 user@remote.com</code></pre>
+<ul>
+<li class="unchecked">Remote Port Forwarding (Remote-Port auf Local-System):</li>
+</ul>
+<pre><code class="language-bash">ssh -R 8080:localhost:80 user@remote.com</code></pre>
+<ul>
+<li class="unchecked">Dynamic Port Forwarding (SOCKS Proxy):</li>
+</ul>
+<pre><code class="language-bash">ssh -D 1080 user@remote.com</code></pre>
+<ul>
+<li class="unchecked">Persistente SSH-Tunnel mit systemd</li>
+<li class="unchecked">Anwendungsfall: Sichere Datenbank-Zugriffe</li>
+</ul>
+
+<h3>Phase 4: Certificate-based Authentication (Tag 8)</h3>
+<ul>
+<li class="unchecked">SSH CA (Certificate Authority) Setup</li>
+<li class="unchecked">Host-Keys mit Zertifikat signieren</li>
+<li class="unchecked">User-Zertifikate ausstellen</li>
+<li class="unchecked">Zertifikat-Validierung auf Server</li>
+<li class="unchecked">Zertifikat-Revocation-Listen (optional)</li>
+</ul>
+
+<h3>Phase 5: OpenVPN Installation & Setup (Tag 9-11)</h3>
+<strong>Oder WireGuard als Alternative</strong>
+
+<h4>OpenVPN</h4>
+<ul>
+<li class="unchecked">OpenVPN installieren: <code>sudo apt install openvpn easy-rsa</code></li>
+<li class="unchecked">PKI (Public Key Infrastructure) aufbauen:</li>
+</ul>
+<pre><code class="language-bash">/usr/share/easy-rsa/easyrsa init-pki
+/usr/share/easy-rsa/easyrsa build-ca
+/usr/share/easy-rsa/easyrsa gen-req server
+/usr/share/easy-rsa/easyrsa sign-req server server</code></pre>
+<ul>
+<li class="unchecked">OpenVPN-Server konfigurieren (<code>/etc/openvpn/server.conf</code>)</li>
+<li class="unchecked">Netzwerk-Einstellungen (10.8.0.0/24)</li>
+<li class="unchecked">TLS-Authentication für DDoS-Schutz</li>
+<li class="unchecked">Server starten und testen</li>
+</ul>
+
+<h3>Phase 6: OpenVPN Clients (Tag 12)</h3>
+<ul>
+<li class="unchecked">Client-Zertifikate generieren</li>
+<li class="unchecked">Client-Konfiguration erstellen (<code>.ovpn</code> Datei)</li>
+<li class="unchecked">Mehrere Clients verbinden</li>
+<li class="unchecked">Verbindungsstabilität testen</li>
+<li class="unchecked">Logs analysieren</li>
+</ul>
+
+<h3>Phase 7: VPN Netzwerk-Segmentierung (Tag 13)</h3>
+<ul>
+<li class="unchecked">VPN als Zugang zu Private-Network</li>
+<li class="unchecked">Routing konfigurieren (iroute, push routes)</li>
+<li class="unchecked">Firewall-Regeln für VPN-Clients</li>
+<li class="unchecked">DNS über VPN pushen</li>
+<li class="unchecked">Split-Tunneling vs. Full-Tunneling</li>
+</ul>
+
+<h3>Phase 8: WireGuard als Alternative (Tag 14)</h3>
+<ul>
+<li class="unchecked">WireGuard installieren: <code>sudo apt install wireguard</code></li>
+<li class="unchecked">Keys generieren: <code>wg genkey | tee private.key | wg pubkey > public.key</code></li>
+<li class="unchecked">Interface konfigurieren (<code>wg0</code>)</li>
+<li class="unchecked">Clients hinzufügen</li>
+<li class="unchecked">Performance-Vergleich mit OpenVPN</li>
+</ul>
+
+<h3>Phase 9: Monitoring & Troubleshooting (Tag 15)</h3>
+<ul>
+<li class="unchecked">Aktive SSH-Sessions monitoring: <code>who</code>, <code>w</code>, <code>ss</code></li>
+<li class="unchecked">SSH-Logs analysieren: <code>/var/log/auth.log</code></li>
+<li class="unchecked">OpenVPN-Clients monitoring: <code>openvpn-status.log</code></li>
+<li class="unchecked">VPN-Connectivity testen: <code>ping</code>, <code>traceroute</code>, <code>mtr</code></li>
+<li class="unchecked">Häufige Probleme:</li>
+<li class="unchecked">Authentifizierung fehlgeschlagen</li>
+<li class="unchecked">Routing-Probleme</li>
+<li class="unchecked">DNS nicht auflösend in VPN</li>
+<li class="unchecked">Intermittent Connections</li>
+</ul>
+</div>
         </section>
 
         <!-- Ressourcen -->
         <section class="section">
             <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
             <div class="content-box">
-                & Dokumentation<br><br>### Wichtige Tools<br>- **Bacula/Bareos** - Enterprise Backup<br>- **Restic** - Modern, einfach, verschlüsselt<br>- **Duplicity** - Encrypted incremental backups<br>- **rsync** - Simple file sync<br>- **Amanda** - Network backup system<br><br>### Wichtige Befehle<br>```bash<br># Rsync<br>rsync -av /source/ /dest/<br><br># Bareos<br>bconsole<br>*run job="Full Backup"<br>*restore<br>*estimate job="JobName"<br><br># Restic<br>restic backup /path/<br>restic restore latest -t /restore/<br><br># Testing<br>*show schedule<br>*estimate job="JobName"<br>```<br><br>### Wichtige Dateien<br>- `/etc/bareos/bareos-dir.conf` - Director Config<br>- `/etc/bareos/bareos-sd.conf` - Storage Daemon Config<br>- `/etc/bareos/bareos-fd.conf` - File Daemon Config
-            </div>
+& Dokumentation
+
+<h3>Wichtige Dateien</h3>
+<ul>
+<li><code>/etc/ssh/sshd_config</code> - SSH Server Config</li>
+<li><code>~/.ssh/config</code> - SSH Client Config</li>
+<li><code>/etc/openvpn/server.conf</code> - OpenVPN Server Config</li>
+<li><code>/etc/wireguard/wg0.conf</code> - WireGuard Config (wenn genutzt)</li>
+</ul>
+
+<h3>Wichtige Befehle</h3>
+<pre><code># SSH
+ssh-keygen -t ed25519
+ssh-copy-id -i ~/.ssh/id_ed25519.pub user@host
+ssh -L 8080:localhost:80 user@host
+
+<h1>OpenVPN</h1>
+openvpn --config /etc/openvpn/server.conf
+openvpn --config client.ovpn
+
+<h1>WireGuard</h1>
+sudo wg-quick up wg0
+sudo wg show
+wg-quick strip wg0 | tee wg0.conf
+
+<h1>Monitoring</h1>
+who
+w
+ss -tlnp | grep ssh
+cat /var/log/auth.log | grep ssh</code></pre>
+</div>
         </section>
 
         <!-- Deliverables -->
         <section class="section">
             <h2 class="section-title">📋 Deliverables</h2>
             <div class="content-box">
-                1. **Backup-Strategie:** Dokumentierter Plan mit RPO/RTO<br>2. **Backup-Konfiguration:** Bacula/Restic/Rsync Configs<br>3. **Recovery Runbooks:** Schritt-für-Schritt Recovery Guides<br>4. **Test-Reports:** Backup & Recovery Tests dokumentiert<br>5. **Monitoring-Setup:** Alerts und Logging für Backups
-            </div>
+<ol>
+<li><strong>SSH-Dokumentation:</strong> Konfigurationen und Best-Practices</li>
+<li><strong>VPN-Setup-Guide:</strong> Schritt-für-Schritt Anleitung</li>
+<li><strong>Client-Konfigurationen:</strong> Ready-to-use Dateien für Clients</li>
+<li><strong>Troubleshooting-Guide:</strong> Häufige Probleme und Lösungen</li>
+<li><strong>Monitoring-Setup:</strong> Log-Analyse und Alerts</li>
+</ol>
+</div>
         </section>
 
-        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+        <a href="../skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
 
         <footer>
-            <p>Projekt 12: Backup & Disaster Recovery | Skill Tree Umschüler-Projekte</p>
+            <p>Projekt 06: OpenSSH & VPN Setup | Skill Tree Umschüler-Projekte</p>
             <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
         </footer>
     </div>
     <script>
         // Initialize task checkboxes
         function initializeTaskCheckboxes() {
-            const projectId = 'projekt-12';
+            const projectId = 'projekt-06';
             const checkedTasks = JSON.parse(localStorage.getItem(`${projectId}-tasks`) || '{}');
 
             document.querySelectorAll('li.unchecked, li.checked').forEach((li, index) => {

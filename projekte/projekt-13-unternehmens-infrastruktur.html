@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt 03: Netzwerk-Grundlagen mit Linux</title>
+    <title>Projekt 13: Kleine Unternehmens-IT-Infrastruktur</title>
     <style>
         * {
             margin: 0;
@@ -295,17 +295,17 @@
 
     <div class="container">
         <header>
-            <h1>🌐 NETZWERK-GRUNDLAGEN MIT LINUX</h1>
-            <div class="subtitle">PROJEKT 03 • SYSTEMADMINISTRATION</div>
+            <h1>🏭 KLEINE UNTERNEHMENS-IT-INFRASTRUKTUR</h1>
+            <div class="subtitle">PROJEKT 13 • SYSTEMADMINISTRATION</div>
 
             <div class="project-info">
                 <div class="info-card">
                     <div class="info-card-label">Schwierigkeitsgrad</div>
-                    <div class="info-card-value">Anfänger → Fortgeschritten</div>
+                    <div class="info-card-value">Expert</div>
                 </div>
                 <div class="info-card">
                     <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">1-2 Wochen</div>
+                    <div class="info-card-value">4-6 Wochen</div>
                 </div>
             </div>
         </header>
@@ -314,61 +314,340 @@
         <section class="section">
             <h2 class="section-title">📋 Projektbeschreibung</h2>
             <div class="content-box">
-                Praktische Netzwerk-Administration unter Linux. Von Konfiguration bis zum Troubleshooting - ein essentielles Skill für jeden Systemintegrator.
-            </div>
+Integrationsprojekt, das mehrere Fähigkeiten kombiniert. Aufbau einer kompletten, funktionsfähigen IT-Infrastruktur für ein kleines Unternehmen mit realistischen Anforderungen.
+</div>
         </section>
 
         <!-- Lernziele -->
         <section class="section">
             <h2 class="section-title">🎯 Lernziele</h2>
             <div class="content-box">
-                - Netzwerk-Interfaces konfigurieren (Netplan, ethtool)<br>- Statische und dynamische IP-Adressierung<br>- DNS-Auflösung verstehen und konfigurieren<br>- Netzwerk-Troubleshooting (ping, traceroute, netstat, ss)<br>- Routing und Gateway-Konfiguration<br>- Netzwerk-Monitoring und Diagnostik
-            </div>
+<ul>
+<li>Integration mehrerer Systeme und Services</li>
+<li>Unternehmens-Anforderungen umsetzen</li>
+<li>Skalierbarkeit und Wartbarkeit</li>
+<li>Sicherheit auf allen Ebenen</li>
+<li>Dokumentation für Betrieb</li>
+<li>Support und Troubleshooting in Produktivumgebung</li>
+</ul>
+</div>
         </section>
 
         <!-- Anforderungen -->
         <section class="section">
             <h2 class="section-title">🔧 Anforderungen</h2>
             <div class="content-box">
-                - Ubuntu Server 22.04 LTS<br>- Mindestens 2 VMs für Netzwerk-Tests<br>- Grundverständnis: IPv4, DHCP, DNS<br>- Netzwerk-Lab-Setup (Virtual Bridge)
-            </div>
+<ul>
+<li>Ubuntu Server 22.04 LTS (mehrere VMs)</li>
+<li>Min. 16GB RAM Gesamt</li>
+<li>100GB+ Speicherplatz</li>
+<li>Alle vorherigen Projekt-Skills empfohlen</li>
+<li>Grundverständnis: Business Requirements, Project Management</li>
+</ul>
+</div>
         </section>
 
         <!-- Aufgaben -->
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-                ### Phase 1: Netzwerk-Interface Grundlagen (Tag 1-2)<br>- [ ] Interfaces auflisten: `ip link show`, `ifconfig`<br>- [ ] Interface-Informationen: `ethtool eth0`<br>- [ ] MAC-Adressen verstehen<br>- [ ] Interface-Status prüfen (UP, DOWN, RUNNING)<br>- [ ] `/etc/netplan/` Verzeichnis verstehen<br><br>### Phase 2: Statische IP-Konfiguration (Tag 3-4)<br>- [ ] Netplan YAML-Format kennenlernen<br>- [ ] Statische IP einrichten:<br>  ```yaml<br>  network:<br>    version: 2<br>    ethernets:<br>      eth0:<br>        dhcp4: false<br>        addresses:<br>          - 192.168.1.100/24<br>        gateway4: 192.168.1.1<br>        nameservers:<br>          addresses: [8.8.8.8, 8.8.4.4]<br>  ```<br>- [ ] Konfiguration aktivieren: `sudo netplan apply`<br>- [ ] Persistent Einstellungen überprüfen<br><br>### Phase 3: DHCP-Konfiguration (Tag 5)<br>- [ ] DHCP aktivieren: `dhcp4: true`<br>- [ ] DHCP-Lease prüfen: `dhclient -v`<br>- [ ] Lease-Renewal testen<br>- [ ] DHCP-Fallbacks konfigurieren<br><br>### Phase 4: DNS-Konfiguration (Tag 6-7)<br>- [ ] Nameserver-Konfiguration (Netplan)<br>- [ ] `/etc/resolv.conf` verstehen (wird oft auto-generiert)<br>- [ ] DNS-Auflösung testen:<br>  ```bash<br>  nslookup google.com<br>  dig google.com<br>  host google.com<br>  ```<br>- [ ] Lokale DNS-Einträge in `/etc/hosts`<br>- [ ] DNS-Caching mit `systemd-resolved`<br>- [ ] Beschädigte DNS-Einträge debuggen<br><br>### Phase 5: Routing & Gateway (Tag 8)<br>- [ ] Routing-Tabelle anzeigen: `ip route show`<br>- [ ] Default-Gateway verstehen<br>- [ ] Statische Routen hinzufügen:<br>  ```bash<br>  sudo ip route add 10.0.0.0/8 via 192.168.1.1<br>  ```<br>- [ ] Persistente Routen via Netplan<br>- [ ] Traceroute-Pfade nachverfolgern<br><br>### Phase 6: Netzwerk-Troubleshooting (Tag 9-10)<br>- [ ] Basis-Diagnose-Tools:<br>  ```bash<br>  ping<br>  traceroute / tracepath<br>  mtr (My TraceRoute)<br>  netstat / ss<br>  ```<br>- [ ] Verbindungstests: `nc` (netcat), `telnet`<br>- [ ] Paket-Capture: `tcpdump`<br>- [ ] Netzwerk-Statistiken: `ethtool -S eth0`<br>- [ ] Häufige Probleme beheben:<br>  - [ ] Keine Connectivity<br>  - [ ] Langsames Netzwerk<br>  - [ ] DNS-Probleme<br>  - [ ] Duplikate IPs<br><br>### Phase 7: Fortgeschrittene Diagnose (Tag 11-12)<br>- [ ] ARP-Table: `arp -a`, `ip neigh show`<br>- [ ] Socket-Status: `ss -tlnp`<br>- [ ] Paket-Analyse mit tcpdump/Wireshark<br>- [ ] Netzwerk-Monitoring: `iftop`, `nethogs`<br>- [ ] Bandbreite-Tests
-            </div>
+<h3>Infrastruktur-Anforderungen</h3>
+
+<h4>Szenario: "TechStart GmbH"</h4>
+<ul>
+<li>50 Mitarbeiter</li>
+<li>Gemischte Umgebung: Windows + Linux</li>
+<li>2 Office-Standorte</li>
+<li>Einige Remote-Worker</li>
+<li>Datenschutz-Anforderungen (DSGVO)</li>
+</ul>
+
+<h3>Phase 1: Anforderungsanalyse & Planung (Tag 1-3)</h3>
+<ul>
+<li class="unchecked">Geschäfts-Anforderungen definieren:</li>
+<li class="unchecked">Verfügbarkeitsanforderungen (wie viel Downtime ist akzeptabel?)</li>
+<li class="unchecked">Performance-Anforderungen</li>
+<li class="unchecked">Compliance-Anforderungen (DSGVO, etc.)</li>
+<li class="unchecked">Budget-Constraints</li>
+<li class="unchecked">IT-Infrastruktur auswählen</li>
+<li class="unchecked">Disaster-Recovery RTO/RPO</li>
+<li class="unchecked">Skalierungspläne</li>
+<li class="unchecked">Security-Level definieren</li>
+<li class="unchecked">Dokumentations-Struktur planen</li>
+</ul>
+
+<h3>Phase 2: Kern-Infrastruktur (Tag 4-8)</h3>
+<ul>
+<li class="unchecked"><strong>Virtualisierung / Bare Metal:</strong></li>
+<li class="unchecked">Hypervisor (KVM/Proxmox)</li>
+<li class="unchecked">Netzwerk-Segmentierung</li>
+</ul>
+
+<ul>
+<li class="unchecked"><strong>Zentrales Verzeichnis (FreeIPA/Samba AD):</strong></li>
+<li class="unchecked">User Management</li>
+<li class="unchecked">Group Policies</li>
+<li class="unchecked">Authentication für alle Services</li>
+</ul>
+
+<ul>
+<li class="unchecked"><strong>Dateiserver:</strong></li>
+<li class="unchecked">Samba für Windows-Clients</li>
+<li class="unchecked">NFS für Linux</li>
+<li class="unchecked">Quotas und Berechtigungen</li>
+<li class="unchecked">Snapshots für schnelle Recovery</li>
+</ul>
+
+<ul>
+<li class="unchecked"><strong>Backup & DR:</strong></li>
+<li class="unchecked">Automatisierte Backups</li>
+<li class="unchecked">Off-site Backups</li>
+<li class="unchecked">Recovery-Testing</li>
+</ul>
+
+<h3>Phase 3: Sicherheitsinfrastruktur (Tag 9-12)</h3>
+<ul>
+<li class="unchecked"><strong>Firewall & Segmentierung:</strong></li>
+<li class="unchecked">DMZ für öffentliche Services</li>
+<li class="unchecked">Interne Netzwerk-Segmente</li>
+<li class="unchecked">VPN für Remote-Worker</li>
+</ul>
+
+<ul>
+<li class="unchecked"><strong>Mail-Server:</strong></li>
+<li class="unchecked">Postfix/Dovecot</li>
+<li class="unchecked">SPF, DKIM, DMARC</li>
+<li class="unchecked">Mail-Filtering (Spam, Malware)</li>
+</ul>
+
+<ul>
+<li class="unchecked"><strong>Monitoring & Logging:</strong></li>
+<li class="unchecked">Prometheus + Grafana für Metrics</li>
+<li class="unchecked">ELK Stack für Logs</li>
+<li class="unchecked">Alerts für kritische Events</li>
+</ul>
+
+<ul>
+<li class="unchecked"><strong>Patch Management:</strong></li>
+<li class="unchecked">Automated Security Updates</li>
+<li class="unchecked">Update-Testing</li>
+<li class="unchecked">Patch-Scheduling</li>
+</ul>
+
+<h3>Phase 4: Services & Anwendungen (Tag 13-16)</h3>
+<ul>
+<li class="unchecked"><strong>Web-Infrastruktur:</strong></li>
+<li class="unchecked">LAMP/LEMP Stack</li>
+<li class="unchecked">SSL/TLS für alle Web-Services</li>
+<li class="unchecked">Load-Balancing (optional)</li>
+</ul>
+
+<ul>
+<li class="unchecked"><strong>Datenbank-Services:</strong></li>
+<li class="unchecked">PostgreSQL/MySQL für Geschäfts-Apps</li>
+<li class="unchecked">Backup-Strategie</li>
+<li class="unchecked">HA-Setup (optional)</li>
+</ul>
+
+<ul>
+<li class="unchecked"><strong>Interne Services:</strong></li>
+<li class="unchecked">Wiki/Dokumentation</li>
+<li class="unchecked">Issue-Tracker</li>
+<li class="unchecked">Git-Repository (optional)</li>
+</ul>
+
+<h3>Phase 5: Automation & Verwaltung (Tag 17-19)</h3>
+<ul>
+<li class="unchecked"><strong>Ansible für Configuration Management:</strong></li>
+<li class="unchecked">Playbooks für jeden Service-Typ</li>
+<li class="unchecked">Automatische Provisioning</li>
+<li class="unchecked">Change-Management</li>
+</ul>
+
+<ul>
+<li class="unchecked"><strong>Deployment-Pipeline:</strong></li>
+<li class="unchecked">Automated Testing</li>
+<li class="unchecked">Blue-Green Deployments</li>
+<li class="unchecked">Rollback-Pläne</li>
+</ul>
+
+<h3>Phase 6: Dokumentation (Tag 20-22)</h3>
+<ul>
+<li class="unchecked"><strong>Technische Dokumentation:</strong></li>
+<li class="unchecked">Infrastruktur-Diagramme (Netzwerk, Systeme)</li>
+<li class="unchecked">Service-Dokumentation</li>
+<li class="unchecked">API-Dokumentation</li>
+</ul>
+
+<ul>
+<li class="unchecked"><strong>Runbooks:</strong></li>
+<li class="unchecked">Daily/Weekly/Monthly Tasks</li>
+<li class="unchecked">Troubleshooting-Guides</li>
+<li class="unchecked">Disaster-Recovery Procedures</li>
+<li class="unchecked">Escalation-Procedures</li>
+</ul>
+
+<ul>
+<li class="unchecked"><strong>Policies & Procedures:</strong></li>
+<li class="unchecked">Passwort-Policy</li>
+<li class="unchecked">Backup-Policy</li>
+<li class="unchecked">Security-Policy</li>
+<li class="unchecked">Change-Management-Procedure</li>
+</ul>
+
+<h3>Phase 7: Testing & Validation (Tag 23-25)</h3>
+<ul>
+<li class="unchecked"><strong>Functional Testing:</strong></li>
+<li class="unchecked">Alle Services funktionieren</li>
+<li class="unchecked">User-Logins funktionieren</li>
+<li class="unchecked">File-Zugriff funktioniert</li>
+</ul>
+
+<ul>
+<li class="unchecked"><strong>Performance Testing:</strong></li>
+<li class="unchecked">Response Times akzeptabel</li>
+<li class="unchecked">Unter Last stabil</li>
+</ul>
+
+<ul>
+<li class="unchecked"><strong>Security Testing:</strong></li>
+<li class="unchecked">Schwachstellen-Scan</li>
+<li class="unchecked">Penetration Testing Grundlagen</li>
+</ul>
+
+<ul>
+<li class="unchecked"><strong>DR Testing:</strong></li>
+<li class="unchecked">Recovery-Szenarien durchspielen</li>
+<li class="unchecked">RTO/RPO überprüfen</li>
+</ul>
+
+<h3>Phase 8: Produktion & Übergabe (Tag 26-30)</h3>
+<ul>
+<li class="unchecked"><strong>Go-Live Planning:</strong></li>
+<li class="unchecked">Migration-Plan</li>
+<li class="unchecked">Cutover-Window</li>
+<li class="unchecked">Rollback-Plan</li>
+</ul>
+
+<ul>
+<li class="unchecked"><strong>User-Schulung:</strong></li>
+<li class="unchecked">Passwort-Reset Prozess</li>
+<li class="unchecked">VPN-Zugang</li>
+<li class="unchecked">Dateiserver-Nutzung</li>
+</ul>
+
+<ul>
+<li class="unchecked"><strong>Handover:</strong></li>
+<li class="unchecked">Dokumentations-Review</li>
+<li class="unchecked">Support-Team Training</li>
+<li class="unchecked">Operations-Übersicht</li>
+</ul>
+
+<ul>
+<li class="unchecked"><strong>Post-Go-Live Support:</strong></li>
+<li class="unchecked">Issue-Tracking und Fixes</li>
+<li class="unchecked">Performance-Monitoring</li>
+<li class="unchecked">User-Feedback Integration</li>
+</ul>
+</div>
         </section>
 
         <!-- Ressourcen -->
         <section class="section">
             <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
             <div class="content-box">
-                & Dokumentation<br><br>### Wichtige Konfigurationsdateien<br>- `/etc/netplan/*.yaml` - Netzwerk-Konfiguration<br>- `/etc/resolv.conf` - DNS (oft auto-generiert)<br>- `/etc/hostname` - Hostname<br>- `/etc/hosts` - Lokale Host-Einträge<br><br>### Wichtige Befehle<br>```bash<br># IP/Interface<br>ip link show<br>ip addr show<br>ip route show<br>ifconfig (deprecated)<br>ethtool<br><br># DNS<br>nslookup<br>dig<br>host<br>systemd-resolve --status<br><br># Troubleshooting<br>ping<br>traceroute / tracepath<br>mtr<br>netstat / ss<br>tcpdump<br>nc (netcat)<br><br># Monitoring<br>iftop<br>nethogs<br>sar<br>```<br><br>### RFC Standards<br>- RFC 791: IPv4<br>- RFC 1918: Private IP Ranges<br>- RFC 1035: DNS
-            </div>
+& Dokumentation
+
+<h3>Typische Architektur</h3>
+<pre><code>┌─────────────────────────────────────┐
+│  Internet                           │
+└────────────────┬────────────────────┘
+│
+┌──────┴──────┐
+│   Firewall  │
+└──────┬──────┘
+│
+┌──────────┼──────────┐
+│                     │
+┌──┴──┐            ┌────┴────┐
+│ DMZ │ Web-Stack  │ Internal │
+│     │ Mail       │ Network  │
+│     │ VPN        │          │
+└─────┘            └────┬────┘
+│
+┌─────────────────┼─────────────────┐
+│                 │                 │
+┌────┴────┐      ┌────┴────┐      ┌────┴────┐
+│   FreeIPA      │ Fileserver     │ Backup  │
+│   (Auth)       │ (NAS/Samba)    │ Storage │
+└─────────┘      └─────────┘      └─────────┘</code></pre>
+</div>
         </section>
 
         <!-- Deliverables -->
         <section class="section">
             <h2 class="section-title">📋 Deliverables</h2>
             <div class="content-box">
-                1. **Dokumentation:** Netplan-Konfigurationen mit Erklärung<br>2. **Troubleshooting-Guide:** Schritt-für-Schritt Fehlersuche<br>3. **Lab-Reports:** Ergebnisse aller Netzwerk-Szenarien<br>4. **Checkliste:** Netzwerk-Diagnose Checklist
-            </div>
+<ol>
+<li><strong>Infrastruktur-Dokumentation</strong></li>
+</ol>
+<ul>
+<li>Netzwerk-Diagramm</li>
+<li>System-Architektur</li>
+<li>Service-Matrix</li>
+</ul>
+
+<ol>
+<li><strong>Operative Dokumentation</strong></li>
+</ol>
+<ul>
+<li>Runbook für Daily Operations</li>
+<li>Troubleshooting-Guide</li>
+<li>Escalation-Procedures</li>
+<li>DR-Plan</li>
+</ul>
+
+<ol>
+<li><strong>Automatisierung</strong></li>
+</ol>
+<ul>
+<li>Ansible Playbooks</li>
+<li>Automated Backup-Scripts</li>
+<li>Monitoring-Configuration</li>
+</ul>
+
+<ol>
+<li><strong>Test-Reports</strong></li>
+</ol>
+<ul>
+<li>Funktions-Tests</li>
+<li>Performance-Tests</li>
+<li>Security-Audit</li>
+<li>DR-Test-Ergebnisse</li>
+</ul>
+
+<ol>
+<li><strong>Übergabe-Dokumentation</strong></li>
+</ol>
+<ul>
+<li>User-Guides</li>
+<li>IT-Admin-Manual</li>
+<li>Support-Procedures</li>
+</ul>
+</div>
         </section>
 
-        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+        <a href="../skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
 
         <footer>
-            <p>Projekt 03: Netzwerk-Grundlagen mit Linux | Skill Tree Umschüler-Projekte</p>
+            <p>Projekt 13: Kleine Unternehmens-IT-Infrastruktur | Skill Tree Umschüler-Projekte</p>
             <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
         </footer>
     </div>
     <script>
         // Initialize task checkboxes
         function initializeTaskCheckboxes() {
-            const projectId = 'projekt-03';
+            const projectId = 'projekt-13';
             const checkedTasks = JSON.parse(localStorage.getItem(`${projectId}-tasks`) || '{}');
 
             document.querySelectorAll('li.unchecked, li.checked').forEach((li, index) => {

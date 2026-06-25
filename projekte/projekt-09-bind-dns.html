@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt 07: Monitoring & Logging (ELK/Prometheus)</title>
+    <title>Projekt 09: BIND DNS Server</title>
     <style>
         * {
             margin: 0;
@@ -295,8 +295,8 @@
 
     <div class="container">
         <header>
-            <h1>📊 MONITORING & LOGGING (ELK/PROMETHEUS)</h1>
-            <div class="subtitle">PROJEKT 07 • SYSTEMADMINISTRATION</div>
+            <h1>🔗 BIND DNS SERVER</h1>
+            <div class="subtitle">PROJEKT 09 • SYSTEMADMINISTRATION</div>
 
             <div class="project-info">
                 <div class="info-card">
@@ -305,7 +305,7 @@
                 </div>
                 <div class="info-card">
                     <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">3-4 Wochen</div>
+                    <div class="info-card-value">2-3 Wochen</div>
                 </div>
             </div>
         </header>
@@ -314,61 +314,263 @@
         <section class="section">
             <h2 class="section-title">📋 Projektbeschreibung</h2>
             <div class="content-box">
-                Aufbau einer Infrastruktur zur Überwachung von Systemen und zentralisierten Logging. Essentiell für Troubleshooting, Performance-Analyse und Security-Audits.
-            </div>
+Aufbau und Verwaltung eines produktiven DNS-Servers. DNS ist eine kritische Infrastruktur-Komponente, die jeder Systemintegrator verstehen muss.
+</div>
         </section>
 
         <!-- Lernziele -->
         <section class="section">
             <h2 class="section-title">🎯 Lernziele</h2>
             <div class="content-box">
-                - Prometheus für Metriken-Erfassung<br>- Grafana für Visualisierung<br>- Elasticsearch/Logstash/Kibana (ELK Stack) für Log-Aggregation<br>- Custom Alerts und Notifications<br>- Log-Parsing und Analyse<br>- Performance-Monitoring<br>- Security Event Logging
-            </div>
+<ul>
+<li>BIND9 Installation und Konfiguration</li>
+<li>Authoritative DNS Zones</li>
+<li>Zone-Dateien erstellen und pflegen</li>
+<li>DNS Records (A, AAAA, CNAME, MX, TXT, SRV)</li>
+<li>DNSSEC implementieren</li>
+<li>Recursive DNS Server</li>
+<li>DNS Logging und Monitoring</li>
+<li>Häufige DNS-Probleme beheben</li>
+</ul>
+</div>
         </section>
 
         <!-- Anforderungen -->
         <section class="section">
             <h2 class="section-title">🔧 Anforderungen</h2>
             <div class="content-box">
-                - Ubuntu Server 22.04 LTS (mindestens 4GB RAM für Stack)<br>- Docker installiert (optional aber empfohlen)<br>- Mehrere Systeme zum Monitoren<br>- Grundverständnis: JSON, REST APIs
-            </div>
+<ul>
+<li>Ubuntu Server 22.04 LTS</li>
+<li>Eine Domain (kann auch Subdomain oder lokal sein)</li>
+<li>Grundverständnis: DNS-Konzepte, Netzwerk</li>
+<li>Texteditor</li>
+</ul>
+</div>
         </section>
 
         <!-- Aufgaben -->
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-                ### Phase 1: Prometheus Setup (Tag 1-4)<br>- [ ] Prometheus installieren oder Docker nutzen<br>- [ ] prometheus.yml konfigurieren:<br>  ```yaml<br>  global:<br>    scrape_interval: 15s<br>  scrape_configs:<br>    - job_name: 'linux'<br>      static_configs:<br>        - targets: ['localhost:9100']<br>  ```<br>- [ ] Node Exporter installieren auf Ziel-Systemen<br>- [ ] Prometheus UI testen (`http://localhost:9090`)<br>- [ ] PromQL (Prometheus Query Language) lernen<br>- [ ] Basis-Queries schreiben:<br>  ```<br>  node_memory_MemAvailable_bytes / 1024 / 1024 / 1024<br>  rate(node_cpu_seconds_total[5m])<br>  ```<br>- [ ] Service-Discovery (optional)<br><br>### Phase 2: Grafana Dashboards (Tag 5-7)<br>- [ ] Grafana installieren oder Docker<br>- [ ] Prometheus als Data Source hinzufügen<br>- [ ] Vordefinierte Dashboards importieren<br>- [ ] Custom Dashboards erstellen:<br>  - [ ] CPU Usage<br>  - [ ] Memory Usage<br>  - [ ] Disk I/O<br>  - [ ] Network Traffic<br>- [ ] Variables für Systeme/Instanzen<br>- [ ] Alert-Bedingungen definieren<br>- [ ] Dashboard exportieren/versionieren<br><br>### Phase 3: Alerting (Tag 8-9)<br>- [ ] Alertmanager installieren<br>- [ ] Alert-Regeln definieren:<br>  ```yaml<br>  groups:<br>  - name: node_alerts<br>    rules:<br>    - alert: HighMemoryUsage<br>      expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) > 0.85<br>      for: 5m<br>  ```<br>- [ ] Alert-Benachrichtigungen:<br>  - [ ] Email<br>  - [ ] Slack<br>  - [ ] PagerDuty (optional)<br>- [ ] Alert-Templates<br>- [ ] Alert-Routing konfigurieren<br><br>### Phase 4: Elasticsearch/Logstash Setup (Tag 10-12)<br>- [ ] Elasticsearch installieren (oder Docker)<br>- [ ] Logstash konfigurieren für Log-Parsing<br>- [ ] Input-Plugins (File, Syslog, Beats)<br>- [ ] Filter für Log-Parsing (Grok-Patterns)<br>- [ ] Output zu Elasticsearch<br>- [ ] Beispiel-Logstash-Pipeline:<br>  ```<br>  input { syslog { port => 5000 } }<br>  filter { grok { match => { "message" => "%{SYSLOGLINE}" } } }<br>  output { elasticsearch { hosts => ["localhost"] } }<br>  ```<br>- [ ] Logstash Performance testen<br><br>### Phase 5: Kibana Visualisierungen (Tag 13-14)<br>- [ ] Kibana installieren (oder Docker)<br>- [ ] Elasticsearch Index-Patterns erstellen<br>- [ ] Discover - Log-Daten durchsuchen<br>- [ ] Visualisierungen erstellen:<br>  - [ ] Error-Rate Trends<br>  - [ ] Top Error Messages<br>  - [ ] Request Duration Distribution<br>  - [ ] Geographic Map (falls IP-Geolokalisation)<br>- [ ] Dashboards zusammenstellen<br>- [ ] Saved Searches für häufige Queries<br>- [ ] Alert-Bedingungen basierend auf Log-Patterns<br><br>### Phase 6: Log-Sources integrieren (Tag 15-16)<br>- [ ] Verschiedene Log-Sources:<br>  - [ ] Systemd Logs (journalctl)<br>  - [ ] Syslog<br>  - [ ] Application Logs (z.B. Apache, Nginx)<br>  - [ ] Custom App Logs<br>- [ ] Filebeat/Metricbeat für einfache Log-Forwarding<br>- [ ] Log-Format standardisieren<br>- [ ] Zentralisierte Log-Sammlung<br><br>### Phase 7: ELK Stack mit Docker (Tag 17-18)<br>- [ ] Docker Compose für kompletten Stack:<br>  ```yaml<br>  services:<br>    elasticsearch:<br>      image: docker.elastic.co/elasticsearch/elasticsearch:8.0.0<br>    logstash:<br>      image: docker.elastic.co/logstash/logstash:8.0.0<br>    kibana:<br>      image: docker.elastic.co/kibana/kibana:8.0.0<br>  ```<br>- [ ] Stack starten und testen<br>- [ ] Daten-Persistierung<br>- [ ] SSL/TLS aktivieren<br>- [ ] X-Pack Sicherheit (falls Enterprise)<br><br>### Phase 8: Advanced Use Cases (Tag 19-20)<br>- [ ] Anomaly Detection<br>- [ ] Machine Learning mit ELK (X-Pack)<br>- [ ] Custom Metrics mit Prometheus Pushgateway<br>- [ ] Distributed Tracing (optional, mit Jaeger)<br>- [ ] Log-Retention-Policies<br>- [ ] Backup/Restore von Elasticsearch
-            </div>
+<h3>Phase 1: BIND Installation & Grundlagen (Tag 1-2)</h3>
+<ul>
+<li class="unchecked">BIND9 installieren: <code>sudo apt install bind9 bind9-utils</code></li>
+<li class="unchecked">BIND Architektur verstehen (Authoritative, Recursive, Caching)</li>
+<li class="unchecked"><code>/etc/bind/</code> Verzeichnis kennenlernen</li>
+<li class="unchecked"><code>named.conf</code> Hauptkonfiguration verstehen</li>
+<li class="unchecked">BIND Service starten: <code>sudo systemctl start bind9</code></li>
+<li class="unchecked">Bind-Version prüfen: <code>named -v</code></li>
+<li class="unchecked">Query-Tools:</li>
+</ul>
+<pre><code class="language-bash">nslookup
+dig
+host</code></pre>
+
+<h3>Phase 2: Zone-Datei erstellen (Tag 3-4)</h3>
+<ul>
+<li class="unchecked">Zone-Datei Syntax verstehen</li>
+<li class="unchecked">Example Zone für <code>example.com</code> erstellen:</li>
+</ul>
+<pre><code>$TTL    604800
+@       IN      SOA     ns1.example.com. admin.example.com. (
+2024010101      ; serial
+604800          ; refresh
+86400           ; retry
+2419200         ; expire
+604800 )        ; minimum
+
+IN      NS      ns1.example.com.
+IN      NS      ns2.example.com.
+
+ns1       IN      A       192.168.1.10
+ns2       IN      A       192.168.1.11
+
+@         IN      A       192.168.1.100
+www       IN      A       192.168.1.100
+mail      IN      A       192.168.1.20
+
+@         IN      MX      10 mail.example.com.</code></pre>
+<ul>
+<li class="unchecked">Verschiedene Record-Types verstehen:</li>
+<li class="unchecked">A (IPv4)</li>
+<li class="unchecked">AAAA (IPv6)</li>
+<li class="unchecked">CNAME (Alias)</li>
+<li class="unchecked">MX (Mail Exchange)</li>
+<li class="unchecked">TXT (Text Records, SPF, DKIM)</li>
+<li class="unchecked">SRV (Service)</li>
+<li class="unchecked">NS (Name Server)</li>
+<li class="unchecked">SOA (Start of Authority)</li>
+</ul>
+
+<h3>Phase 3: BIND Zones konfigurieren (Tag 5-6)</h3>
+<ul>
+<li class="unchecked"><code>/etc/bind/named.conf.local</code> editieren:</li>
+</ul>
+<pre><code>zone "example.com" {
+type master;
+file "/etc/bind/zones/db.example.com";
+};</code></pre>
+<ul>
+<li class="unchecked">Zone-Dateien in <code>/etc/bind/zones/</code> erstellen</li>
+<li class="unchecked">Zone-Syntax prüfen: <code>named-checkzone example.com /etc/bind/zones/db.example.com</code></li>
+<li class="unchecked">BIND neu laden: <code>sudo systemctl reload bind9</code></li>
+<li class="unchecked">Zone-Transfer testen: <code>dig @localhost example.com</code></li>
+</ul>
+
+<h3>Phase 4: Reverse DNS Zones (Tag 7)</h3>
+<ul>
+<li class="unchecked">Reverse Zone für Subnetz erstellen (z.B. 1.168.192.in-addr.arpa)</li>
+<li class="unchecked">Reverse DNS Records (PTR)</li>
+<li class="unchecked">Zone-Datei:</li>
+</ul>
+<pre><code>1.168.192.in-addr.arpa
+100 PTR www.example.com.
+20  PTR mail.example.com.</code></pre>
+<ul>
+<li class="unchecked">Reverse Lookup testen: <code>nslookup 192.168.1.100</code></li>
+<li class="unchecked">Reverse Zone in named.conf.local</li>
+</ul>
+
+<h3>Phase 5: DNS Records in Praxis (Tag 8-9)</h3>
+<ul>
+<li class="unchecked">Mail-Setup (MX Records)</li>
+<li class="unchecked">SPF Records für Mail-Sicherheit</li>
+</ul>
+<pre><code>TXT: v=spf1 mx -all</code></pre>
+<ul>
+<li class="unchecked">DKIM Records vorbereiten</li>
+<li class="unchecked">DMARC Records</li>
+<li class="unchecked">Wildcard Records:</li>
+</ul>
+<pre><code>*.example.com  IN  A  192.168.1.100</code></pre>
+<ul>
+<li class="unchecked">ALIAS Records (wenn supported)</li>
+</ul>
+
+<h3>Phase 6: DNSSEC (Day 10-11)</h3>
+<ul>
+<li class="unchecked">DNSSEC Konzepte verstehen (KSK, ZSK)</li>
+<li class="unchecked">DNSSEC aktivieren für Zone:</li>
+</ul>
+<pre><code class="language-bash">sudo dnssec-keygen -a RSASHA256 -b 2048 -f KSK example.com
+sudo dnssec-keygen -a RSASHA256 -b 1024 example.com</code></pre>
+<ul>
+<li class="unchecked">Zone signieren: <code>dnssec-signzone</code></li>
+<li class="unchecked">DS Records für Parent-Zone generieren</li>
+<li class="unchecked">DNSSEC Validation testen:</li>
+</ul>
+<pre><code class="language-bash">dig +dnssec example.com
+delv @localhost example.com</code></pre>
+
+<h3>Phase 7: Recursive DNS & Caching (Tag 12)</h3>
+<ul>
+<li class="unchecked">Recursive Queries konfigurieren (falls gewünscht)</li>
+<li class="unchecked">Forwarders definieren:</li>
+</ul>
+<pre><code>forwarders {
+8.8.8.8;
+8.8.4.4;
+};</code></pre>
+<ul>
+<li class="unchecked">Caching-Parameter konfigurieren</li>
+<li class="unchecked">ACLs für Recursive Queries (nicht offen zur Welt!)</li>
+</ul>
+
+<h3>Phase 8: Logging & Troubleshooting (Tag 13-14)</h3>
+<ul>
+<li class="unchecked">DNS Logging aktivieren:</li>
+</ul>
+<pre><code>logging {
+channel default_file {
+file "/var/log/named/default.log" versions 3 size 250m;
+severity dynamic;
+print-time yes;
+};
+category default { default_file; };
+};</code></pre>
+<ul>
+<li class="unchecked">Logs analysieren: <code>tail -f /var/log/named/default.log</code></li>
+<li class="unchecked">Query Logging für Debugging</li>
+<li class="unchecked">Häufige Probleme:</li>
+<li class="unchecked">Zone Transfer fehlgeschlagen</li>
+<li class="unchecked">Record nicht gefunden</li>
+<li class="unchecked">Syntax Fehler in Zone-Dateien</li>
+<li class="unchecked">Permission-Probleme</li>
+</ul>
+
+<h3>Phase 9: Monitoring & Automation (Tag 15)</h3>
+<ul>
+<li class="unchecked">BIND Status überwachen</li>
+<li class="unchecked">Automated Zone-Updates (Dynamic DNS, optional)</li>
+<li class="unchecked">Zone-File Backups</li>
+<li class="unchecked">Zone-Reload-Tests</li>
+<li class="unchecked">nagios/icinga Plugins für DNS Monitoring</li>
+</ul>
+</div>
         </section>
 
         <!-- Ressourcen -->
         <section class="section">
             <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
             <div class="content-box">
-                & Dokumentation<br><br>### Wichtige Dateien<br>- `/etc/prometheus/prometheus.yml`<br>- `/etc/prometheus/alert.rules.yml`<br>- `/etc/logstash/conf.d/*.conf`<br>- `/etc/grafana/provisioning/`<br>- `docker-compose.yml` (für ELK)<br><br>### Wichtige Links & Befehle<br>```bash<br># Prometheus<br>curl http://localhost:9090/api/v1/query?query=node_memory_MemAvailable_bytes<br><br># Grafana<br>http://localhost:3000 (default: admin/admin)<br><br># Elasticsearch<br>curl http://localhost:9200/_cat/indices<br><br># Kibana<br>http://localhost:5601<br><br># Systemd Logs<br>journalctl -u nginx -f<br>journalctl --since today<br>```
-            </div>
+& Dokumentation
+
+<h3>Wichtige Dateien</h3>
+<ul>
+<li><code>/etc/bind/named.conf</code> - Main Configuration</li>
+<li><code>/etc/bind/named.conf.local</code> - Local Zone Definitions</li>
+<li><code>/etc/bind/zones/db.example.com</code> - Zone Database Files</li>
+<li><code>/var/log/named/</code> - Logs</li>
+</ul>
+
+<h3>Wichtige Befehle</h3>
+<pre><code># Configuration Check
+named-checkconf /etc/bind/named.conf
+named-checkzone example.com /etc/bind/zones/db.example.com
+
+<h1>Service Control</h1>
+sudo systemctl restart bind9
+sudo systemctl reload bind9
+
+<h1>Query Tools</h1>
+nslookup example.com @127.0.0.1
+dig example.com @127.0.0.1
+host example.com 127.0.0.1
+
+<h1>Zone Transfer</h1>
+dig @ns1.example.com example.com axfr
+
+<h1>DNSSEC</h1>
+dnssec-keygen -a RSASHA256 -b 2048 -f KSK example.com
+dnssec-signzone -o example.com -k Kexample.com.+008+12345.key db.example.com</code></pre>
+</div>
         </section>
 
         <!-- Deliverables -->
         <section class="section">
             <h2 class="section-title">📋 Deliverables</h2>
             <div class="content-box">
-                1. **Prometheus-Konfiguration:** Scrape-Configs dokumentiert<br>2. **Grafana-Dashboards:** Exportierte JSON-Dateien<br>3. **Alert-Rules:** Dokumentierte Alert-Definitionen<br>4. **ELK-Stack:** Docker Compose oder Installation Guide<br>5. **Betriebshandbuch:** Wie man Alerts reagiert, Logs durchsucht
-            </div>
+<ol>
+<li><strong>Zone-Dateien:</strong> Vollständig konfigurierte Zones</li>
+<li><strong>named.conf:</strong> Dokumentierte BIND-Konfiguration</li>
+<li><strong>DNSSEC Setup:</strong> Signings Keys und DS Records</li>
+<li><strong>Troubleshooting-Guide:</strong> Häufige Fehler und Lösungen</li>
+<li><strong>Betriebshandbuch:</strong> Zone-Management Prozeduren</li>
+</ol>
+</div>
         </section>
 
-        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+        <a href="../skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
 
         <footer>
-            <p>Projekt 07: Monitoring & Logging (ELK/Prometheus) | Skill Tree Umschüler-Projekte</p>
+            <p>Projekt 09: BIND DNS Server | Skill Tree Umschüler-Projekte</p>
             <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
         </footer>
     </div>
     <script>
         // Initialize task checkboxes
         function initializeTaskCheckboxes() {
-            const projectId = 'projekt-07';
+            const projectId = 'projekt-09';
             const checkedTasks = JSON.parse(localStorage.getItem(`${projectId}-tasks`) || '{}');
 
             document.querySelectorAll('li.unchecked, li.checked').forEach((li, index) => {

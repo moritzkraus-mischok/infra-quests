@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt 08: Docker & Container-Orchestration</title>
+    <title>Projekt 02: Linux Benutzerverwaltung</title>
     <style>
         * {
             margin: 0;
@@ -295,17 +295,17 @@
 
     <div class="container">
         <header>
-            <h1>🐳 DOCKER & CONTAINER-ORCHESTRATION</h1>
-            <div class="subtitle">PROJEKT 08 • SYSTEMADMINISTRATION</div>
+            <h1>👥 LINUX BENUTZERVERWALTUNG</h1>
+            <div class="subtitle">PROJEKT 02 • SYSTEMADMINISTRATION</div>
 
             <div class="project-info">
                 <div class="info-card">
                     <div class="info-card-label">Schwierigkeitsgrad</div>
-                    <div class="info-card-value">Fortgeschritten → Expert</div>
+                    <div class="info-card-value">Anfänger → Fortgeschritten</div>
                 </div>
                 <div class="info-card">
                     <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">3-4 Wochen</div>
+                    <div class="info-card-value">1-2 Wochen</div>
                 </div>
             </div>
         </header>
@@ -314,61 +314,182 @@
         <section class="section">
             <h2 class="section-title">📋 Projektbeschreibung</h2>
             <div class="content-box">
-                Containerisierung von Anwendungen mit Docker und Grundlagen der Orchestration. Ein modernes, essentielles Skill für DevOps und Systemintegration.
-            </div>
+Umfassendes Verständnis von Benutzer-, Gruppen- und Dateirechteverwaltung in Linux. Ein zentrales Konzept für Multi-User-Systeme und Sicherheit.
+</div>
         </section>
 
         <!-- Lernziele -->
         <section class="section">
             <h2 class="section-title">🎯 Lernziele</h2>
             <div class="content-box">
-                - Docker Installation und Grundlagen<br>- Dockerfile schreiben und Images bauen<br>- Container lifecycle verwalten<br>- Docker Volumes und Networking<br>- Docker Compose für Multi-Container Apps<br>- Kubernetes Grundlagen (Microk8s)<br>- Registry und Image Management<br>- Container Security
-            </div>
+<ul>
+<li>Benutzer und Gruppen erstellen, modifizieren, löschen</li>
+<li>Dateirechte verstehen und konfigurieren (chmod, chown)</li>
+<li>Sudo-Berechtigungen granular vergeben</li>
+<li>ACLs (Access Control Lists) anwenden</li>
+<li>Passwort-Policies implementieren</li>
+<li>Sicherheits-Logging überwachen</li>
+</ul>
+</div>
         </section>
 
         <!-- Anforderungen -->
         <section class="section">
             <h2 class="section-title">🔧 Anforderungen</h2>
             <div class="content-box">
-                - Ubuntu Server 22.04 LTS oder Desktop<br>- Min. 8GB RAM, 40GB Disk<br>- Docker installiert<br>- Grundverständnis: Linux, Netzwerk
-            </div>
+<ul>
+<li>Ubuntu Server 22.04 LTS</li>
+<li>Administrativen Zugriff (sudo)</li>
+<li>Verständnis grundlegender Linux-Befehle</li>
+<li>VM für Test-Szenarien</li>
+</ul>
+</div>
         </section>
 
         <!-- Aufgaben -->
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-                ### Phase 1: Docker Grundlagen (Tag 1-3)<br>- [ ] Docker installieren: `sudo apt install docker.io`<br>- [ ] Docker Daemon verstehen<br>- [ ] Container vs. Images<br>- [ ] Images pullen: `docker pull ubuntu`<br>- [ ] Containers laufen lassen: `docker run -it ubuntu bash`<br>- [ ] Container Lifecycle: create, start, stop, remove<br>- [ ] Docker CLI Befehle:<br>  ```bash<br>  docker ps, docker images, docker logs<br>  docker exec, docker inspect, docker stats<br>  ```<br>- [ ] Container-Ressourcen limitieren (CPU, Memory)<br><br>### Phase 2: Dockerfile schreiben (Tag 4-6)<br>- [ ] Dockerfile Syntax verstehen<br>- [ ] Base Images wählen<br>- [ ] Application in Container packen<br>- [ ] Multi-Stage Builds<br>- [ ] Layer Caching verstehen<br>- [ ] Beispiel: Python Flask App in Docker<br>  ```dockerfile<br>  FROM python:3.9-slim<br>  WORKDIR /app<br>  COPY requirements.txt .<br>  RUN pip install -r requirements.txt<br>  COPY . .<br>  CMD ["python", "app.py"]<br>  ```<br>- [ ] Image bauen: `docker build -t myapp:1.0 .`<br>- [ ] Image optimieren (Größe reduzieren)<br>- [ ] Best Practices (Non-root user, .dockerignore)<br><br>### Phase 3: Docker Volumes & Networking (Tag 7-8)<br>- [ ] Volumes erstellen und mounten:<br>  ```bash<br>  docker volume create mydata<br>  docker run -v mydata:/data ubuntu<br>  ```<br>- [ ] Bind Mounts für Development<br>- [ ] Volume-Typen verstehen (named, anonymous, bind)<br>- [ ] Docker Networks:<br>  - [ ] Bridge (default)<br>  - [ ] Host<br>  - [ ] Overlay (für Swarm)<br>- [ ] Container-zu-Container Kommunikation<br>- [ ] Port-Mapping: `-p 8080:80`<br><br>### Phase 4: Docker Compose (Tag 9-11)<br>- [ ] docker-compose.yml schreiben<br>- [ ] Services definieren (Web, DB, Cache)<br>- [ ] Environment Variables<br>- [ ] Volumes in Compose<br>- [ ] Networks in Compose<br>- [ ] Example Stack:<br>  ```yaml<br>  version: '3'<br>  services:<br>    web:<br>      build: .<br>      ports:<br>        - "8080:5000"<br>      environment:<br>        - DB_HOST=db<br>    db:<br>      image: postgres:13<br>      environment:<br>        - POSTGRES_PASSWORD=secret<br>      volumes:<br>        - db_data:/var/lib/postgresql/data<br>  volumes:<br>    db_data:<br>  ```<br>- [ ] `docker-compose up/down`<br>- [ ] Logs aggregieren: `docker-compose logs`<br>- [ ] Services skalieren: `docker-compose up --scale web=3`<br><br>### Phase 5: Docker Registry & Security (Tag 12-13)<br>- [ ] Docker Hub Account erstellen<br>- [ ] Images pushen: `docker push username/image:tag`<br>- [ ] Private Registry (optional: Registry Helm Chart)<br>- [ ] Image Security:<br>  - [ ] Minimal Base Images<br>  - [ ] Non-root User in Container<br>  - [ ] Image Scanning (Trivy)<br>  - [ ] Secrets Management<br>- [ ] Docker Security Best Practices<br><br>### Phase 6: Kubernetes Grundlagen mit Microk8s (Tag 14-16)<br>- [ ] Microk8s installieren: `snap install microk8s --classic`<br>- [ ] Kubernetes Architektur verstehen (Master, Nodes, Pods)<br>- [ ] Pod YAML schreiben:<br>  ```yaml<br>  apiVersion: v1<br>  kind: Pod<br>  metadata:<br>    name: myapp<br>  spec:<br>    containers:<br>    - name: app<br>      image: myapp:1.0<br>      ports:<br>      - containerPort: 5000<br>  ```<br>- [ ] Deployments erstellen (für Pod-Replicas)<br>- [ ] Services exposieren (ClusterIP, NodePort, LoadBalancer)<br>- [ ] kubectl Befehle:<br>  ```bash<br>  kubectl apply -f deployment.yaml<br>  kubectl get pods, kubectl logs, kubectl describe<br>  kubectl scale deployment myapp --replicas=3<br>  ```<br>- [ ] Persistent Volumes in K8s<br><br>### Phase 7: Praxisprojekt: Microservices (Tag 17-20)<br>- [ ] 3-4 Microservices entwickeln:<br>  - [ ] Frontend (Nginx/HTML)<br>  - [ ] API Service (Python/Node)<br>  - [ ] Database (Postgres)<br>  - [ ] Cache (Redis)<br>- [ ] Dockerfiles für jeden Service<br>- [ ] docker-compose.yml für Development<br>- [ ] Kubernetes Manifests für Production<br>- [ ] Service-Discovery<br>- [ ] Health-Checks und Restarts
-            </div>
+<h3>Phase 1: Benutzer-Management (Tag 1-3)</h3>
+<ul>
+<li class="unchecked">Systembenutzer verstehen (root, www-data, etc.)</li>
+<li class="unchecked">Neue Benutzer erstellen:</li>
+</ul>
+<pre><code class="language-bash">sudo useradd -m -s /bin/bash alice
+sudo passwd alice</code></pre>
+<ul>
+<li class="unchecked">Benutzer-Eigenschaften ändern:</li>
+<li class="unchecked">Home-Directory wechseln</li>
+<li class="unchecked">Shell ändern</li>
+<li class="unchecked">GECOS-Info ändern</li>
+<li class="unchecked">Benutzer löschen und archivieren</li>
+<li class="unchecked"><code>/etc/passwd</code> und <code>/etc/shadow</code> verstehen</li>
+<li class="unchecked">Benutzer-Limits setzen (<code>ulimit</code>)</li>
+</ul>
+
+<h3>Phase 2: Gruppen-Management (Tag 4-5)</h3>
+<ul>
+<li class="unchecked">Standard- und Zusatzgruppen verstehen</li>
+<li class="unchecked">Gruppen erstellen: <code>sudo groupadd developers</code></li>
+<li class="unchecked">Benutzer zu Gruppen hinzufügen: <code>sudo usermod -aG developers alice</code></li>
+<li class="unchecked">Gruppenmitgliedschaft verwalten</li>
+<li class="unchecked">Gruppen-Eigenschaften ändern</li>
+<li class="unchecked"><code>/etc/group</code> und <code>/etc/gshadow</code> analysieren</li>
+</ul>
+
+<h3>Phase 3: Dateiberechtigungen - Grundlagen (Tag 6-7)</h3>
+<ul>
+<li class="unchecked">Oktalzahlen verstehen (755, 644, 700)</li>
+<li class="unchecked">Kategorien kennen: User, Group, Others</li>
+<li class="unchecked">Berechtigungen auf Dateien setzen:</li>
+</ul>
+<pre><code class="language-bash">chmod 644 document.txt  # rw-r--r--
+chmod 755 script.sh     # rwxr-xr-x
+chmod 700 secrets       # rwx------</code></pre>
+<ul>
+<li class="unchecked">Rekursive Änderungen: <code>chmod -R 755 /var/www</code></li>
+<li class="unchecked">Berechtigungen für Verzeichnisse vs. Dateien</li>
+</ul>
+
+<h3>Phase 4: Ownership (Tag 8)</h3>
+<ul>
+<li class="unchecked">Dateien-Owner wechseln: <code>chown alice file.txt</code></li>
+<li class="unchecked">Gruppen-Owner wechseln: <code>chown :developers file.txt</code></li>
+<li class="unchecked">Kombinierte Änderungen: <code>chown alice:developers file.txt</code></li>
+<li class="unchecked">Rekursive Ownership-Änderungen</li>
+<li class="unchecked">Umask verstehen und setzen (Standard Berechtigungen)</li>
+</ul>
+
+<h3>Phase 5: Sudo-Konfiguration (Tag 9-10)</h3>
+<ul>
+<li class="unchecked"><code>/etc/sudoers</code> sicher bearbeiten: <code>sudo visudo</code></li>
+<li class="unchecked">Verschiedene Sudo-Szenarien konfigurieren:</li>
+<li class="unchecked">Spezifische Benutzer Befehle erlauben</li>
+<li class="unchecked">Passwort-freie Befehle</li>
+<li class="unchecked">Befehl-Aliase</li>
+<li class="unchecked">Gruppen-basierte Regeln</li>
+<li class="unchecked">Sudo-Logging überprüfen</li>
+<li class="unchecked">Beispiele:</li>
+</ul>
+<pre><code>alice ALL=(ALL) /usr/bin/apt
+%developers ALL=(ALL) NOPASSWD: /usr/bin/systemctl</code></pre>
+
+<h3>Phase 6: ACLs (Access Control Lists) (Tag 11)</h3>
+<ul>
+<li class="unchecked">ACLs aktivieren auf Dateisystem</li>
+<li class="unchecked">Erweiterte Rechte setzen: <code>setfacl</code></li>
+</ul>
+<pre><code class="language-bash">setfacl -m u:alice:rwx /shared/
+setfacl -m g:developers:rx /data/</code></pre>
+<ul>
+<li class="unchecked">ACLs auslesen: <code>getfacl /path/</code></li>
+<li class="unchecked">Default-ACLs für neue Dateien</li>
+<li class="unchecked">Praxisbeispiel: Shared Project Folder</li>
+</ul>
+
+<h3>Phase 7: Passwort-Policies (Tag 12)</h3>
+<ul>
+<li class="unchecked">PAM konfigurieren (<code>/etc/pam.d/</code>)</li>
+<li class="unchecked">Passwort-Komplexität erzwingen</li>
+<li class="unchecked">Ablaufdaten setzen: <code>chage</code></li>
+<li class="unchecked">Locked-out Benutzer entsperren</li>
+<li class="unchecked">Login-Versuche limitieren (fail2ban Integration)</li>
+</ul>
+</div>
         </section>
 
         <!-- Ressourcen -->
         <section class="section">
             <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
             <div class="content-box">
-                & Dokumentation<br><br>### Wichtige Dateien<br>- `Dockerfile` - Container Definition<br>- `docker-compose.yml` - Multi-Container Definition<br>- `k8s-deployment.yaml` - Kubernetes Deployment<br>- `.dockerignore` - Files ausschließen vom Build<br><br>### Wichtige Befehle<br>```bash<br># Docker<br>docker build -t image:tag .<br>docker run -d --name container image:tag<br>docker ps, docker logs, docker exec<br>docker volume create, docker network create<br><br># Docker Compose<br>docker-compose up -d<br>docker-compose down<br>docker-compose logs -f<br><br># Kubernetes<br>kubectl create deployment myapp --image=myapp:1.0<br>kubectl expose deployment myapp --port=80 --type=NodePort<br>kubectl scale deployment myapp --replicas=3<br>kubectl get all<br>```
-            </div>
+& Dokumentation
+
+<h3>Befehle Referenz</h3>
+<ul>
+<li><code>useradd</code>, <code>usermod</code>, <code>userdel</code> - User Management</li>
+<li><code>groupadd</code>, <code>groupmod</code>, <code>groupdel</code> - Group Management</li>
+<li><code>chmod</code>, <code>chown</code> - Berechtigungen</li>
+<li><code>setfacl</code>, <code>getfacl</code> - ACL Management</li>
+<li><code>visudo</code> - Sudo Config (SICHER!)</li>
+<li><code>chage</code>, <code>passwd</code> - Passwort Management</li>
+<li><code>id</code>, <code>groups</code> - Aktuelle Berechtigungen</li>
+</ul>
+
+<h3>Wichtige Dateien</h3>
+<ul>
+<li><code>/etc/passwd</code> - Benutzer-Datenbank</li>
+<li><code>/etc/shadow</code> - Passwort-Hashes (nur root)</li>
+<li><code>/etc/group</code> - Gruppen-Datenbank</li>
+<li><code>/etc/sudoers</code> - Sudo-Regeln (immer mit visudo bearbeiten!)</li>
+<li><code>/var/log/auth.log</code> - Login-Logs</li>
+</ul>
+</div>
         </section>
 
         <!-- Deliverables -->
         <section class="section">
             <h2 class="section-title">📋 Deliverables</h2>
             <div class="content-box">
-                1. **Dockerfiles:** Für jede Anwendung<br>2. **docker-compose.yml:** Vollständiger Stack<br>3. **Kubernetes Manifests:** Deployments, Services<br>4. **Security Audit:** Image Security Report<br>5. **Betriebshandbuch:** Wie man Apps deployt, scaled, updatet
-            </div>
+<ol>
+<li><strong>Dokumentation:</strong> Schrittweise Anleitung aller Operationen</li>
+<li><strong>Scripts:</strong> Automatisierungs-Skripte (User-Creation in Bulk)</li>
+<li><strong>Audit-Bericht:</strong> Sicherheitsanalyse eines bestehenden Systems</li>
+<li><strong>Checklisten:</strong> Best-Practices Checkliste für File-Permissions</li>
+</ol>
+</div>
         </section>
 
-        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+        <a href="../skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
 
         <footer>
-            <p>Projekt 08: Docker & Container-Orchestration | Skill Tree Umschüler-Projekte</p>
+            <p>Projekt 02: Linux Benutzerverwaltung | Skill Tree Umschüler-Projekte</p>
             <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
         </footer>
     </div>
     <script>
         // Initialize task checkboxes
         function initializeTaskCheckboxes() {
-            const projectId = 'projekt-08';
+            const projectId = 'projekt-02';
             const checkedTasks = JSON.parse(localStorage.getItem(`${projectId}-tasks`) || '{}');
 
             document.querySelectorAll('li.unchecked, li.checked').forEach((li, index) => {

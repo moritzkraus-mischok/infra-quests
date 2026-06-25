@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt 01: Ubuntu Server Setup & Hardening</title>
+    <title>Projekt 03: Netzwerk-Grundlagen mit Linux</title>
     <style>
         * {
             margin: 0;
@@ -295,8 +295,8 @@
 
     <div class="container">
         <header>
-            <h1>⚡ UBUNTU SERVER SETUP & HARDENING</h1>
-            <div class="subtitle">PROJEKT 01 • SYSTEMADMINISTRATION</div>
+            <h1>🌐 NETZWERK-GRUNDLAGEN MIT LINUX</h1>
+            <div class="subtitle">PROJEKT 03 • SYSTEMADMINISTRATION</div>
 
             <div class="project-info">
                 <div class="info-card">
@@ -314,62 +314,212 @@
         <section class="section">
             <h2 class="section-title">📋 Projektbeschreibung</h2>
             <div class="content-box">
-                Installation und Konfiguration eines sicheren Ubuntu Server-Systems von Grund auf. Dieses Projekt vermittelt die Fundamentals der Linux-Systemadministration und Best Practices für Server-Sicherheit.
-            </div>
+Praktische Netzwerk-Administration unter Linux. Von Konfiguration bis zum Troubleshooting - ein essentielles Skill für jeden Systemintegrator.
+</div>
         </section>
 
         <!-- Lernziele -->
         <section class="section">
             <h2 class="section-title">🎯 Lernziele</h2>
             <div class="content-box">
-                - Sichere Installation und Partitionierung von Ubuntu Server<br>- Grundlegende Systemkonfiguration und Bootloader-Management<br>- SSH-Zugriff konfigurieren und absichern<br>- Firewall-Regeln mit UFW verstehen und anwenden<br>- Software-Updates und Patch-Management durchführen<br>- Automatisierte Backups mit rsync einrichten
-            </div>
+<ul>
+<li>Netzwerk-Interfaces konfigurieren (Netplan, ethtool)</li>
+<li>Statische und dynamische IP-Adressierung</li>
+<li>DNS-Auflösung verstehen und konfigurieren</li>
+<li>Netzwerk-Troubleshooting (ping, traceroute, netstat, ss)</li>
+<li>Routing und Gateway-Konfiguration</li>
+<li>Netzwerk-Monitoring und Diagnostik</li>
+</ul>
+</div>
         </section>
 
         <!-- Anforderungen -->
         <section class="section">
             <h2 class="section-title">🔧 Anforderungen</h2>
             <div class="content-box">
-                - VirtualBox/KVM VM oder physischer Server<br>- Ubuntu Server 22.04 LTS oder aktueller<br>- Mind. 20GB Speicher<br>- Internetzugang<br>- Texteditor (nano, vim)
-            </div>
+<ul>
+<li>Ubuntu Server 22.04 LTS</li>
+<li>Mindestens 2 VMs für Netzwerk-Tests</li>
+<li>Grundverständnis: IPv4, DHCP, DNS</li>
+<li>Netzwerk-Lab-Setup (Virtual Bridge)</li>
+</ul>
+</div>
         </section>
 
         <!-- Aufgaben -->
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-                ### Phase 1: Installation (Tag 1-2)<br>- [ ] Ubuntu Server ISO herunterladen<br>- [ ] VM/Server erstellen mit verschiedenen Partitionierungsoptionen testen<br>  - [ ] Standard LVM<br>  - [ ] Custom Partitionierung<br>- [ ] Systemsprache, Tastaturlayout, Zeitzone konfigurieren<br>- [ ] Netzwerk-Einstellungen vornehmen<br>- [ ] Software-Auswahl (SSH-Server, build-essential)<br><br>### Phase 2: Initiale Konfiguration (Tag 3-4)<br>- [ ] Systemupdate durchführen: `sudo apt update && sudo apt upgrade`<br>- [ ] Hostname setzen: `/etc/hostname`, `/etc/hosts`<br>- [ ] Statische IP-Adresse konfigurieren (netplan)<br>- [ ] Sudo-Benutzer erstellen (nicht als root arbeiten)<br>- [ ] Root-Login per SSH deaktivieren<br><br>### Phase 3: SSH-Hardening (Tag 5-6)<br>- [ ] SSH-Key-Pair generieren (RSA 4096 oder Ed25519)<br>- [ ] Public Key in `~/.ssh/authorized_keys` eintragen<br>- [ ] SSH-Config anpassen:<br>  - [ ] Port ändern (z.B. 2222 statt 22)<br>  - [ ] PermitRootLogin no<br>  - [ ] PasswordAuthentication no<br>  - [ ] PubkeyAuthentication yes<br>- [ ] SSH-Dienst neu starten und testen<br><br>### Phase 4: Firewall-Setup (Tag 7-8)<br>- [ ] UFW aktivieren: `sudo ufw enable`<br>- [ ] Regeln definieren:<br>  - [ ] SSH-Port erlauben (neuer Port)<br>  - [ ] HTTP/HTTPS öffnen (falls Web-Service später)<br>  - [ ] Logging aktivieren<br>- [ ] Firewall-Status überprüfen: `sudo ufw status verbose`<br><br>### Phase 5: Updates & Backups (Tag 9-10)<br>- [ ] Automatische Updates aktivieren:<br>  ```bash<br>  sudo apt install unattended-upgrades<br>  sudo dpkg-reconfigure -plow unattended-upgrades<br>  ```<br>- [ ] Cron-Job für automatische Backups:<br>  ```bash<br>  0 2 * * * rsync -av /home/ /backup/home/ --delete<br>  ```<br>- [ ] Backup-Lösung testen (Recovery durchführen)<br><br>### Phase 6: Sicherheits-Audits (Tag 11-12)<br>- [ ] fail2ban installieren und konfigurieren<br>- [ ] Log-Datei analysieren: `/var/log/auth.log`<br>- [ ] Sicherheits-Checklist durchgehen (siehe unten)
-            </div>
+<h3>Phase 1: Netzwerk-Interface Grundlagen (Tag 1-2)</h3>
+<ul>
+<li class="unchecked">Interfaces auflisten: <code>ip link show</code>, <code>ifconfig</code></li>
+<li class="unchecked">Interface-Informationen: <code>ethtool eth0</code></li>
+<li class="unchecked">MAC-Adressen verstehen</li>
+<li class="unchecked">Interface-Status prüfen (UP, DOWN, RUNNING)</li>
+<li class="unchecked"><code>/etc/netplan/</code> Verzeichnis verstehen</li>
+</ul>
+
+<h3>Phase 2: Statische IP-Konfiguration (Tag 3-4)</h3>
+<ul>
+<li class="unchecked">Netplan YAML-Format kennenlernen</li>
+<li class="unchecked">Statische IP einrichten:</li>
+</ul>
+<pre><code class="language-yaml">network:
+version: 2
+ethernets:
+eth0:
+dhcp4: false
+addresses:
+&lt;ul&gt;
+&lt;li&gt;192.168.1.100/24&lt;/li&gt;
+&lt;/ul&gt;
+gateway4: 192.168.1.1
+nameservers:
+addresses: [8.8.8.8, 8.8.4.4]</code></pre>
+<ul>
+<li class="unchecked">Konfiguration aktivieren: <code>sudo netplan apply</code></li>
+<li class="unchecked">Persistent Einstellungen überprüfen</li>
+</ul>
+
+<h3>Phase 3: DHCP-Konfiguration (Tag 5)</h3>
+<ul>
+<li class="unchecked">DHCP aktivieren: <code>dhcp4: true</code></li>
+<li class="unchecked">DHCP-Lease prüfen: <code>dhclient -v</code></li>
+<li class="unchecked">Lease-Renewal testen</li>
+<li class="unchecked">DHCP-Fallbacks konfigurieren</li>
+</ul>
+
+<h3>Phase 4: DNS-Konfiguration (Tag 6-7)</h3>
+<ul>
+<li class="unchecked">Nameserver-Konfiguration (Netplan)</li>
+<li class="unchecked"><code>/etc/resolv.conf</code> verstehen (wird oft auto-generiert)</li>
+<li class="unchecked">DNS-Auflösung testen:</li>
+</ul>
+<pre><code class="language-bash">nslookup google.com
+dig google.com
+host google.com</code></pre>
+<ul>
+<li class="unchecked">Lokale DNS-Einträge in <code>/etc/hosts</code></li>
+<li class="unchecked">DNS-Caching mit <code>systemd-resolved</code></li>
+<li class="unchecked">Beschädigte DNS-Einträge debuggen</li>
+</ul>
+
+<h3>Phase 5: Routing & Gateway (Tag 8)</h3>
+<ul>
+<li class="unchecked">Routing-Tabelle anzeigen: <code>ip route show</code></li>
+<li class="unchecked">Default-Gateway verstehen</li>
+<li class="unchecked">Statische Routen hinzufügen:</li>
+</ul>
+<pre><code class="language-bash">sudo ip route add 10.0.0.0/8 via 192.168.1.1</code></pre>
+<ul>
+<li class="unchecked">Persistente Routen via Netplan</li>
+<li class="unchecked">Traceroute-Pfade nachverfolgern</li>
+</ul>
+
+<h3>Phase 6: Netzwerk-Troubleshooting (Tag 9-10)</h3>
+<ul>
+<li class="unchecked">Basis-Diagnose-Tools:</li>
+</ul>
+<pre><code class="language-bash">ping
+traceroute / tracepath
+mtr (My TraceRoute)
+netstat / ss</code></pre>
+<ul>
+<li class="unchecked">Verbindungstests: <code>nc</code> (netcat), <code>telnet</code></li>
+<li class="unchecked">Paket-Capture: <code>tcpdump</code></li>
+<li class="unchecked">Netzwerk-Statistiken: <code>ethtool -S eth0</code></li>
+<li class="unchecked">Häufige Probleme beheben:</li>
+<li class="unchecked">Keine Connectivity</li>
+<li class="unchecked">Langsames Netzwerk</li>
+<li class="unchecked">DNS-Probleme</li>
+<li class="unchecked">Duplikate IPs</li>
+</ul>
+
+<h3>Phase 7: Fortgeschrittene Diagnose (Tag 11-12)</h3>
+<ul>
+<li class="unchecked">ARP-Table: <code>arp -a</code>, <code>ip neigh show</code></li>
+<li class="unchecked">Socket-Status: <code>ss -tlnp</code></li>
+<li class="unchecked">Paket-Analyse mit tcpdump/Wireshark</li>
+<li class="unchecked">Netzwerk-Monitoring: <code>iftop</code>, <code>nethogs</code></li>
+<li class="unchecked">Bandbreite-Tests</li>
+</ul>
+</div>
         </section>
 
         <!-- Ressourcen -->
         <section class="section">
             <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
             <div class="content-box">
-                & Dokumentation<br><br>### Offizielle Dokumentation<br>- Ubuntu Server Guide: https://ubuntu.com/server/docs<br>- UFW Dokumentation: https://help.ubuntu.com/community/UFW<br>- SSH Best Practices: https://man7.org/linux/man-pages/man5/sshd_config.5.html<br><br>### Wichtige Konfigurationsdateien<br>- `/etc/ssh/sshd_config` - SSH Server Config<br>- `/etc/ufw/` - Firewall Rules<br>- `/etc/hostname` - Hostname<br>- `/etc/netplan/` - Netzwerk-Konfiguration<br>- `/etc/apt/apt.conf.d/50unattended-upgrades` - Auto-Updates<br><br>### Nützliche Befehle<br>```bash<br># System-Info<br>uname -a<br>lsb_release -a<br>df -h<br><br># Netzwerk<br>ip a show<br>netplan apply<br>systemctl restart networking<br><br># SSH<br>ssh -i ~/.ssh/id_ed25519 -p 2222 user@server<br>sudo systemctl restart ssh<br><br># Firewall<br>sudo ufw status numbered<br>sudo ufw allow 2222/tcp<br>```
-            </div>
+& Dokumentation
+
+<h3>Wichtige Konfigurationsdateien</h3>
+<ul>
+<li><code>/etc/netplan/*.yaml</code> - Netzwerk-Konfiguration</li>
+<li><code>/etc/resolv.conf</code> - DNS (oft auto-generiert)</li>
+<li><code>/etc/hostname</code> - Hostname</li>
+<li><code>/etc/hosts</code> - Lokale Host-Einträge</li>
+</ul>
+
+<h3>Wichtige Befehle</h3>
+<pre><code># IP/Interface
+ip link show
+ip addr show
+ip route show
+ifconfig (deprecated)
+ethtool
+
+<h1>DNS</h1>
+nslookup
+dig
+host
+systemd-resolve --status
+
+<h1>Troubleshooting</h1>
+ping
+traceroute / tracepath
+mtr
+netstat / ss
+tcpdump
+nc (netcat)
+
+<h1>Monitoring</h1>
+iftop
+nethogs
+sar</code></pre>
+
+<h3>RFC Standards</h3>
+<ul>
+<li>RFC 791: IPv4</li>
+<li>RFC 1918: Private IP Ranges</li>
+<li>RFC 1035: DNS</li>
+</ul>
+</div>
         </section>
 
         <!-- Deliverables -->
         <section class="section">
             <h2 class="section-title">📋 Deliverables</h2>
             <div class="content-box">
-                1. **Dokumentation:** Installationsanleitung mit Screenshots<br>2. **Konfigurationsdateien:** Backup der wichtigsten Config-Files<br>3. **Runbook:** Schritt-für-Schritt Wiederherstellungsanleitung<br>4. **Checklisten:** Security-Hardening Checklist
-            </div>
+<ol>
+<li><strong>Dokumentation:</strong> Netplan-Konfigurationen mit Erklärung</li>
+<li><strong>Troubleshooting-Guide:</strong> Schritt-für-Schritt Fehlersuche</li>
+<li><strong>Lab-Reports:</strong> Ergebnisse aller Netzwerk-Szenarien</li>
+<li><strong>Checkliste:</strong> Netzwerk-Diagnose Checklist</li>
+</ol>
+</div>
         </section>
 
-        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+        <a href="../skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
 
         <footer>
-            <p>Projekt 01: Ubuntu Server Setup & Hardening | Skill Tree Umschüler-Projekte</p>
+            <p>Projekt 03: Netzwerk-Grundlagen mit Linux | Skill Tree Umschüler-Projekte</p>
             <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
         </footer>
     </div>
-
     <script>
         // Initialize task checkboxes
         function initializeTaskCheckboxes() {
-            const projectId = 'projekt-01';
+            const projectId = 'projekt-03';
             const checkedTasks = JSON.parse(localStorage.getItem(`${projectId}-tasks`) || '{}');
 
             document.querySelectorAll('li.unchecked, li.checked').forEach((li, index) => {

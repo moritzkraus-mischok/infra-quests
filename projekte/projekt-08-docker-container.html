@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt 09: BIND DNS Server</title>
+    <title>Projekt 08: Docker & Container-Orchestration</title>
     <style>
         * {
             margin: 0;
@@ -295,17 +295,17 @@
 
     <div class="container">
         <header>
-            <h1>🔗 BIND DNS SERVER</h1>
-            <div class="subtitle">PROJEKT 09 • SYSTEMADMINISTRATION</div>
+            <h1>🐳 DOCKER & CONTAINER-ORCHESTRATION</h1>
+            <div class="subtitle">PROJEKT 08 • SYSTEMADMINISTRATION</div>
 
             <div class="project-info">
                 <div class="info-card">
                     <div class="info-card-label">Schwierigkeitsgrad</div>
-                    <div class="info-card-value">Fortgeschritten</div>
+                    <div class="info-card-value">Fortgeschritten → Expert</div>
                 </div>
                 <div class="info-card">
                     <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">2-3 Wochen</div>
+                    <div class="info-card-value">3-4 Wochen</div>
                 </div>
             </div>
         </header>
@@ -314,61 +314,257 @@
         <section class="section">
             <h2 class="section-title">📋 Projektbeschreibung</h2>
             <div class="content-box">
-                Aufbau und Verwaltung eines produktiven DNS-Servers. DNS ist eine kritische Infrastruktur-Komponente, die jeder Systemintegrator verstehen muss.
-            </div>
+Containerisierung von Anwendungen mit Docker und Grundlagen der Orchestration. Ein modernes, essentielles Skill für DevOps und Systemintegration.
+</div>
         </section>
 
         <!-- Lernziele -->
         <section class="section">
             <h2 class="section-title">🎯 Lernziele</h2>
             <div class="content-box">
-                - BIND9 Installation und Konfiguration<br>- Authoritative DNS Zones<br>- Zone-Dateien erstellen und pflegen<br>- DNS Records (A, AAAA, CNAME, MX, TXT, SRV)<br>- DNSSEC implementieren<br>- Recursive DNS Server<br>- DNS Logging und Monitoring<br>- Häufige DNS-Probleme beheben
-            </div>
+<ul>
+<li>Docker Installation und Grundlagen</li>
+<li>Dockerfile schreiben und Images bauen</li>
+<li>Container lifecycle verwalten</li>
+<li>Docker Volumes und Networking</li>
+<li>Docker Compose für Multi-Container Apps</li>
+<li>Kubernetes Grundlagen (Microk8s)</li>
+<li>Registry und Image Management</li>
+<li>Container Security</li>
+</ul>
+</div>
         </section>
 
         <!-- Anforderungen -->
         <section class="section">
             <h2 class="section-title">🔧 Anforderungen</h2>
             <div class="content-box">
-                - Ubuntu Server 22.04 LTS<br>- Eine Domain (kann auch Subdomain oder lokal sein)<br>- Grundverständnis: DNS-Konzepte, Netzwerk<br>- Texteditor
-            </div>
+<ul>
+<li>Ubuntu Server 22.04 LTS oder Desktop</li>
+<li>Min. 8GB RAM, 40GB Disk</li>
+<li>Docker installiert</li>
+<li>Grundverständnis: Linux, Netzwerk</li>
+</ul>
+</div>
         </section>
 
         <!-- Aufgaben -->
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-                ### Phase 1: BIND Installation & Grundlagen (Tag 1-2)<br>- [ ] BIND9 installieren: `sudo apt install bind9 bind9-utils`<br>- [ ] BIND Architektur verstehen (Authoritative, Recursive, Caching)<br>- [ ] `/etc/bind/` Verzeichnis kennenlernen<br>- [ ] `named.conf` Hauptkonfiguration verstehen<br>- [ ] BIND Service starten: `sudo systemctl start bind9`<br>- [ ] Bind-Version prüfen: `named -v`<br>- [ ] Query-Tools:<br>  ```bash<br>  nslookup<br>  dig<br>  host<br>  ```<br><br>### Phase 2: Zone-Datei erstellen (Tag 3-4)<br>- [ ] Zone-Datei Syntax verstehen<br>- [ ] Example Zone für `example.com` erstellen:<br>  ```<br>  $TTL    604800<br>  @       IN      SOA     ns1.example.com. admin.example.com. (<br>                          2024010101      ; serial<br>                          604800          ; refresh<br>                          86400           ; retry<br>                          2419200         ; expire<br>                          604800 )        ; minimum<br>  <br>            IN      NS      ns1.example.com.<br>            IN      NS      ns2.example.com.<br>  <br>  ns1       IN      A       192.168.1.10<br>  ns2       IN      A       192.168.1.11<br>  <br>  @         IN      A       192.168.1.100<br>  www       IN      A       192.168.1.100<br>  mail      IN      A       192.168.1.20<br>  <br>  @         IN      MX      10 mail.example.com.<br>  ```<br>- [ ] Verschiedene Record-Types verstehen:<br>  - [ ] A (IPv4)<br>  - [ ] AAAA (IPv6)<br>  - [ ] CNAME (Alias)<br>  - [ ] MX (Mail Exchange)<br>  - [ ] TXT (Text Records, SPF, DKIM)<br>  - [ ] SRV (Service)<br>  - [ ] NS (Name Server)<br>  - [ ] SOA (Start of Authority)<br><br>### Phase 3: BIND Zones konfigurieren (Tag 5-6)<br>- [ ] `/etc/bind/named.conf.local` editieren:<br>  ```<br>  zone "example.com" {<br>    type master;<br>    file "/etc/bind/zones/db.example.com";<br>  };<br>  ```<br>- [ ] Zone-Dateien in `/etc/bind/zones/` erstellen<br>- [ ] Zone-Syntax prüfen: `named-checkzone example.com /etc/bind/zones/db.example.com`<br>- [ ] BIND neu laden: `sudo systemctl reload bind9`<br>- [ ] Zone-Transfer testen: `dig @localhost example.com`<br><br>### Phase 4: Reverse DNS Zones (Tag 7)<br>- [ ] Reverse Zone für Subnetz erstellen (z.B. 1.168.192.in-addr.arpa)<br>- [ ] Reverse DNS Records (PTR)<br>- [ ] Zone-Datei:<br>  ```<br>  1.168.192.in-addr.arpa<br>  100 PTR www.example.com.<br>  20  PTR mail.example.com.<br>  ```<br>- [ ] Reverse Lookup testen: `nslookup 192.168.1.100`<br>- [ ] Reverse Zone in named.conf.local<br><br>### Phase 5: DNS Records in Praxis (Tag 8-9)<br>- [ ] Mail-Setup (MX Records)<br>- [ ] SPF Records für Mail-Sicherheit<br>  ```<br>  TXT: v=spf1 mx -all<br>  ```<br>- [ ] DKIM Records vorbereiten<br>- [ ] DMARC Records<br>- [ ] Wildcard Records:<br>  ```<br>  *.example.com  IN  A  192.168.1.100<br>  ```<br>- [ ] ALIAS Records (wenn supported)<br><br>### Phase 6: DNSSEC (Day 10-11)<br>- [ ] DNSSEC Konzepte verstehen (KSK, ZSK)<br>- [ ] DNSSEC aktivieren für Zone:<br>  ```bash<br>  sudo dnssec-keygen -a RSASHA256 -b 2048 -f KSK example.com<br>  sudo dnssec-keygen -a RSASHA256 -b 1024 example.com<br>  ```<br>- [ ] Zone signieren: `dnssec-signzone`<br>- [ ] DS Records für Parent-Zone generieren<br>- [ ] DNSSEC Validation testen:<br>  ```bash<br>  dig +dnssec example.com<br>  delv @localhost example.com<br>  ```<br><br>### Phase 7: Recursive DNS & Caching (Tag 12)<br>- [ ] Recursive Queries konfigurieren (falls gewünscht)<br>- [ ] Forwarders definieren:<br>  ```<br>  forwarders {<br>    8.8.8.8;<br>    8.8.4.4;<br>  };<br>  ```<br>- [ ] Caching-Parameter konfigurieren<br>- [ ] ACLs für Recursive Queries (nicht offen zur Welt!)<br><br>### Phase 8: Logging & Troubleshooting (Tag 13-14)<br>- [ ] DNS Logging aktivieren:<br>  ```<br>  logging {<br>    channel default_file {<br>      file "/var/log/named/default.log" versions 3 size 250m;<br>      severity dynamic;<br>      print-time yes;<br>    };<br>    category default { default_file; };<br>  };<br>  ```<br>- [ ] Logs analysieren: `tail -f /var/log/named/default.log`<br>- [ ] Query Logging für Debugging<br>- [ ] Häufige Probleme:<br>  - [ ] Zone Transfer fehlgeschlagen<br>  - [ ] Record nicht gefunden<br>  - [ ] Syntax Fehler in Zone-Dateien<br>  - [ ] Permission-Probleme<br><br>### Phase 9: Monitoring & Automation (Tag 15)<br>- [ ] BIND Status überwachen<br>- [ ] Automated Zone-Updates (Dynamic DNS, optional)<br>- [ ] Zone-File Backups<br>- [ ] Zone-Reload-Tests<br>- [ ] nagios/icinga Plugins für DNS Monitoring
-            </div>
+<h3>Phase 1: Docker Grundlagen (Tag 1-3)</h3>
+<ul>
+<li class="unchecked">Docker installieren: <code>sudo apt install docker.io</code></li>
+<li class="unchecked">Docker Daemon verstehen</li>
+<li class="unchecked">Container vs. Images</li>
+<li class="unchecked">Images pullen: <code>docker pull ubuntu</code></li>
+<li class="unchecked">Containers laufen lassen: <code>docker run -it ubuntu bash</code></li>
+<li class="unchecked">Container Lifecycle: create, start, stop, remove</li>
+<li class="unchecked">Docker CLI Befehle:</li>
+</ul>
+<pre><code class="language-bash">docker ps, docker images, docker logs
+docker exec, docker inspect, docker stats</code></pre>
+<ul>
+<li class="unchecked">Container-Ressourcen limitieren (CPU, Memory)</li>
+</ul>
+
+<h3>Phase 2: Dockerfile schreiben (Tag 4-6)</h3>
+<ul>
+<li class="unchecked">Dockerfile Syntax verstehen</li>
+<li class="unchecked">Base Images wählen</li>
+<li class="unchecked">Application in Container packen</li>
+<li class="unchecked">Multi-Stage Builds</li>
+<li class="unchecked">Layer Caching verstehen</li>
+<li class="unchecked">Beispiel: Python Flask App in Docker</li>
+</ul>
+<pre><code class="language-dockerfile">FROM python:3.9-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+CMD ["python", "app.py"]</code></pre>
+<ul>
+<li class="unchecked">Image bauen: <code>docker build -t myapp:1.0 .</code></li>
+<li class="unchecked">Image optimieren (Größe reduzieren)</li>
+<li class="unchecked">Best Practices (Non-root user, .dockerignore)</li>
+</ul>
+
+<h3>Phase 3: Docker Volumes & Networking (Tag 7-8)</h3>
+<ul>
+<li class="unchecked">Volumes erstellen und mounten:</li>
+</ul>
+<pre><code class="language-bash">docker volume create mydata
+docker run -v mydata:/data ubuntu</code></pre>
+<ul>
+<li class="unchecked">Bind Mounts für Development</li>
+<li class="unchecked">Volume-Typen verstehen (named, anonymous, bind)</li>
+<li class="unchecked">Docker Networks:</li>
+<li class="unchecked">Bridge (default)</li>
+<li class="unchecked">Host</li>
+<li class="unchecked">Overlay (für Swarm)</li>
+<li class="unchecked">Container-zu-Container Kommunikation</li>
+<li class="unchecked">Port-Mapping: <code>-p 8080:80</code></li>
+</ul>
+
+<h3>Phase 4: Docker Compose (Tag 9-11)</h3>
+<ul>
+<li class="unchecked">docker-compose.yml schreiben</li>
+<li class="unchecked">Services definieren (Web, DB, Cache)</li>
+<li class="unchecked">Environment Variables</li>
+<li class="unchecked">Volumes in Compose</li>
+<li class="unchecked">Networks in Compose</li>
+<li class="unchecked">Example Stack:</li>
+</ul>
+<pre><code class="language-yaml">version: '3'
+services:
+web:
+build: .
+ports:
+&lt;ul&gt;
+&lt;li&gt;"8080:5000"&lt;/li&gt;
+&lt;/ul&gt;
+environment:
+&lt;ul&gt;
+&lt;li&gt;DB_HOST=db&lt;/li&gt;
+&lt;/ul&gt;
+db:
+image: postgres:13
+environment:
+&lt;ul&gt;
+&lt;li&gt;POSTGRES_PASSWORD=secret&lt;/li&gt;
+&lt;/ul&gt;
+volumes:
+&lt;ul&gt;
+&lt;li&gt;db_data:/var/lib/postgresql/data&lt;/li&gt;
+&lt;/ul&gt;
+volumes:
+db_data:</code></pre>
+<ul>
+<li class="unchecked"><code>docker-compose up/down</code></li>
+<li class="unchecked">Logs aggregieren: <code>docker-compose logs</code></li>
+<li class="unchecked">Services skalieren: <code>docker-compose up --scale web=3</code></li>
+</ul>
+
+<h3>Phase 5: Docker Registry & Security (Tag 12-13)</h3>
+<ul>
+<li class="unchecked">Docker Hub Account erstellen</li>
+<li class="unchecked">Images pushen: <code>docker push username/image:tag</code></li>
+<li class="unchecked">Private Registry (optional: Registry Helm Chart)</li>
+<li class="unchecked">Image Security:</li>
+<li class="unchecked">Minimal Base Images</li>
+<li class="unchecked">Non-root User in Container</li>
+<li class="unchecked">Image Scanning (Trivy)</li>
+<li class="unchecked">Secrets Management</li>
+<li class="unchecked">Docker Security Best Practices</li>
+</ul>
+
+<h3>Phase 6: Kubernetes Grundlagen mit Microk8s (Tag 14-16)</h3>
+<ul>
+<li class="unchecked">Microk8s installieren: <code>snap install microk8s --classic</code></li>
+<li class="unchecked">Kubernetes Architektur verstehen (Master, Nodes, Pods)</li>
+<li class="unchecked">Pod YAML schreiben:</li>
+</ul>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Pod
+metadata:
+name: myapp
+spec:
+containers:
+&lt;ul&gt;
+&lt;li&gt;name: app&lt;/li&gt;
+&lt;/ul&gt;
+image: myapp:1.0
+ports:
+&lt;ul&gt;
+&lt;li&gt;containerPort: 5000&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<ul>
+<li class="unchecked">Deployments erstellen (für Pod-Replicas)</li>
+<li class="unchecked">Services exposieren (ClusterIP, NodePort, LoadBalancer)</li>
+<li class="unchecked">kubectl Befehle:</li>
+</ul>
+<pre><code class="language-bash">kubectl apply -f deployment.yaml
+kubectl get pods, kubectl logs, kubectl describe
+kubectl scale deployment myapp --replicas=3</code></pre>
+<ul>
+<li class="unchecked">Persistent Volumes in K8s</li>
+</ul>
+
+<h3>Phase 7: Praxisprojekt: Microservices (Tag 17-20)</h3>
+<ul>
+<li class="unchecked">3-4 Microservices entwickeln:</li>
+<li class="unchecked">Frontend (Nginx/HTML)</li>
+<li class="unchecked">API Service (Python/Node)</li>
+<li class="unchecked">Database (Postgres)</li>
+<li class="unchecked">Cache (Redis)</li>
+<li class="unchecked">Dockerfiles für jeden Service</li>
+<li class="unchecked">docker-compose.yml für Development</li>
+<li class="unchecked">Kubernetes Manifests für Production</li>
+<li class="unchecked">Service-Discovery</li>
+<li class="unchecked">Health-Checks und Restarts</li>
+</ul>
+</div>
         </section>
 
         <!-- Ressourcen -->
         <section class="section">
             <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
             <div class="content-box">
-                & Dokumentation<br><br>### Wichtige Dateien<br>- `/etc/bind/named.conf` - Main Configuration<br>- `/etc/bind/named.conf.local` - Local Zone Definitions<br>- `/etc/bind/zones/db.example.com` - Zone Database Files<br>- `/var/log/named/` - Logs<br><br>### Wichtige Befehle<br>```bash<br># Configuration Check<br>named-checkconf /etc/bind/named.conf<br>named-checkzone example.com /etc/bind/zones/db.example.com<br><br># Service Control<br>sudo systemctl restart bind9<br>sudo systemctl reload bind9<br><br># Query Tools<br>nslookup example.com @127.0.0.1<br>dig example.com @127.0.0.1<br>host example.com 127.0.0.1<br><br># Zone Transfer<br>dig @ns1.example.com example.com axfr<br><br># DNSSEC<br>dnssec-keygen -a RSASHA256 -b 2048 -f KSK example.com<br>dnssec-signzone -o example.com -k Kexample.com.+008+12345.key db.example.com<br>```
-            </div>
+& Dokumentation
+
+<h3>Wichtige Dateien</h3>
+<ul>
+<li><code>Dockerfile</code> - Container Definition</li>
+<li><code>docker-compose.yml</code> - Multi-Container Definition</li>
+<li><code>k8s-deployment.yaml</code> - Kubernetes Deployment</li>
+<li><code>.dockerignore</code> - Files ausschließen vom Build</li>
+</ul>
+
+<h3>Wichtige Befehle</h3>
+<pre><code># Docker
+docker build -t image:tag .
+docker run -d --name container image:tag
+docker ps, docker logs, docker exec
+docker volume create, docker network create
+
+<h1>Docker Compose</h1>
+docker-compose up -d
+docker-compose down
+docker-compose logs -f
+
+<h1>Kubernetes</h1>
+kubectl create deployment myapp --image=myapp:1.0
+kubectl expose deployment myapp --port=80 --type=NodePort
+kubectl scale deployment myapp --replicas=3
+kubectl get all</code></pre>
+</div>
         </section>
 
         <!-- Deliverables -->
         <section class="section">
             <h2 class="section-title">📋 Deliverables</h2>
             <div class="content-box">
-                1. **Zone-Dateien:** Vollständig konfigurierte Zones<br>2. **named.conf:** Dokumentierte BIND-Konfiguration<br>3. **DNSSEC Setup:** Signings Keys und DS Records<br>4. **Troubleshooting-Guide:** Häufige Fehler und Lösungen<br>5. **Betriebshandbuch:** Zone-Management Prozeduren
-            </div>
+<ol>
+<li><strong>Dockerfiles:</strong> Für jede Anwendung</li>
+<li><strong>docker-compose.yml:</strong> Vollständiger Stack</li>
+<li><strong>Kubernetes Manifests:</strong> Deployments, Services</li>
+<li><strong>Security Audit:</strong> Image Security Report</li>
+<li><strong>Betriebshandbuch:</strong> Wie man Apps deployt, scaled, updatet</li>
+</ol>
+</div>
         </section>
 
-        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+        <a href="../skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
 
         <footer>
-            <p>Projekt 09: BIND DNS Server | Skill Tree Umschüler-Projekte</p>
+            <p>Projekt 08: Docker & Container-Orchestration | Skill Tree Umschüler-Projekte</p>
             <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
         </footer>
     </div>
     <script>
         // Initialize task checkboxes
         function initializeTaskCheckboxes() {
-            const projectId = 'projekt-09';
+            const projectId = 'projekt-08';
             const checkedTasks = JSON.parse(localStorage.getItem(`${projectId}-tasks`) || '{}');
 
             document.querySelectorAll('li.unchecked, li.checked').forEach((li, index) => {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt 04: LAMP/LEMP Stack Deployment</title>
+    <title>Projekt 11: FreeIPA / Samba AD - Enterprise Identity Management</title>
     <style>
         * {
             margin: 0;
@@ -295,17 +295,17 @@
 
     <div class="container">
         <header>
-            <h1>🚀 LAMP/LEMP STACK DEPLOYMENT</h1>
-            <div class="subtitle">PROJEKT 04 • SYSTEMADMINISTRATION</div>
+            <h1>🏢 FREEIPA / SAMBA AD - ENTERPRISE IDENTITY MANAGEMENT</h1>
+            <div class="subtitle">PROJEKT 11 • SYSTEMADMINISTRATION</div>
 
             <div class="project-info">
                 <div class="info-card">
                     <div class="info-card-label">Schwierigkeitsgrad</div>
-                    <div class="info-card-value">Fortgeschritten</div>
+                    <div class="info-card-value">Fortgeschritten → Expert</div>
                 </div>
                 <div class="info-card">
                     <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">2-3 Wochen</div>
+                    <div class="info-card-value">3-4 Wochen</div>
                 </div>
             </div>
         </header>
@@ -314,61 +314,246 @@
         <section class="section">
             <h2 class="section-title">📋 Projektbeschreibung</h2>
             <div class="content-box">
-                Aufbau eines produktionsreifen Web-Application Stacks. LAMP (Linux, Apache, MySQL, PHP) oder LEMP (Linux, Nginx, MySQL, PHP) sind Standard-Architekturen für Web-Services.
-            </div>
+Zentralisierte Benutzer- und Authentifizierungsverwaltung für Unix/Linux Netzwerke. Alternative zu Microsoft Active Directory mit Open Source Tools.
+</div>
         </section>
 
         <!-- Lernziele -->
         <section class="section">
             <h2 class="section-title">🎯 Lernziele</h2>
             <div class="content-box">
-                - Apache oder Nginx Installation und Konfiguration<br>- MySQL/MariaDB Datenbankserver einrichten<br>- PHP-Umgebung konfigurieren<br>- Virtual Hosts / Server Blocks verstehen<br>- SSL/TLS mit Let's Encrypt<br>- Web-Anwendungen deployen (z.B. WordPress, Nextcloud)<br>- Performance-Optimierung
-            </div>
+<ul>
+<li>FreeIPA Grundlagen und Setup</li>
+<li>LDAP Directory Service</li>
+<li>Kerberos Authentication</li>
+<li>Zentrale Benutzer-Verwaltung</li>
+<li>Samba AD (Samba Active Directory) als AD-Alternative</li>
+<li>Berechtigungen und Policies</li>
+<li>Integration mit Clients</li>
+<li>Häufige Probleme beheben</li>
+</ul>
+</div>
         </section>
 
         <!-- Anforderungen -->
         <section class="section">
             <h2 class="section-title">🔧 Anforderungen</h2>
             <div class="content-box">
-                - Ubuntu Server 22.04 LTS<br>- Grundverständnis: HTTP, DNS, Netzwerk<br>- Texteditor (nano, vim)<br>- Domain oder Subdomain (oder lokal testen)<br>- Mindestens 2GB RAM, 20GB Disk
-            </div>
+<ul>
+<li>Ubuntu Server 22.04 LTS oder CentOS (FreeIPA auf RHEL besser)</li>
+<li>Min. 4GB RAM, 20GB Disk für FreeIPA Server</li>
+<li>Client-VMs für Joining zum Verzeichnis</li>
+<li>Grundverständnis: LDAP, Kerberos, Active Directory Konzepte</li>
+</ul>
+</div>
         </section>
 
         <!-- Aufgaben -->
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-                ### Phase 1: Apache Webserver (LAMP) oder Nginx (LEMP) (Tag 1-3)<br>**Wähle eine Variante:**<br><br>#### Option A: Apache (LAMP)<br>- [ ] Apache installieren: `sudo apt install apache2`<br>- [ ] Module aktivieren:<br>  ```bash<br>  sudo a2enmod rewrite<br>  sudo a2enmod ssl<br>  sudo a2enmod proxy<br>  ```<br>- [ ] Virtual Hosts konfigurieren in `/etc/apache2/sites-available/`<br>- [ ] `.htaccess` verstehen und nutzen<br>- [ ] Apache-Syntax prüfen: `apache2ctl configtest`<br><br>#### Option B: Nginx (LEMP)<br>- [ ] Nginx installieren: `sudo apt install nginx`<br>- [ ] Server-Blocks in `/etc/nginx/sites-available/` erstellen<br>- [ ] Nginx-Syntax prüfen: `sudo nginx -t`<br>- [ ] Performance-Tuning (Worker, Caching)<br><br>### Phase 2: MySQL/MariaDB Setup (Tag 4-5)<br>- [ ] Installation: `sudo apt install mysql-server` oder `mariadb-server`<br>- [ ] Initial-Setup: `sudo mysql_secure_installation`<br>  - [ ] Root-Passwort setzen<br>  - [ ] Anonyme User löschen<br>  - [ ] Remote Root-Login deaktivieren<br>  - [ ] Test-Datenbanken löschen<br>- [ ] Datenbank und User erstellen:<br>  ```sql<br>  CREATE DATABASE myapp;<br>  CREATE USER 'appuser'@'localhost' IDENTIFIED BY 'secure_password';<br>  GRANT ALL PRIVILEGES ON myapp.* TO 'appuser'@'localhost';<br>  FLUSH PRIVILEGES;<br>  ```<br>- [ ] Backup-Strategie (mysqldump, Automation)<br><br>### Phase 3: PHP-Umgebung (Tag 6-7)<br>- [ ] PHP installieren: `sudo apt install php php-mysql php-fpm`<br>- [ ] PHP-Module für Anwendungen:<br>  ```bash<br>  sudo apt install php-curl php-gd php-mbstring php-xml php-zip<br>  ```<br>- [ ] PHP-Konfiguration prüfen: `phpinfo();`<br>- [ ] Dateirechte: `/var/www/html/` mit `www-data` user<br>- [ ] Upload-Limits einstellen in `php.ini`<br><br>### Phase 4: Virtual Hosts / Server Blocks (Tag 8-9)<br>- [ ] Domain 1 (z.B. example.com) konfigurieren<br>- [ ] Domain 2 (z.B. app.example.com) konfigurieren<br>- [ ] Jede Domain mit eigenem Dokumenten-Verzeichnis<br>- [ ] Test mit `/var/www/domain1/index.html`<br>- [ ] DNS für lokale Tests in `/etc/hosts` eintragen<br><br>### Phase 5: SSL/TLS mit Let's Encrypt (Tag 10-11)<br>- [ ] Certbot installieren: `sudo apt install certbot python3-certbot-apache` (oder nginx)<br>- [ ] Zertifikat generieren:<br>  ```bash<br>  sudo certbot certonly --standalone -d example.com -d www.example.com<br>  ```<br>- [ ] Apache/Nginx für HTTPS konfigurieren<br>- [ ] Auto-Renewal testen: `sudo certbot renew --dry-run`<br>- [ ] HTTP → HTTPS Redirect<br>- [ ] HSTS Header hinzufügen<br><br>### Phase 6: Web-Anwendung Deployment (Tag 12-14)<br>**Wähle eine Anwendung:**<br><br>#### Option A: WordPress<br>- [ ] WordPress herunterladen<br>- [ ] wp-config.php konfigurieren<br>- [ ] Installation durchführen<br>- [ ] Themes und Plugins installieren<br>- [ ] Permalink-Struktur konfigurieren<br><br>#### Option B: Nextcloud<br>- [ ] Nextcloud herunterladen<br>- [ ] Datenbank-Setup<br>- [ ] Installation durchführen<br>- [ ] Storage-Konfiguration<br><br>#### Option C: Simple PHP-App selbst bauen<br>- [ ] CRUD-Anwendung schreiben (z.B. Todo-Liste)<br>- [ ] MySQL-Integration<br>- [ ] Formular-Verarbeitung<br>- [ ] Datei-Upload<br><br>### Phase 7: Performance & Sicherheit (Tag 15)<br>- [ ] Caching aktivieren (Browser, Server)<br>- [ ] Gzip-Kompression<br>- [ ] Database-Indizes<br>- [ ] Security-Header (X-Frame-Options, CSP)<br>- [ ] Log-Analyse und Monitoring
-            </div>
+<h3>Phase 1: FreeIPA Installation & Setup (Tag 1-3)</h3>
+<ul>
+<li class="unchecked">Voraussetzungen prüfen (DNS, Hostname)</li>
+<li class="unchecked">FreeIPA installieren: <code>sudo apt install freeipa-server freeipa-server-trust-ad</code></li>
+<li class="unchecked">Installation durchführen: <code>sudo ipa-server-install</code></li>
+</ul>
+<pre><code>Realm: EXAMPLE.COM
+Directory Manager password: (starkes Passwort)
+IPA admin password: (starkes Passwort)</code></pre>
+<ul>
+<li class="unchecked">Installation verifizieren</li>
+<li class="unchecked">IPA Web UI zugreifen (https://ipa.example.com)</li>
+<li class="unchecked">LDAP-Backend verstehen</li>
+<li class="unchecked">Kerberos KDC konfiguriert</li>
+</ul>
+
+<h3>Phase 2: FreeIPA Benutzer & Gruppen (Tag 4-5)</h3>
+<ul>
+<li class="unchecked">Admin-Benutzer kennenlernen</li>
+<li class="unchecked">Neue Benutzer erstellen:</li>
+</ul>
+<pre><code class="language-bash">ipa user-add alice --first=Alice --last=Smith --email=alice@example.com
+ipa user-add bob --first=Bob --last=Jones</code></pre>
+<ul>
+<li class="unchecked">Benutzer-Passwörter setzen</li>
+<li class="unchecked">Benutzer deaktivieren/aktivieren</li>
+<li class="unchecked">Gruppen erstellen:</li>
+</ul>
+<pre><code class="language-bash">ipa group-add developers --desc="Development Team"
+ipa group-add-member developers --users=alice,bob</code></pre>
+<ul>
+<li class="unchecked">Nested Groups</li>
+<li class="unchecked">Benutzer-Policies (Passwort-Ablauf, etc.)</li>
+</ul>
+
+<h3>Phase 3: LDAP & Kerberos Verständnis (Tag 6-7)</h3>
+<ul>
+<li class="unchecked">LDAP Directory-Struktur verstehen</li>
+<li class="unchecked">LDAP Queries durchführen:</li>
+</ul>
+<pre><code class="language-bash">ldapsearch -H ldap://ipa.example.com -x -b "dc=example,dc=com"</code></pre>
+<ul>
+<li class="unchecked">Kerberos Tickets anzeigen: <code>klist</code></li>
+<li class="unchecked">TGT (Ticket Granting Ticket) verstehen</li>
+<li class="unchecked">Kinit für Authentifizierung:</li>
+</ul>
+<pre><code class="language-bash">kinit alice@EXAMPLE.COM</code></pre>
+<ul>
+<li class="unchecked">Kerberos Service Principals</li>
+<li class="unchecked">Cross-Realm Trust (optional)</li>
+</ul>
+
+<h3>Phase 4: Linux Clients zu FreeIPA joinen (Tag 8-9)</h3>
+<ul>
+<li class="unchecked">FreeIPA Client-Tools installieren</li>
+<li class="unchecked">Client zu FreeIPA Domain joinen:</li>
+</ul>
+<pre><code class="language-bash">sudo apt install freeipa-client
+sudo ipa-client-install --domain=example.com --realm=EXAMPLE.COM --mkhomedir</code></pre>
+<ul>
+<li class="unchecked">Nss-ldap für Benutzer-Auflösung</li>
+<li class="unchecked">PAM für Login-Authentifizierung</li>
+<li class="unchecked">Auto Home Directory Erstellung bei Login</li>
+<li class="unchecked">SSSD (System Security Services Daemon) Konfiguration</li>
+<li class="unchecked">Test: Mit FreeIPA-User einloggen</li>
+</ul>
+
+<h3>Phase 5: Samba AD Alternative (Tag 10-12)</h3>
+<ul>
+<li class="unchecked">Samba AD Unterschied zu Samba klassisch</li>
+<li class="unchecked">Samba AD als Domain Controller:</li>
+</ul>
+<pre><code class="language-bash">sudo apt install samba-dsdb-modules samba-vfs-modules samba-testsuite
+samba-tool domain provision --use-rfc2307 --realm EXAMPLE.COM --domain EXAMPLE</code></pre>
+<ul>
+<li class="unchecked">Samba als Kerberos KDC</li>
+<li class="unchecked">Windows Client Joining (optional)</li>
+<li class="unchecked">Benutzer in Samba AD verwalten:</li>
+</ul>
+<pre><code class="language-bash">samba-tool user create alice Password123!
+samba-tool group add developers
+samba-tool group addmembers developers alice,bob</code></pre>
+<ul>
+<li class="unchecked">Berechtigungen in Samba AD</li>
+</ul>
+
+<h3>Phase 6: Berechtigungen & Policies (Tag 13-14)</h3>
+<ul>
+<li class="unchecked">FreeIPA/Samba Berechtigungen verstehen</li>
+<li class="unchecked">Sudo-Regeln in FreeIPA:</li>
+</ul>
+<pre><code class="language-bash">ipa sudorule-add "Allow developers to sudo"
+ipa sudorule-add-host "Allow developers to sudo" --hosts=web1
+ipa sudorule-add-user "Allow developers to sudo" --users=alice,bob
+ipa sudorule-add-allow-command "Allow developers to sudo" --allow-cmds=/usr/bin/systemctl</code></pre>
+<ul>
+<li class="unchecked">Host-basierte Zugriffskontrolle (HBAC)</li>
+<li class="unchecked">Passwort-Policies</li>
+<li class="unchecked">Account Lockout Policies</li>
+</ul>
+
+<h3>Phase 7: Integration mit Services (Tag 15-16)</h3>
+<ul>
+<li class="unchecked">Postfix mit LDAP-Authentifizierung</li>
+<li class="unchecked">Apache mit Kerberos Auth</li>
+<li class="unchecked">Samba File Shares mit Domain-Benutzer</li>
+<li class="unchecked">SSH Public Key Management über FreeIPA</li>
+<li class="unchecked">Web-Anwendungen mit LDAP-Auth</li>
+</ul>
+
+<h3>Phase 8: Backup & Disaster Recovery (Tag 17)</h3>
+<ul>
+<li class="unchecked">FreeIPA Backup durchführen:</li>
+</ul>
+<pre><code class="language-bash">sudo ipa-backup</code></pre>
+<ul>
+<li class="unchecked">Restore durchführen</li>
+<li class="unchecked">LDAP-Dumps für Backup</li>
+<li class="unchecked">Kerberos DB Backup</li>
+</ul>
+
+<h3>Phase 9: Troubleshooting & Monitoring (Tag 18)</h3>
+<ul>
+<li class="unchecked">Häufige Probleme:</li>
+<li class="unchecked">Benutzer kann sich nicht anmelden</li>
+<li class="unchecked">Kerberos Ticket-Probleme</li>
+<li class="unchecked">SSSD Caching Issues</li>
+<li class="unchecked">LDAP Connection Errors</li>
+<li class="unchecked">sssd-debuglog für Debugging</li>
+<li class="unchecked">LDAP Queries für Verifikation</li>
+<li class="unchecked">Kerberos KDC Logs: <code>/var/log/krb5kdc.log</code></li>
+</ul>
+</div>
         </section>
 
         <!-- Ressourcen -->
         <section class="section">
             <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
             <div class="content-box">
-                & Dokumentation<br><br>### Wichtige Dateien<br>**Apache:**<br>- `/etc/apache2/apache2.conf` - Main Config<br>- `/etc/apache2/sites-available/` - Virtual Hosts<br>- `/etc/apache2/mods-enabled/` - Module<br><br>**Nginx:**<br>- `/etc/nginx/nginx.conf` - Main Config<br>- `/etc/nginx/sites-available/` - Server Blocks<br><br>**PHP:**<br>- `/etc/php/8.x/fpm/php.ini` - PHP Config<br>- `/etc/php/8.x/cli/php.ini` - CLI Config<br><br>**MySQL:**<br>- `/etc/mysql/mysql.conf.d/mysqld.cnf` - Server Config<br><br>### Nützliche Befehle<br>```bash<br># Apache<br>sudo systemctl restart apache2<br>sudo a2ensite example.com<br>sudo a2dissite example.com<br>apache2ctl configtest<br><br># Nginx<br>sudo systemctl restart nginx<br>sudo nginx -t<br><br># MySQL<br>mysql -u root -p<br>mysqldump -u user -p database > backup.sql<br><br># Certbot<br>sudo certbot certonly --standalone -d domain.com<br>sudo certbot renew --dry-run<br>```
-            </div>
+& Dokumentation
+
+<h3>Wichtige Dateien</h3>
+<ul>
+<li><code>/etc/ipa/</code> - FreeIPA Config</li>
+<li><code>/etc/sssd/sssd.conf</code> - SSSD Config</li>
+<li><code>/etc/krb5.conf</code> - Kerberos Config</li>
+<li><code>/etc/samba/smb.conf</code> - Samba Config (wenn genutzt)</li>
+</ul>
+
+<h3>Wichtige Befehle</h3>
+<pre><code># FreeIPA
+ipa user-add, ipa user-list, ipa user-del
+ipa group-add, ipa group-add-member
+ipa sudorule-add, ipa hbactest
+
+<h1>Kerberos</h1>
+kinit user@REALM
+klist
+kdestroy
+
+<h1>LDAP</h1>
+ldapsearch, ldapmodify
+getent passwd alice
+
+<h1>Samba</h1>
+samba-tool user add, samba-tool group add
+samba-tool domain demote (wenn Migration)</code></pre>
+
+<h3>Wichtige Links</h3>
+<ul>
+<li>https://www.freeipa.org</li>
+<li>https://wiki.samba.org/index.php/Samba4</li>
+<li>Kerberos: https://web.mit.edu/kerberos/</li>
+</ul>
+</div>
         </section>
 
         <!-- Deliverables -->
         <section class="section">
             <h2 class="section-title">📋 Deliverables</h2>
             <div class="content-box">
-                1. **Installationsdokumentation:** Schritt-für-Schritt Anleitung<br>2. **Konfigurationsdateien:** Backup aller wichtigen Configs<br>3. **Betriebshandbuch:** Wie man die Anwendung wartet<br>4. **Security-Bericht:** Sicherheits-Audit und Hardening-Schritte<br>5. **Performance-Report:** Benchmark-Ergebnisse
-            </div>
+<ol>
+<li><strong>Installation Guide:</strong> FreeIPA/Samba AD Setup</li>
+<li><strong>Client-Join Guide:</strong> Anleitung für Clients</li>
+<li><strong>Policies & Rules:</strong> Dokumentierte Sudo-Rules, HBAC</li>
+<li><strong>Troubleshooting:</strong> Common Issues & Solutions</li>
+<li><strong>Backup & Recovery:</strong> Disaster Recovery Procedures</li>
+</ol>
+</div>
         </section>
 
-        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+        <a href="../skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
 
         <footer>
-            <p>Projekt 04: LAMP/LEMP Stack Deployment | Skill Tree Umschüler-Projekte</p>
+            <p>Projekt 11: FreeIPA / Samba AD - Enterprise Identity Management | Skill Tree Umschüler-Projekte</p>
             <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
         </footer>
     </div>
     <script>
         // Initialize task checkboxes
         function initializeTaskCheckboxes() {
-            const projectId = 'projekt-04';
+            const projectId = 'projekt-11';
             const checkedTasks = JSON.parse(localStorage.getItem(`${projectId}-tasks`) || '{}');
 
             document.querySelectorAll('li.unchecked, li.checked').forEach((li, index) => {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt 02: Linux Benutzerverwaltung</title>
+    <title>Projekt 05: Samba/NFS Dateifreigaben</title>
     <style>
         * {
             margin: 0;
@@ -295,17 +295,17 @@
 
     <div class="container">
         <header>
-            <h1>👥 LINUX BENUTZERVERWALTUNG</h1>
-            <div class="subtitle">PROJEKT 02 • SYSTEMADMINISTRATION</div>
+            <h1>📁 SAMBA/NFS DATEIFREIGABEN</h1>
+            <div class="subtitle">PROJEKT 05 • SYSTEMADMINISTRATION</div>
 
             <div class="project-info">
                 <div class="info-card">
                     <div class="info-card-label">Schwierigkeitsgrad</div>
-                    <div class="info-card-value">Anfänger → Fortgeschritten</div>
+                    <div class="info-card-value">Fortgeschritten</div>
                 </div>
                 <div class="info-card">
                     <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">1-2 Wochen</div>
+                    <div class="info-card-value">2-3 Wochen</div>
                 </div>
             </div>
         </header>
@@ -314,61 +314,211 @@
         <section class="section">
             <h2 class="section-title">📋 Projektbeschreibung</h2>
             <div class="content-box">
-                Umfassendes Verständnis von Benutzer-, Gruppen- und Dateirechteverwaltung in Linux. Ein zentrales Konzept für Multi-User-Systeme und Sicherheit.
-            </div>
+Einrichtung von Netzwerk-Dateisystemen für Linux-zu-Windows und Linux-zu-Linux Umgebungen. Zentral für Datenaustausch in heterogenen Netzwerken.
+</div>
         </section>
 
         <!-- Lernziele -->
         <section class="section">
             <h2 class="section-title">🎯 Lernziele</h2>
             <div class="content-box">
-                - Benutzer und Gruppen erstellen, modifizieren, löschen<br>- Dateirechte verstehen und konfigurieren (chmod, chown)<br>- Sudo-Berechtigungen granular vergeben<br>- ACLs (Access Control Lists) anwenden<br>- Passwort-Policies implementieren<br>- Sicherheits-Logging überwachen
-            </div>
+<ul>
+<li>Samba (SMB/CIFS) für Windows-Kompatibilität</li>
+<li>NFS (Network File System) für Linux-Netzwerke</li>
+<li>Freigabe-Konfiguration und Berechtigungen</li>
+<li>Benutzer-Authentifizierung und ACLs</li>
+<li>Performance-Optimierung</li>
+<li>Häufige Probleme debuggen und beheben</li>
+</ul>
+</div>
         </section>
 
         <!-- Anforderungen -->
         <section class="section">
             <h2 class="section-title">🔧 Anforderungen</h2>
             <div class="content-box">
-                - Ubuntu Server 22.04 LTS<br>- Administrativen Zugriff (sudo)<br>- Verständnis grundlegender Linux-Befehle<br>- VM für Test-Szenarien
-            </div>
+<ul>
+<li>Ubuntu Server 22.04 LTS (als Server)</li>
+<li>Windows-VM oder physischer PC (für Samba-Tests)</li>
+<li>Linux-VMs (für NFS-Tests)</li>
+<li>Grundverständnis: Netzwerk, Berechtigungen</li>
+</ul>
+</div>
         </section>
 
         <!-- Aufgaben -->
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-                ### Phase 1: Benutzer-Management (Tag 1-3)<br>- [ ] Systembenutzer verstehen (root, www-data, etc.)<br>- [ ] Neue Benutzer erstellen:<br>  ```bash<br>  sudo useradd -m -s /bin/bash alice<br>  sudo passwd alice<br>  ```<br>- [ ] Benutzer-Eigenschaften ändern:<br>  - [ ] Home-Directory wechseln<br>  - [ ] Shell ändern<br>  - [ ] GECOS-Info ändern<br>- [ ] Benutzer löschen und archivieren<br>- [ ] `/etc/passwd` und `/etc/shadow` verstehen<br>- [ ] Benutzer-Limits setzen (`ulimit`)<br><br>### Phase 2: Gruppen-Management (Tag 4-5)<br>- [ ] Standard- und Zusatzgruppen verstehen<br>- [ ] Gruppen erstellen: `sudo groupadd developers`<br>- [ ] Benutzer zu Gruppen hinzufügen: `sudo usermod -aG developers alice`<br>- [ ] Gruppenmitgliedschaft verwalten<br>- [ ] Gruppen-Eigenschaften ändern<br>- [ ] `/etc/group` und `/etc/gshadow` analysieren<br><br>### Phase 3: Dateiberechtigungen - Grundlagen (Tag 6-7)<br>- [ ] Oktalzahlen verstehen (755, 644, 700)<br>- [ ] Kategorien kennen: User, Group, Others<br>- [ ] Berechtigungen auf Dateien setzen:<br>  ```bash<br>  chmod 644 document.txt  # rw-r--r--<br>  chmod 755 script.sh     # rwxr-xr-x<br>  chmod 700 secrets       # rwx------<br>  ```<br>- [ ] Rekursive Änderungen: `chmod -R 755 /var/www`<br>- [ ] Berechtigungen für Verzeichnisse vs. Dateien<br><br>### Phase 4: Ownership (Tag 8)<br>- [ ] Dateien-Owner wechseln: `chown alice file.txt`<br>- [ ] Gruppen-Owner wechseln: `chown :developers file.txt`<br>- [ ] Kombinierte Änderungen: `chown alice:developers file.txt`<br>- [ ] Rekursive Ownership-Änderungen<br>- [ ] Umask verstehen und setzen (Standard Berechtigungen)<br><br>### Phase 5: Sudo-Konfiguration (Tag 9-10)<br>- [ ] `/etc/sudoers` sicher bearbeiten: `sudo visudo`<br>- [ ] Verschiedene Sudo-Szenarien konfigurieren:<br>  - [ ] Spezifische Benutzer Befehle erlauben<br>  - [ ] Passwort-freie Befehle<br>  - [ ] Befehl-Aliase<br>  - [ ] Gruppen-basierte Regeln<br>- [ ] Sudo-Logging überprüfen<br>- [ ] Beispiele:<br>  ```<br>  alice ALL=(ALL) /usr/bin/apt<br>  %developers ALL=(ALL) NOPASSWD: /usr/bin/systemctl<br>  ```<br><br>### Phase 6: ACLs (Access Control Lists) (Tag 11)<br>- [ ] ACLs aktivieren auf Dateisystem<br>- [ ] Erweiterte Rechte setzen: `setfacl`<br>  ```bash<br>  setfacl -m u:alice:rwx /shared/<br>  setfacl -m g:developers:rx /data/<br>  ```<br>- [ ] ACLs auslesen: `getfacl /path/`<br>- [ ] Default-ACLs für neue Dateien<br>- [ ] Praxisbeispiel: Shared Project Folder<br><br>### Phase 7: Passwort-Policies (Tag 12)<br>- [ ] PAM konfigurieren (`/etc/pam.d/`)<br>- [ ] Passwort-Komplexität erzwingen<br>- [ ] Ablaufdaten setzen: `chage`<br>- [ ] Locked-out Benutzer entsperren<br>- [ ] Login-Versuche limitieren (fail2ban Integration)
-            </div>
+<h3>Phase 1: Samba Installation & Grundlagen (Tag 1-3)</h3>
+<ul>
+<li class="unchecked">Samba installieren: <code>sudo apt install samba samba-tools</code></li>
+<li class="unchecked">Samba-Konfig verstehen: <code>/etc/samba/smb.conf</code></li>
+<li class="unchecked">Samba-Benutzer erstellen:</li>
+</ul>
+<pre><code class="language-bash">sudo smbpasswd -a username</code></pre>
+<ul>
+<li class="unchecked">Samba-Syntax prüfen: <code>testparm</code></li>
+<li class="unchecked">Samba-Service starten: <code>sudo systemctl start smbd</code></li>
+<li class="unchecked">Freigaben auflisten: <code>smbclient -L localhost</code></li>
+</ul>
+
+<h3>Phase 2: Samba Freigaben konfigurieren (Tag 4-6)</h3>
+<ul>
+<li class="unchecked">Öffentliche Freigabe (read-only):</li>
+</ul>
+<pre><code class="language-ini">[public]
+path = /srv/samba/public
+browseable = yes
+read only = yes
+guest ok = yes</code></pre>
+<ul>
+<li class="unchecked">Benutzer-Freigabe (mit Authentication):</li>
+</ul>
+<pre><code class="language-ini">[users]
+path = /srv/samba/users
+browseable = yes
+read only = no
+valid users = alice, bob</code></pre>
+<ul>
+<li class="unchecked">Gruppen-Freigabe (mit Gruppen-Berechtigungen)</li>
+<li class="unchecked">Home-Verzeichnis-Freigabe</li>
+<li class="unchecked">Drucker-Freigabe (optional)</li>
+<li class="unchecked">Konfiguration testen: <code>testparm -v</code></li>
+</ul>
+
+<h3>Phase 3: Samba Berechtigungen (Tag 7-8)</h3>
+<ul>
+<li class="unchecked">POSIX-Berechtigungen kombiniert mit Samba-Rechten</li>
+<li class="unchecked">Force-Benutzer und Force-Gruppe</li>
+<li class="unchecked">Create-Mask und Directory-Mask verstehen</li>
+<li class="unchecked">Vererbte Berechtigungen</li>
+<li class="unchecked">Freigabe-Level vs. Datei-Level Permissions</li>
+</ul>
+
+<h3>Phase 4: Windows-Zugriff testen (Tag 9)</h3>
+<ul>
+<li class="unchecked">Windows-PC mit Samba verbinden</li>
+<li class="unchecked">Freigabe mounten: <code>\\server\share</code></li>
+<li class="unchecked">Read/Write-Berechtigungen überprüfen</li>
+<li class="unchecked">Verschiedene Benutzer testen</li>
+<li class="unchecked">Dateien erstellen, bearbeiten, löschen</li>
+<li class="unchecked">Probleme debuggen (Permissions, Access Denied)</li>
+</ul>
+
+<h3>Phase 5: NFS Installation & Grundlagen (Tag 10-11)</h3>
+<ul>
+<li class="unchecked">NFS-Server installieren: <code>sudo apt install nfs-kernel-server</code></li>
+<li class="unchecked">NFS-Konfiguration: <code>/etc/exports</code></li>
+<li class="unchecked">Freigaben exportieren:</li>
+</ul>
+<pre><code>/srv/nfs/share  192.168.1.0/24(rw,sync,no&lt;em&gt;root&lt;/em&gt;squash)</code></pre>
+<ul>
+<li class="unchecked">Exports laden: <code>sudo exportfs -a</code></li>
+<li class="unchecked">Exportierte Freigaben anzeigen: <code>showmount -e localhost</code></li>
+</ul>
+
+<h3>Phase 6: NFS Clients mounten (Tag 12-13)</h3>
+<ul>
+<li class="unchecked">NFS-Client installieren: <code>sudo apt install nfs-common</code></li>
+<li class="unchecked">NFS-Freigabe mounten:</li>
+</ul>
+<pre><code class="language-bash">sudo mount -t nfs server:/srv/nfs/share /mnt/nfs/</code></pre>
+<ul>
+<li class="unchecked">Persistent mounten in <code>/etc/fstab</code>:</li>
+</ul>
+<pre><code>server:/srv/nfs/share  /mnt/nfs  nfs  defaults,_netdev  0  0</code></pre>
+<ul>
+<li class="unchecked">Mehrere Clients testen</li>
+<li class="unchecked">Concurrent Access testen</li>
+<li class="unchecked">Unmount und Re-mount testen</li>
+</ul>
+
+<h3>Phase 7: NFS Sicherheit & Optimierung (Tag 14)</h3>
+<ul>
+<li class="unchecked">NFS-Sicherheitsoptionen:</li>
+<li class="unchecked"><code>no<em>root</em>squash</code> vs. <code>root_squash</code></li>
+<li class="unchecked"><code>read-only</code> vs. <code>read-write</code></li>
+<li class="unchecked"><code>sync</code> vs. <code>async</code></li>
+<li class="unchecked">UID/GID Mapping über NFSv4 mit Kerberos (optional)</li>
+<li class="unchecked">Firewall-Regeln für NFS (Port 111, 2049)</li>
+<li class="unchecked">Performance-Tuning (rsize, wsize)</li>
+<li class="unchecked">Logging und Monitoring</li>
+</ul>
+
+<h3>Phase 8: Troubleshooting & Praxisszenarien (Tag 15)</h3>
+<ul>
+<li class="unchecked">Häufige Probleme:</li>
+<li class="unchecked">Permission Denied beim Zugriff</li>
+<li class="unchecked">Langsame Transfers</li>
+<li class="unchecked">Client kann nicht mounten</li>
+<li class="unchecked">Timeout-Fehler</li>
+<li class="unchecked">Debug-Tools: <code>showmount</code>, <code>nfsstat</code>, <code>rpcinfo</code></li>
+<li class="unchecked">Log-Analyse: <code>/var/log/syslog</code></li>
+</ul>
+</div>
         </section>
 
         <!-- Ressourcen -->
         <section class="section">
             <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
             <div class="content-box">
-                & Dokumentation<br><br>### Befehle Referenz<br>- `useradd`, `usermod`, `userdel` - User Management<br>- `groupadd`, `groupmod`, `groupdel` - Group Management<br>- `chmod`, `chown` - Berechtigungen<br>- `setfacl`, `getfacl` - ACL Management<br>- `visudo` - Sudo Config (SICHER!)<br>- `chage`, `passwd` - Passwort Management<br>- `id`, `groups` - Aktuelle Berechtigungen<br><br>### Wichtige Dateien<br>- `/etc/passwd` - Benutzer-Datenbank<br>- `/etc/shadow` - Passwort-Hashes (nur root)<br>- `/etc/group` - Gruppen-Datenbank<br>- `/etc/sudoers` - Sudo-Regeln (immer mit visudo bearbeiten!)<br>- `/var/log/auth.log` - Login-Logs
-            </div>
+& Dokumentation
+
+<h3>Wichtige Dateien</h3>
+<ul>
+<li><code>/etc/samba/smb.conf</code> - Samba-Konfiguration</li>
+<li><code>/etc/exports</code> - NFS-Freigabe-Definition</li>
+<li><code>/etc/fstab</code> - Persistente Mounts</li>
+</ul>
+
+<h3>Wichtige Befehle</h3>
+<pre><code># Samba
+sudo smbpasswd -a user
+sudo smbpasswd -d user  # disable
+testparm
+testparm -v
+smbclient -L server
+sudo systemctl restart smbd
+
+<h1>NFS Server</h1>
+sudo exportfs -a
+showmount -e localhost
+sudo systemctl restart nfs-server
+
+<h1>NFS Client</h1>
+sudo mount -t nfs server:/path /mnt/
+sudo umount /mnt/
+sudo showmount -e server
+nfsstat</code></pre>
+</div>
         </section>
 
         <!-- Deliverables -->
         <section class="section">
             <h2 class="section-title">📋 Deliverables</h2>
             <div class="content-box">
-                1. **Dokumentation:** Schrittweise Anleitung aller Operationen<br>2. **Scripts:** Automatisierungs-Skripte (User-Creation in Bulk)<br>3. **Audit-Bericht:** Sicherheitsanalyse eines bestehenden Systems<br>4. **Checklisten:** Best-Practices Checkliste für File-Permissions
-            </div>
+<ol>
+<li><strong>Samba-Dokumentation:</strong> smb.conf mit Kommentaren</li>
+<li><strong>NFS-Dokumentation:</strong> exports mit Erklärung</li>
+<li><strong>Troubleshooting-Guide:</strong> Häufige Probleme und Lösungen</li>
+<li><strong>Test-Bericht:</strong> Funktionierende Freigaben und Berechtigungen</li>
+<li><strong>Performance-Report:</strong> Benchmark-Ergebnisse</li>
+</ol>
+</div>
         </section>
 
-        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+        <a href="../skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
 
         <footer>
-            <p>Projekt 02: Linux Benutzerverwaltung | Skill Tree Umschüler-Projekte</p>
+            <p>Projekt 05: Samba/NFS Dateifreigaben | Skill Tree Umschüler-Projekte</p>
             <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
         </footer>
     </div>
     <script>
         // Initialize task checkboxes
         function initializeTaskCheckboxes() {
-            const projectId = 'projekt-02';
+            const projectId = 'projekt-05';
             const checkedTasks = JSON.parse(localStorage.getItem(`${projectId}-tasks`) || '{}');
 
             document.querySelectorAll('li.unchecked, li.checked').forEach((li, index) => {

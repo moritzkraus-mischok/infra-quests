@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt 05: Samba/NFS Dateifreigaben</title>
+    <title>Projekt 15: Scripting Projekt - Automation mit Bash/Python</title>
     <style>
         * {
             margin: 0;
@@ -295,8 +295,8 @@
 
     <div class="container">
         <header>
-            <h1>📁 SAMBA/NFS DATEIFREIGABEN</h1>
-            <div class="subtitle">PROJEKT 05 • SYSTEMADMINISTRATION</div>
+            <h1>🐚 SCRIPTING PROJEKT - AUTOMATION MIT BASH/PYTHON</h1>
+            <div class="subtitle">PROJEKT 15 • SYSTEMADMINISTRATION</div>
 
             <div class="project-info">
                 <div class="info-card">
@@ -314,61 +314,379 @@
         <section class="section">
             <h2 class="section-title">📋 Projektbeschreibung</h2>
             <div class="content-box">
-                Einrichtung von Netzwerk-Dateisystemen für Linux-zu-Windows und Linux-zu-Linux Umgebungen. Zentral für Datenaustausch in heterogenen Netzwerken.
-            </div>
+Entwicklung von Automatisierungs-Skripten für häufige System-Administration Aufgaben. Praktische Fähigkeit, die die tägliche Arbeit deutlich effizienter macht.
+</div>
         </section>
 
         <!-- Lernziele -->
         <section class="section">
             <h2 class="section-title">🎯 Lernziele</h2>
             <div class="content-box">
-                - Samba (SMB/CIFS) für Windows-Kompatibilität<br>- NFS (Network File System) für Linux-Netzwerke<br>- Freigabe-Konfiguration und Berechtigungen<br>- Benutzer-Authentifizierung und ACLs<br>- Performance-Optimierung<br>- Häufige Probleme debuggen und beheben
-            </div>
+<ul>
+<li>Bash Scripting fortgeschritten (nicht nur Grundlagen)</li>
+<li>Python für System-Administration</li>
+<li>Error Handling und Logging</li>
+<li>Argument-Verarbeitung und Konfiguration</li>
+<li>Produktions-ready Code</li>
+<li>Testing von Skripten</li>
+<li>Git für Versionskontrolle</li>
+<li>Script-Distribution und Updates</li>
+</ul>
+</div>
         </section>
 
         <!-- Anforderungen -->
         <section class="section">
             <h2 class="section-title">🔧 Anforderungen</h2>
             <div class="content-box">
-                - Ubuntu Server 22.04 LTS (als Server)<br>- Windows-VM oder physischer PC (für Samba-Tests)<br>- Linux-VMs (für NFS-Tests)<br>- Grundverständnis: Netzwerk, Berechtigungen
-            </div>
+<ul>
+<li>Ubuntu Server 22.04 LTS</li>
+<li>Grundverständnis: Bash, Systemadministration</li>
+<li>Optional: Python-Kenntnisse</li>
+<li>Text-Editor oder IDE (VS Code, PyCharm, vim)</li>
+<li>Git grundlegend nutzen können</li>
+</ul>
+</div>
         </section>
 
         <!-- Aufgaben -->
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-                ### Phase 1: Samba Installation & Grundlagen (Tag 1-3)<br>- [ ] Samba installieren: `sudo apt install samba samba-tools`<br>- [ ] Samba-Konfig verstehen: `/etc/samba/smb.conf`<br>- [ ] Samba-Benutzer erstellen:<br>  ```bash<br>  sudo smbpasswd -a username<br>  ```<br>- [ ] Samba-Syntax prüfen: `testparm`<br>- [ ] Samba-Service starten: `sudo systemctl start smbd`<br>- [ ] Freigaben auflisten: `smbclient -L localhost`<br><br>### Phase 2: Samba Freigaben konfigurieren (Tag 4-6)<br>- [ ] Öffentliche Freigabe (read-only):<br>  ```ini<br>  [public]<br>  path = /srv/samba/public<br>  browseable = yes<br>  read only = yes<br>  guest ok = yes<br>  ```<br>- [ ] Benutzer-Freigabe (mit Authentication):<br>  ```ini<br>  [users]<br>  path = /srv/samba/users<br>  browseable = yes<br>  read only = no<br>  valid users = alice, bob<br>  ```<br>- [ ] Gruppen-Freigabe (mit Gruppen-Berechtigungen)<br>- [ ] Home-Verzeichnis-Freigabe<br>- [ ] Drucker-Freigabe (optional)<br>- [ ] Konfiguration testen: `testparm -v`<br><br>### Phase 3: Samba Berechtigungen (Tag 7-8)<br>- [ ] POSIX-Berechtigungen kombiniert mit Samba-Rechten<br>- [ ] Force-Benutzer und Force-Gruppe<br>- [ ] Create-Mask und Directory-Mask verstehen<br>- [ ] Vererbte Berechtigungen<br>- [ ] Freigabe-Level vs. Datei-Level Permissions<br><br>### Phase 4: Windows-Zugriff testen (Tag 9)<br>- [ ] Windows-PC mit Samba verbinden<br>- [ ] Freigabe mounten: `\\server\share`<br>- [ ] Read/Write-Berechtigungen überprüfen<br>- [ ] Verschiedene Benutzer testen<br>- [ ] Dateien erstellen, bearbeiten, löschen<br>- [ ] Probleme debuggen (Permissions, Access Denied)<br><br>### Phase 5: NFS Installation & Grundlagen (Tag 10-11)<br>- [ ] NFS-Server installieren: `sudo apt install nfs-kernel-server`<br>- [ ] NFS-Konfiguration: `/etc/exports`<br>- [ ] Freigaben exportieren:<br>  ```<br>  /srv/nfs/share  192.168.1.0/24(rw,sync,no_root_squash)<br>  ```<br>- [ ] Exports laden: `sudo exportfs -a`<br>- [ ] Exportierte Freigaben anzeigen: `showmount -e localhost`<br><br>### Phase 6: NFS Clients mounten (Tag 12-13)<br>- [ ] NFS-Client installieren: `sudo apt install nfs-common`<br>- [ ] NFS-Freigabe mounten:<br>  ```bash<br>  sudo mount -t nfs server:/srv/nfs/share /mnt/nfs/<br>  ```<br>- [ ] Persistent mounten in `/etc/fstab`:<br>  ```<br>  server:/srv/nfs/share  /mnt/nfs  nfs  defaults,_netdev  0  0<br>  ```<br>- [ ] Mehrere Clients testen<br>- [ ] Concurrent Access testen<br>- [ ] Unmount und Re-mount testen<br><br>### Phase 7: NFS Sicherheit & Optimierung (Tag 14)<br>- [ ] NFS-Sicherheitsoptionen:<br>  - [ ] `no_root_squash` vs. `root_squash`<br>  - [ ] `read-only` vs. `read-write`<br>  - [ ] `sync` vs. `async`<br>- [ ] UID/GID Mapping über NFSv4 mit Kerberos (optional)<br>- [ ] Firewall-Regeln für NFS (Port 111, 2049)<br>- [ ] Performance-Tuning (rsize, wsize)<br>- [ ] Logging und Monitoring<br><br>### Phase 8: Troubleshooting & Praxisszenarien (Tag 15)<br>- [ ] Häufige Probleme:<br>  - [ ] Permission Denied beim Zugriff<br>  - [ ] Langsame Transfers<br>  - [ ] Client kann nicht mounten<br>  - [ ] Timeout-Fehler<br>- [ ] Debug-Tools: `showmount`, `nfsstat`, `rpcinfo`<br>- [ ] Log-Analyse: `/var/log/syslog`
-            </div>
+<h3>Phase 1: Bash Scripting Fundamentals (Tag 1-2)</h3>
+<ul>
+<li class="unchecked">Shebang und Script-Struktur</li>
+<li class="unchecked">Variablen und Arrays</li>
+<li class="unchecked">Kontrollfluss: if/else, case, loops</li>
+<li class="unchecked">Funktionen schreiben</li>
+<li class="unchecked">Parameter/Argumente verarbeiten: <code>$1, $2, shift</code></li>
+<li class="unchecked">getopts für optionale Parameter</li>
+<li class="unchecked">Fehlerbehandlung: exit codes, trap</li>
+<li class="unchecked">Logging und Debug-Output</li>
+</ul>
+
+<h3>Phase 2: Praktische Bash-Skripte (Tag 3-5)</h3>
+Schreiben Sie folgende Skripte:
+
+<h4>Skript 1: Backup-Script</h4>
+<pre><code>#!/bin/bash
+<h1>backup.sh - Automated backup of directories</h1>
+
+SOURCE=$1
+DEST=$2
+DATE=$(date +%Y%m%d_%H%M%S)
+LOGFILE="/var/log/backup_${DATE}.log"
+
+<h1>Argument validation</h1>
+[[ -z "$SOURCE" || -z "$DEST" ]] &amp;&amp; {
+echo "Usage: $0 SOURCE DEST"
+exit 1
+}
+
+<h1>Backup mit Fehlerbehandlung</h1>
+rsync -av "$SOURCE" "$DEST/backup_${DATE}/" 2&gt;&amp;1 | tee "$LOGFILE" || {
+echo "Backup fehlgeschlagen!" &gt;&amp;2
+exit 1
+}
+
+echo "Backup erfolgreich: $DEST/backup_${DATE}/"</code></pre>
+
+<h4>Skript 2: User-Management Script</h4>
+<pre><code>#!/bin/bash
+<h1>user-manage.sh - Benutzer-Verwaltung</h1>
+
+case "$1" in
+add)
+[[ $# -ne 3 ]] &amp;&amp; { echo "Usage: $0 add USERNAME GROUPS"; exit 1; }
+sudo useradd -m -G "$3" "$2"
+sudo passwd "$2"
+;;
+del)
+[[ $# -ne 2 ]] &amp;&amp; { echo "Usage: $0 del USERNAME"; exit 1; }
+sudo userdel -r "$2"
+;;
+list)
+getent passwd | cut -d: -f1
+;;
+*)
+echo "Unknown command: $1"
+exit 1
+;;
+esac</code></pre>
+
+<h4>Skript 3: System-Health Check</h4>
+<pre><code>#!/bin/bash
+<h1>health-check.sh - System-Überwachung</h1>
+
+check_disk() {
+USAGE=$(df / | awk 'NR==2 {print $5}' | sed 's/%//')
+if [[ $USAGE -gt 80 ]]; then
+echo "WARNING: Disk usage at ${USAGE}%"
+return 1
+fi
+return 0
+}
+
+check_memory() {
+FREE=$(free | awk '/^Mem:/ {print $7}')
+if [[ $FREE -lt 1000000 ]]; then
+echo "WARNING: Low memory: ${FREE}KB"
+return 1
+fi
+return 0
+}
+
+check<em>disk &amp;&amp; check</em>memory &amp;&amp; echo "System OK" || echo "System ISSUES"</code></pre>
+
+<h3>Phase 3: Python für System-Administration (Tag 6-8)</h3>
+<ul>
+<li class="unchecked">Python Basics für Sysadmin</li>
+<li class="unchecked">subprocess Module für Command-Ausführung</li>
+<li class="unchecked">os und sys Module</li>
+<li class="unchecked">Datei-Operations</li>
+<li class="unchecked">Regular Expressions (re)</li>
+<li class="unchecked">Logging in Python</li>
+<li class="unchecked">argparse für CLI-Arguments</li>
+<li class="unchecked">Exception Handling</li>
+</ul>
+
+<h3>Phase 4: Python-Skripte schreiben (Tag 9-11)</h3>
+Schreiben Sie folgende Python-Skripte:
+
+<h4>Skript 1: Log-Parser</h4>
+<pre><code>#!/usr/bin/env python3
+import re
+import sys
+from collections import defaultdict
+
+def parse<em>access</em>log(logfile):
+"""Parse Apache Access Log"""
+errors = defaultdict(int)
+
+try:
+with open(logfile, 'r') as f:
+for line in f:
+match = re.search(r'(\d{3})', line)
+if match:
+status = match.group(1)
+if status.startswith('4') or status.startswith('5'):
+errors[status] += 1
+except FileNotFoundError:
+print(f"Error: {logfile} nicht gefunden", file=sys.stderr)
+return None
+
+return errors
+
+if _<em>name</em><em> == '</em><em>main</em>_':
+if len(sys.argv) != 2:
+print(f"Usage: {sys.argv[0]} LOGFILE")
+sys.exit(1)
+
+errors = parse<em>access</em>log(sys.argv[1])
+if errors:
+for status, count in sorted(errors.items()):
+print(f"{status}: {count} Fehler")</code></pre>
+
+<h4>Skript 2: Systemüberwachung</h4>
+<pre><code>#!/usr/bin/env python3
+import psutil
+import logging
+import sys
+
+logging.basicConfig(level=logging.INFO)
+
+def check<em>system</em>health():
+"""Prüfe System-Health"""
+
+<h1>CPU</h1>
+cpu<em>percent = psutil.cpu</em>percent(interval=1)
+if cpu_percent &gt; 80:
+logging.warning(f"High CPU: {cpu_percent}%")
+
+<h1>Memory</h1>
+memory = psutil.virtual_memory()
+if memory.percent &gt; 85:
+logging.warning(f"High Memory: {memory.percent}%")
+
+<h1>Disk</h1>
+disk = psutil.disk_usage('/')
+if disk.percent &gt; 90:
+logging.warning(f"High Disk: {disk.percent}%")
+
+return cpu_percent &lt; 80 and memory.percent &lt; 85
+
+if _<em>name</em><em> == '</em><em>main</em>_':
+healthy = check<em>system</em>health()
+sys.exit(0 if healthy else 1)</code></pre>
+
+<h4>Skript 3: Backup-Automator</h4>
+<pre><code>#!/usr/bin/env python3
+import argparse
+import subprocess
+import logging
+from pathlib import Path
+from datetime import datetime
+
+def backup_directory(source, destination, name):
+"""Backup mit Logging"""
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+dest<em>path = Path(destination) / f"{name}</em>{timestamp}"
+
+logging.info(f"Starting backup: {source} → {dest_path}")
+
+try:
+result = subprocess.run(
+["rsync", "-av", source, str(dest_path)],
+capture_output=True,
+text=True,
+check=True
+)
+logging.info(f"Backup successful: {dest_path}")
+return True
+except subprocess.CalledProcessError as e:
+logging.error(f"Backup failed: {e.stderr}")
+return False
+
+if _<em>name</em><em> == '</em><em>main</em>_':
+parser = argparse.ArgumentParser(description="Backup Script")
+parser.add_argument('source', help='Source directory')
+parser.add_argument('destination', help='Backup destination')
+parser.add_argument('--name', default='backup', help='Backup name')
+
+args = parser.parse_args()
+success = backup_directory(args.source, args.destination, args.name)
+exit(0 if success else 1)</code></pre>
+
+<h3>Phase 5: Testing & Error Handling (Tag 12-13)</h3>
+<ul>
+<li class="unchecked">Bash Unit Testing (bats, shunit2)</li>
+<li class="unchecked">Python unittest/pytest</li>
+<li class="unchecked">Input Validation</li>
+<li class="unchecked">Edge Cases testen</li>
+<li class="unchecked">Error Messages aussagekräftig machen</li>
+<li class="unchecked">Logging strategisch nutzen</li>
+<li class="unchecked">Script-Exit-Codes richtig setzen</li>
+</ul>
+
+<h3>Phase 6: Code Quality & Best Practices (Tag 14)</h3>
+<ul>
+<li class="unchecked">Code-Style (ShellCheck für Bash, pylint für Python)</li>
+<li class="unchecked">Documentation (Kommentare, README)</li>
+<li class="unchecked">Variable Naming</li>
+<li class="unchecked">DRY-Prinzip (Don't Repeat Yourself)</li>
+<li class="unchecked">Security überprüfen (keine hardcoded Passwörter!)</li>
+<li class="unchecked">Performance-Optimierung</li>
+</ul>
+
+<h3>Phase 7: Versionskontrolle & Distribution (Tag 15)</h3>
+<ul>
+<li class="unchecked">Git Repository erstellen</li>
+<li class="unchecked">Scripts mit Versionsnummern</li>
+<li class="unchecked">Changelog erstellen</li>
+<li class="unchecked">README mit Nutzungs-Dokumentation</li>
+<li class="unchecked">Installation/Update-Script</li>
+<li class="unchecked">Distribution (z.B. über Ansible)</li>
+</ul>
+
+<h3>Phase 8: Praxisprojekt: Monitoring-Suite (Tag 16-20)</h3>
+Erstellen Sie eine komplette Monitoring-Suite aus mehreren Skripten:
+
+<ol>
+<li><strong>System-Health-Check</strong> (Bash)</li>
+</ol>
+<ul>
+<li>CPU, Memory, Disk</li>
+<li>Alert bei Schwellenwert-Überschreitung</li>
+</ul>
+
+<ol>
+<li><strong>Log-Analyzer</strong> (Python)</li>
+</ol>
+<ul>
+<li>Parse verschiedene Log-Formate</li>
+<li>Fehler-Trends identifizieren</li>
+</ul>
+
+<ol>
+<li><strong>Backup-Manager</strong> (Bash + Python)</li>
+</ol>
+<ul>
+<li>Automatisierte tägliche Backups</li>
+<li>Rotation (altes Backup löschen)</li>
+<li>Status-Reports</li>
+</ul>
+
+<ol>
+<li><strong>Service-Monitor</strong> (Bash)</li>
+</ol>
+<ul>
+<li>Überprüfe ob kritische Services laufen</li>
+<li>Auto-Restart bei Fehler</li>
+</ul>
+
+<ol>
+<li><strong>Report-Generator</strong> (Python)</li>
+</ol>
+<ul>
+<li>Wöchentliche Report aus allen Tools</li>
+<li>Email-Versand</li>
+</ul>
+</div>
         </section>
 
         <!-- Ressourcen -->
         <section class="section">
             <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
             <div class="content-box">
-                & Dokumentation<br><br>### Wichtige Dateien<br>- `/etc/samba/smb.conf` - Samba-Konfiguration<br>- `/etc/exports` - NFS-Freigabe-Definition<br>- `/etc/fstab` - Persistente Mounts<br><br>### Wichtige Befehle<br>```bash<br># Samba<br>sudo smbpasswd -a user<br>sudo smbpasswd -d user  # disable<br>testparm<br>testparm -v<br>smbclient -L server<br>sudo systemctl restart smbd<br><br># NFS Server<br>sudo exportfs -a<br>showmount -e localhost<br>sudo systemctl restart nfs-server<br><br># NFS Client<br>sudo mount -t nfs server:/path /mnt/<br>sudo umount /mnt/<br>sudo showmount -e server<br>nfsstat<br>```
-            </div>
+& Dokumentation
+
+<h3>Tools</h3>
+<ul>
+<li><strong>ShellCheck:</strong> Bash-Code Quality</li>
+<li><strong>pylint/flake8:</strong> Python Code Quality</li>
+<li><strong>bats:</strong> Bash Automated Testing System</li>
+<li><strong>pytest:</strong> Python Testing Framework</li>
+<li><strong>GitHub/GitLab:</strong> Hosting und Collaboration</li>
+</ul>
+
+<h3>Wichtige Befehle</h3>
+<pre><code># Bash
+bash -x script.sh  # Debug-Modus
+shellcheck script.sh
+
+<h1>Python</h1>
+python3 -m py_compile script.py
+pylint script.py
+pytest test_script.py</code></pre>
+</div>
         </section>
 
         <!-- Deliverables -->
         <section class="section">
             <h2 class="section-title">📋 Deliverables</h2>
             <div class="content-box">
-                1. **Samba-Dokumentation:** smb.conf mit Kommentaren<br>2. **NFS-Dokumentation:** exports mit Erklärung<br>3. **Troubleshooting-Guide:** Häufige Probleme und Lösungen<br>4. **Test-Bericht:** Funktionierende Freigaben und Berechtigungen<br>5. **Performance-Report:** Benchmark-Ergebnisse
-            </div>
+<ol>
+<li><strong>Skript-Sammlung:</strong> Alle funktionsfähigen Skripte</li>
+<li><strong>Git-Repository:</strong> Mit saubener History</li>
+<li><strong>Tests:</strong> Unit-Tests für alle Skripte</li>
+<li><strong>Dokumentation:</strong> README, Usage-Guide, Troubleshooting</li>
+<li><strong>Code-Quality:</strong> ShellCheck / pylint Reports</li>
+<li><strong>Integration:</strong> Z.B. Cronjobs, Ansible-Integration</li>
+</ol>
+</div>
         </section>
 
-        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+        <a href="../skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
 
         <footer>
-            <p>Projekt 05: Samba/NFS Dateifreigaben | Skill Tree Umschüler-Projekte</p>
+            <p>Projekt 15: Scripting Projekt - Automation mit Bash/Python | Skill Tree Umschüler-Projekte</p>
             <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
         </footer>
     </div>
     <script>
         // Initialize task checkboxes
         function initializeTaskCheckboxes() {
-            const projectId = 'projekt-05';
+            const projectId = 'projekt-15';
             const checkedTasks = JSON.parse(localStorage.getItem(`${projectId}-tasks`) || '{}');
 
             document.querySelectorAll('li.unchecked, li.checked').forEach((li, index) => {
