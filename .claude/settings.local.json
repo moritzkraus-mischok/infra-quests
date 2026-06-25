@@ -12,7 +12,11 @@
       "Bash(git checkout *)",
       "Bash(git merge *)",
       "Bash(python3 /home/moritzkraus/.claude/jobs/17951901/tmp/add_task_scripts.py)",
-      "Bash(git commit -m 'Mache Aufgaben-Checkboxen durch Klick abhakbar *)"
+      "Bash(git commit -m 'Mache Aufgaben-Checkboxen durch Klick abhakbar *)",
+      "Bash(python3 *)",
+      "Bash(grep *)",
+      "Bash(printf '%s\\\\n' projekt-*.html)",
+      "Bash(rtk proxy *)"
     ]
   }
 }
