@@ -129,11 +129,81 @@ sudo ufw status numbered
 sudo ufw allow 2222/tcp
 ```
 
+## 🚀 Alternative: Cloud-Init Automatisierung
+
+Cloud-init ermöglicht vollautomatische Server-Initialisierung. Dies ist eine Vorschau auf Infrastructure as Code (wird in Projekt 10 & 13 vertieft).
+
+### Cloud-Init User-Data Script
+Statt manueller Schritte: Ein User-Data-Skript für automatisiertes Setup:
+
+```yaml
+#cloud-config
+hostname: ubuntu-server
+fqdn: ubuntu-server.local
+
+# System Updates
+package_update: true
+package_upgrade: true
+
+packages:
+  - openssh-server
+  - vim
+  - curl
+  - ufw
+  - fail2ban
+
+# Network Configuration
+network:
+  version: 2
+  ethernets:
+    eth0:
+      dhcp4: false
+      addresses:
+        - 192.168.1.100/24
+      gateway4: 192.168.1.1
+      nameservers:
+        addresses: [8.8.8.8, 8.8.4.4]
+
+# SSH Key Setup
+ssh_authorized_keys:
+  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5... user@localhost
+
+ssh_config:
+  Port: 2222
+  PermitRootLogin: "no"
+  PasswordAuthentication: "no"
+  PubkeyAuthentication: "yes"
+
+# Firewall Configuration
+runcmd:
+  - ufw enable
+  - ufw allow 2222/tcp
+  - systemctl restart ssh
+  - systemctl enable fail2ban
+  - fail2ban-client start
+
+# User Management
+users:
+  - name: ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5... user@localhost
+```
+
+### Praktische Übung: Cloud-Init Lab
+- [ ] User-Data-Skript schreiben
+- [ ] VM mit cloud-init initialisieren (z.B. in KVM/VirtualBox)
+- [ ] Automatische Konfiguration vs. manuelle Konfiguration vergleichen
+- [ ] Time-Savings messen
+
+**Hinweis:** Cloud-init wird in Projekten 10 & 13 intensiver eingesetzt.
+
 ## 💡 Trainer-Tipps
 - Lassen Sie die Umschüler zuerst in einer VM arbeiten, bevor sie auf einem echten Server praktizieren
 - Fordern Sie eine "Recovery Übung" ein: Server bewusst beschädigen und reparieren lassen
 - Ergänzen Sie mit Hands-On Security-Tests: Nmap-Scan vor/nach Hardening
 - Diskutieren Sie Trade-offs: Sicherheit vs. Usability (z.B. Port-Änderung kann Connectivity-Probleme verursachen)
+- **Optionale Erweiterung:** Vergleichen Sie Projekt 1 manuell mit cloud-init: Wie viel Zeit sparen Sie?
 
 ## 📋 Deliverables
 1. **Dokumentation:** Installationsanleitung mit Screenshots
