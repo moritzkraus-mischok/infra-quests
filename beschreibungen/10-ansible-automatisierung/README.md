@@ -26,6 +26,44 @@ Infrastructure as Code mit Ansible. Automatisierung von Konfiguration, Deploymen
 
 ## 📝 Aufgaben
 
+### Phase 0: VM-Initialisierung mit Cloud-Init (Tag 0 - Vorbereitung)
+
+Bevor Ansible zum Einsatz kommt: VMs automatisch mit cloud-init initialisieren. Dies spart Zeit und zeigt "Infrastructure as Code" auf der ersten Schicht.
+
+#### Cloud-Init User-Data für Ansible-Nodes
+```yaml
+#cloud-config
+hostname: managed-node-1
+package_update: true
+package_upgrade: true
+
+packages:
+  - openssh-server
+  - python3
+  - python3-pip
+  - sudo
+
+users:
+  - name: ansible-user
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1... your-public-key
+
+runcmd:
+  - systemctl enable ssh
+  - systemctl restart ssh
+```
+
+#### Praktische Schritte
+- [ ] Cloud-Init User-Data schreiben (für Control Node + 3 Managed Nodes)
+- [ ] VMs mit cloud-init hochfahren (z.B. KVM/VirtualBox)
+- [ ] Automatische Netzwerk-Konfiguration überprüfen
+- [ ] SSH-Konnektivität von Control Node zu allen Managed Nodes testen
+
+**Ergebnis:** 3-4 VMs sind vorbereitet, mit Python installiert, SSH-Keys konfiguriert → Ansible kann direkt arbeiten.
+
+---
+
 ### Phase 1: Ansible Installation & Setup (Tag 1-2)
 - [ ] Ansible installieren: `sudo apt install ansible`
 - [ ] SSH-Keys zwischen Nodes konfigurieren
@@ -216,6 +254,26 @@ ansible-playbook site.yml --ask-vault-pass
 # Syntax Check
 ansible-lint playbook.yml
 ```
+
+## 🚀 Integration: Cloud-Init + Ansible
+
+Eine typische produktive Workflow kombiniert beide Tools:
+
+1. **Cloud-Init (Phase 0):** Server-Initialisierung (OS-Updates, Basis-Pakete, SSH-Keys)
+2. **Ansible (Phase 1+):** Komplexe Konfiguration (Services, Apps, Monitoring)
+
+### Praktisches Beispiel
+```bash
+# 1. VMs mit cloud-init starten (automatisch)
+# 2. Von Ansible konfigurieren
+ansible-playbook -i inventory.ini site.yml
+
+# 3. Neue Server hinzufügen: Wieder mit cloud-init + Ansible
+```
+
+**Vorteil:** Cloud-init ist immutable (VM ist nach Init fertig), Ansible ist idempotent (kann mehrfach laufen, gleich Ergebnis).
+
+---
 
 ## 💡 Hands-On Labs
 

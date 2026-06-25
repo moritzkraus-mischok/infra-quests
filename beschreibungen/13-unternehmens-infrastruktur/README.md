@@ -51,6 +51,17 @@ Integrationsprojekt, das mehrere Fähigkeiten kombiniert. Aufbau einer komplette
 - [ ] **Virtualisierung / Bare Metal:**
   - [ ] Hypervisor (KVM/Proxmox)
   - [ ] Netzwerk-Segmentierung
+  - [ ] **Cloud-Init für Server-Automatisierung:**
+    - [ ] Cloud-Init Templates für verschiedene Server-Typen erstellen
+    - [ ] User-Data-Skripte für:
+      - [ ] FreeIPA Server
+      - [ ] Datei-Server (Samba/NFS)
+      - [ ] Web-Server
+      - [ ] Datenbank-Server
+      - [ ] Monitoring/Backup Server
+    - [ ] Automatisierte Netzwerk-Konfiguration per cloud-init
+    - [ ] SSH-Key Management via cloud-init
+    - [ ] Initial Ansible-Run via cloud-init (runcmd)
   
 - [ ] **Zentrales Verzeichnis (FreeIPA/Samba AD):**
   - [ ] User Management
@@ -106,6 +117,12 @@ Integrationsprojekt, das mehrere Fähigkeiten kombiniert. Aufbau einer komplette
   - [ ] Git-Repository (optional)
 
 ### Phase 5: Automation & Verwaltung (Tag 17-19)
+- [ ] **Cloud-Init + Ansible Workflow:**
+  - [ ] Cloud-Init User-Data-Skripte für alle Server-Typen
+  - [ ] Automatische VM-Erstellung mit cloud-init
+  - [ ] Ansible Playbooks für detaillierte Konfiguration nach cloud-init
+  - [ ] Integration: cloud-init ruft Ansible Playbooks auf (via runcmd)
+  
 - [ ] **Ansible für Configuration Management:**
   - [ ] Playbooks für jeden Service-Typ
   - [ ] Automatische Provisioning
@@ -115,6 +132,7 @@ Integrationsprojekt, das mehrere Fähigkeiten kombiniert. Aufbau einer komplette
   - [ ] Automated Testing
   - [ ] Blue-Green Deployments
   - [ ] Rollback-Pläne
+  - [ ] Cloud-Init Templates in Pipeline integriert
 
 ### Phase 6: Dokumentation (Tag 20-22)
 - [ ] **Technische Dokumentation:**
@@ -240,11 +258,12 @@ Integrationsprojekt, das mehrere Fähigkeiten kombiniert. Aufbau einer komplette
 ## 💡 Hands-On Implementation
 
 ### Team-Struktur für Projekt
-- **Architektur-Team:** Überblick & Planung
-- **Security-Team:** Firewall, VPN, Compliance
-- **Services-Team:** Datenbank, Mail, Web
+- **Architektur-Team:** Überblick & Planung, Cloud-Init Templates designen
+- **Infrastructure-Team:** Cloud-Init Automation, VM-Provisioning
+- **Security-Team:** Firewall, VPN, Compliance, SSH-Key Management
+- **Services-Team:** Datenbank, Mail, Web (Ansible Playbooks)
 - **Ops-Team:** Monitoring, Backups, DR
-- **Dokumentation-Team:** Runbooks, Policies
+- **Dokumentation-Team:** Runbooks, Policies, Cloud-Init Examples
 
 ### Iterativer Aufbau
 1. **Sprint 1:** Basis-Infrastruktur (FreeIPA, Fileserver)
