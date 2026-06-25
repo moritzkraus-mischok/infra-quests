@@ -19,10 +19,7 @@
                     <div class="info-card-label">Schwierigkeitsgrad</div>
                     <div class="info-card-value">Fortgeschritten → Expert</div>
                 </div>
-                <div class="info-card">
-                    <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">2-3 Wochen</div>
-                </div>
+                
             </div>
         </header>
 
@@ -67,7 +64,7 @@ Infrastructure as Code mit Ansible. Automatisierung von Konfiguration, Deploymen
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-<h3>Phase 0: VM-Initialisierung mit Cloud-Init (Tag 0 - Vorbereitung)</h3>
+<h3>Phase 0: VM-Initialisierung mit Cloud-Init</h3>
 <p>Bevor Ansible zum Einsatz kommt: VMs automatisch mit cloud-init initialisieren. Dies spart Zeit und zeigt "Infrastructure as Code" auf der ersten Schicht.</p>
 
 <h4>Cloud-Init User-Data für Ansible-Nodes</h4>
@@ -104,7 +101,7 @@ runcmd:
 
 <hr/>
 
-<h3>Phase 1: Ansible Installation & Setup (Tag 1-2)</h3>
+<h3>Phase 1: Ansible Installation & Setup</h3>
 <ul>
 <li class="unchecked">Ansible installieren: <code>sudo apt install ansible</code></li>
 <li class="unchecked">SSH-Keys zwischen Nodes konfigurieren</li>
@@ -122,7 +119,7 @@ db1 ansible_host=192.168.1.20</code></pre>
 <li class="unchecked">Verschiedene Inventory-Formate (INI, YAML)</li>
 </ul>
 
-<h3>Phase 2: Basic Commands & Ad-Hoc Tasks (Tag 3)</h3>
+<h3>Phase 2: Basic Commands & Ad-Hoc Tasks</h3>
 <ul>
 <li class="unchecked">Ad-hoc Commands:</li>
 </ul>
@@ -138,7 +135,7 @@ ansible all -m shell -a "cat /etc/hostname"</code></pre>
 <li class="unchecked">Variablen in Ad-hoc Commands</li>
 </ul>
 
-<h3>Phase 3: Playbooks schreiben (Tag 4-6)</h3>
+<h3>Phase 3: Playbooks schreiben</h3>
 <ul>
 <li class="unchecked">Playbook YAML-Struktur verstehen</li>
 <li class="unchecked">Einfaches Playbook:</li>
@@ -176,7 +173,7 @@ enabled: yes</code></pre>
 <li class="unchecked">Playbooks ausführen: <code>ansible-playbook site.yml</code></li>
 </ul>
 
-<h3>Phase 4: Roles für Wiederverwendbarkeit (Tag 7-8)</h3>
+<h3>Phase 4: Roles für Wiederverwendbarkeit</h3>
 <ul>
 <li class="unchecked">Role Struktur verstehen:</li>
 </ul>
@@ -196,7 +193,7 @@ vars/</code></pre>
 <li class="unchecked">Galaxy Roles (optional): <code>ansible-galaxy install</code></li>
 </ul>
 
-<h3>Phase 5: Facts & Conditionals (Tag 9)</h3>
+<h3>Phase 5: Facts & Conditionals</h3>
 <ul>
 <li class="unchecked">Facts sammeln: <code>setup</code> Module</li>
 <li class="unchecked">Custom Facts</li>
@@ -228,7 +225,7 @@ loop:
 <li class="unchecked">Conditional Loops</li>
 </ul>
 
-<h3>Phase 6: Templates & Dynamic Content (Tag 10)</h3>
+<h3>Phase 6: Templates & Dynamic Content</h3>
 <ul>
 <li class="unchecked">Jinja2 Templates verstehen</li>
 <li class="unchecked">Config-Files mit Templates:</li>
@@ -245,7 +242,7 @@ server&lt;em&gt;name {{ server&lt;/em&gt;name }};
 <li class="unchecked">Loops in Templates</li>
 </ul>
 
-<h3>Phase 7: Error Handling & Debugging (Tag 11)</h3>
+<h3>Phase 7: Error Handling & Debugging</h3>
 <ul>
 <li class="unchecked">ignore<em>errors, failed</em>when</li>
 <li class="unchecked">register für Output-Handling</li>
@@ -255,7 +252,7 @@ server&lt;em&gt;name {{ server&lt;/em&gt;name }};
 <li class="unchecked">Playbook-Syntax prüfen: <code>ansible-playbook --syntax-check</code></li>
 </ul>
 
-<h3>Phase 8: Erweiterte Konzepte (Tag 12-13)</h3>
+<h3>Phase 8: Erweiterte Konzepte</h3>
 <ul>
 <li class="unchecked">Include/Import</li>
 <li class="unchecked">Pre-tasks, Post-tasks</li>
@@ -268,7 +265,7 @@ server&lt;em&gt;name {{ server&lt;/em&gt;name }};
 <li class="unchecked">Dry-run: <code>--check</code> Mode</li>
 </ul>
 
-<h3>Phase 9: Praxisprojekt: Multi-Tier App (Tag 14-15)</h3>
+<h3>Phase 9: Praxisprojekt: Multi-Tier App</h3>
 <ul>
 <li class="unchecked">Web Tier (Nginx)</li>
 <li class="unchecked">Application Tier (Python/Node)</li>

@@ -19,10 +19,7 @@
                     <div class="info-card-label">Schwierigkeitsgrad</div>
                     <div class="info-card-value">Fortgeschritten</div>
                 </div>
-                <div class="info-card">
-                    <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">3-4 Wochen</div>
-                </div>
+                
             </div>
         </header>
 
@@ -67,7 +64,7 @@ Aufbau einer Infrastruktur zur Überwachung von Systemen und zentralisierten Log
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-<h3>Phase 1: Prometheus Setup (Tag 1-4)</h3>
+<h3>Phase 1: Prometheus Setup</h3>
 <ul>
 <li class="unchecked">Prometheus installieren oder Docker nutzen</li>
 <li class="unchecked">prometheus.yml konfigurieren:</li>
@@ -94,7 +91,7 @@ rate(node&lt;em&gt;cpu&lt;/em&gt;seconds_total[5m])</code></pre>
 <li class="unchecked">Service-Discovery (optional)</li>
 </ul>
 
-<h3>Phase 2: Grafana Dashboards (Tag 5-7)</h3>
+<h3>Phase 2: Grafana Dashboards</h3>
 <ul>
 <li class="unchecked">Grafana installieren oder Docker</li>
 <li class="unchecked">Prometheus als Data Source hinzufügen</li>
@@ -109,7 +106,7 @@ rate(node&lt;em&gt;cpu&lt;/em&gt;seconds_total[5m])</code></pre>
 <li class="unchecked">Dashboard exportieren/versionieren</li>
 </ul>
 
-<h3>Phase 3: Alerting (Tag 8-9)</h3>
+<h3>Phase 3: Alerting</h3>
 <ul>
 <li class="unchecked">Alertmanager installieren</li>
 <li class="unchecked">Alert-Regeln definieren:</li>
@@ -133,7 +130,7 @@ for: 5m</code></pre>
 <li class="unchecked">Alert-Routing konfigurieren</li>
 </ul>
 
-<h3>Phase 4: Elasticsearch/Logstash Setup (Tag 10-12)</h3>
+<h3>Phase 4: Elasticsearch/Logstash Setup</h3>
 <ul>
 <li class="unchecked">Elasticsearch installieren (oder Docker)</li>
 <li class="unchecked">Logstash konfigurieren für Log-Parsing</li>
@@ -149,7 +146,7 @@ output { elasticsearch { hosts =&gt; ["localhost"] } }</code></pre>
 <li class="unchecked">Logstash Performance testen</li>
 </ul>
 
-<h3>Phase 5: Kibana Visualisierungen (Tag 13-14)</h3>
+<h3>Phase 5: Kibana Visualisierungen</h3>
 <ul>
 <li class="unchecked">Kibana installieren (oder Docker)</li>
 <li class="unchecked">Elasticsearch Index-Patterns erstellen</li>
@@ -164,7 +161,7 @@ output { elasticsearch { hosts =&gt; ["localhost"] } }</code></pre>
 <li class="unchecked">Alert-Bedingungen basierend auf Log-Patterns</li>
 </ul>
 
-<h3>Phase 6: Log-Sources integrieren (Tag 15-16)</h3>
+<h3>Phase 6: Log-Sources integrieren</h3>
 <ul>
 <li class="unchecked">Verschiedene Log-Sources:</li>
 <li class="unchecked">Systemd Logs (journalctl)</li>
@@ -176,7 +173,7 @@ output { elasticsearch { hosts =&gt; ["localhost"] } }</code></pre>
 <li class="unchecked">Zentralisierte Log-Sammlung</li>
 </ul>
 
-<h3>Phase 7: ELK Stack mit Docker (Tag 17-18)</h3>
+<h3>Phase 7: ELK Stack mit Docker</h3>
 <ul>
 <li class="unchecked">Docker Compose für kompletten Stack:</li>
 </ul>
@@ -194,7 +191,7 @@ image: docker.elastic.co/kibana/kibana:8.0.0</code></pre>
 <li class="unchecked">X-Pack Sicherheit (falls Enterprise)</li>
 </ul>
 
-<h3>Phase 8: Advanced Use Cases (Tag 19-20)</h3>
+<h3>Phase 8: Advanced Use Cases</h3>
 <ul>
 <li class="unchecked">Anomaly Detection</li>
 <li class="unchecked">Machine Learning mit ELK (X-Pack)</li>

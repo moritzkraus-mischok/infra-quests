@@ -19,10 +19,7 @@
                     <div class="info-card-label">Schwierigkeitsgrad</div>
                     <div class="info-card-value">Fortgeschritten</div>
                 </div>
-                <div class="info-card">
-                    <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">2-3 Wochen</div>
-                </div>
+                
             </div>
         </header>
 
@@ -66,7 +63,7 @@ Einrichtung von Netzwerk-Dateisystemen für Linux-zu-Windows und Linux-zu-Linux 
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-<h3>Phase 1: Samba Installation & Grundlagen (Tag 1-3)</h3>
+<h3>Phase 1: Samba Installation & Grundlagen</h3>
 <ul>
 <li class="unchecked">Samba installieren: <code>sudo apt install samba samba-tools</code></li>
 <li class="unchecked">Samba-Konfig verstehen: <code>/etc/samba/smb.conf</code></li>
@@ -79,7 +76,7 @@ Einrichtung von Netzwerk-Dateisystemen für Linux-zu-Windows und Linux-zu-Linux 
 <li class="unchecked">Freigaben auflisten: <code>smbclient -L localhost</code></li>
 </ul>
 
-<h3>Phase 2: Samba Freigaben konfigurieren (Tag 4-6)</h3>
+<h3>Phase 2: Samba Freigaben konfigurieren</h3>
 <ul>
 <li class="unchecked">Öffentliche Freigabe (read-only):</li>
 </ul>
@@ -103,7 +100,7 @@ valid users = alice, bob</code></pre>
 <li class="unchecked">Konfiguration testen: <code>testparm -v</code></li>
 </ul>
 
-<h3>Phase 3: Samba Berechtigungen (Tag 7-8)</h3>
+<h3>Phase 3: Samba Berechtigungen</h3>
 <ul>
 <li class="unchecked">POSIX-Berechtigungen kombiniert mit Samba-Rechten</li>
 <li class="unchecked">Force-Benutzer und Force-Gruppe</li>
@@ -112,7 +109,7 @@ valid users = alice, bob</code></pre>
 <li class="unchecked">Freigabe-Level vs. Datei-Level Permissions</li>
 </ul>
 
-<h3>Phase 4: Windows-Zugriff testen (Tag 9)</h3>
+<h3>Phase 4: Windows-Zugriff testen</h3>
 <ul>
 <li class="unchecked">Windows-PC mit Samba verbinden</li>
 <li class="unchecked">Freigabe mounten: <code>\\server\share</code></li>
@@ -122,7 +119,7 @@ valid users = alice, bob</code></pre>
 <li class="unchecked">Probleme debuggen (Permissions, Access Denied)</li>
 </ul>
 
-<h3>Phase 5: NFS Installation & Grundlagen (Tag 10-11)</h3>
+<h3>Phase 5: NFS Installation & Grundlagen</h3>
 <ul>
 <li class="unchecked">NFS-Server installieren: <code>sudo apt install nfs-kernel-server</code></li>
 <li class="unchecked">NFS-Konfiguration: <code>/etc/exports</code></li>
@@ -134,7 +131,7 @@ valid users = alice, bob</code></pre>
 <li class="unchecked">Exportierte Freigaben anzeigen: <code>showmount -e localhost</code></li>
 </ul>
 
-<h3>Phase 6: NFS Clients mounten (Tag 12-13)</h3>
+<h3>Phase 6: NFS Clients mounten</h3>
 <ul>
 <li class="unchecked">NFS-Client installieren: <code>sudo apt install nfs-common</code></li>
 <li class="unchecked">NFS-Freigabe mounten:</li>
@@ -150,7 +147,7 @@ valid users = alice, bob</code></pre>
 <li class="unchecked">Unmount und Re-mount testen</li>
 </ul>
 
-<h3>Phase 7: NFS Sicherheit & Optimierung (Tag 14)</h3>
+<h3>Phase 7: NFS Sicherheit & Optimierung</h3>
 <ul>
 <li class="unchecked">NFS-Sicherheitsoptionen:</li>
 <li class="unchecked"><code>no<em>root</em>squash</code> vs. <code>root_squash</code></li>
@@ -162,7 +159,7 @@ valid users = alice, bob</code></pre>
 <li class="unchecked">Logging und Monitoring</li>
 </ul>
 
-<h3>Phase 8: Troubleshooting & Praxisszenarien (Tag 15)</h3>
+<h3>Phase 8: Troubleshooting & Praxisszenarien</h3>
 <ul>
 <li class="unchecked">Häufige Probleme:</li>
 <li class="unchecked">Permission Denied beim Zugriff</li>

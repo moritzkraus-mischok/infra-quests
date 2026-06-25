@@ -19,10 +19,7 @@
                     <div class="info-card-label">Schwierigkeitsgrad</div>
                     <div class="info-card-value">Fortgeschritten → Expert</div>
                 </div>
-                <div class="info-card">
-                    <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">3-4 Wochen</div>
-                </div>
+                
             </div>
         </header>
 
@@ -69,7 +66,7 @@ Strategische Planung und Implementierung von Backup- und Disaster-Recovery-Lösu
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-<h3>Phase 1: Backup-Grundlagen & Strategien (Tag 1-2)</h3>
+<h3>Phase 1: Backup-Grundlagen & Strategien</h3>
 <ul>
 <li class="unchecked">Backup-Konzepte verstehen:</li>
 <li class="unchecked">Full Backup - komplette Kopie</li>
@@ -82,7 +79,7 @@ Strategische Planung und Implementierung von Backup- und Disaster-Recovery-Lösu
 <li class="unchecked">Backup-Windows planen</li>
 </ul>
 
-<h3>Phase 2: Rsync basierte Backups (Tag 3-4)</h3>
+<h3>Phase 2: Rsync basierte Backups</h3>
 <ul>
 <li class="unchecked">Rsync Grundlagen</li>
 <li class="unchecked">Inkrementelle Backups mit Rsync:</li>
@@ -98,7 +95,7 @@ Strategische Planung und Implementierung von Backup- und Disaster-Recovery-Lösu
 <li class="unchecked">Dry-run testen: <code>rsync -av --dry-run</code></li>
 </ul>
 
-<h3>Phase 3: Bacula/Bareos Setup (Tag 5-8)</h3>
+<h3>Phase 3: Bacula/Bareos Setup</h3>
 <ul>
 <li class="unchecked">Bacula/Bareos Architektur verstehen (Director, Storage Daemon, File Daemon)</li>
 <li class="unchecked">Installation:</li>
@@ -125,7 +122,7 @@ RunScript { Command = "pre-backup-check" }
 <li class="unchecked">bconsole für Backup-Kontrolle</li>
 </ul>
 
-<h3>Phase 4: Backup-Jobs Konfigurieren (Tag 9-10)</h3>
+<h3>Phase 4: Backup-Jobs Konfigurieren</h3>
 <ul>
 <li class="unchecked">Mehrere Clients hinzufügen</li>
 <li class="unchecked">Verschiedene Job-Typen:</li>
@@ -138,7 +135,7 @@ RunScript { Command = "pre-backup-check" }
 <li class="unchecked">Parallel-Jobs</li>
 </ul>
 
-<h3>Phase 5: Restore & Recovery (Tag 11-12)</h3>
+<h3>Phase 5: Restore & Recovery</h3>
 <ul>
 <li class="unchecked">Verschiedene Restore-Szenarien:</li>
 <li class="unchecked">Einzelne Datei</li>
@@ -151,7 +148,7 @@ RunScript { Command = "pre-backup-check" }
 <li class="unchecked">Point-in-Time Recovery üben</li>
 </ul>
 
-<h3>Phase 6: Encryption & Security (Tag 13)</h3>
+<h3>Phase 6: Encryption & Security</h3>
 <ul>
 <li class="unchecked">Backup-Verschlüsselung:</li>
 </ul>
@@ -168,7 +165,7 @@ TLS Certificate = /etc/bareos/certs/storage.pem
 <li class="unchecked">Key Management</li>
 </ul>
 
-<h3>Phase 7: Off-site Backups (Tag 14)</h3>
+<h3>Phase 7: Off-site Backups</h3>
 <ul>
 <li class="unchecked">Externe Backup-Storage:</li>
 <li class="unchecked">NAS</li>
@@ -184,7 +181,7 @@ restic -r s3:s3.amazonaws.com/bucket backup /home/</code></pre>
 <li class="unchecked">Kosten-Analyse</li>
 </ul>
 
-<h3>Phase 8: Disaster Recovery Planung (Tag 15-16)</h3>
+<h3>Phase 8: Disaster Recovery Planung</h3>
 <ul>
 <li class="unchecked">DR Runbook erstellen</li>
 <li class="unchecked">Recovery Procedures:</li>
@@ -197,7 +194,7 @@ restic -r s3:s3.amazonaws.com/bucket backup /home/</code></pre>
 <li class="unchecked">Automatisierte Recovery (Disaster Recovery Automation)</li>
 </ul>
 
-<h3>Phase 9: Monitoring & Verification (Tag 17)</h3>
+<h3>Phase 9: Monitoring & Verification</h3>
 <ul>
 <li class="unchecked">Backup-Job Logs analysieren</li>
 <li class="unchecked">Failed Jobs identifizieren und beheben</li>
@@ -210,7 +207,7 @@ restic -r s3:s3.amazonaws.com/bucket backup /home/</code></pre>
 <li class="unchecked">SLA-Compliance überprüfen</li>
 </ul>
 
-<h3>Phase 10: Praxisprojekt: Enterprise Backup (Tag 18-20)</h3>
+<h3>Phase 10: Praxisprojekt: Enterprise Backup</h3>
 <ul>
 <li class="unchecked">Mehrere Server mit verschiedenen Backup-Profilen</li>
 <li class="unchecked">Mix von Full, Incremental, Differential</li>

@@ -19,10 +19,7 @@
                     <div class="info-card-label">Schwierigkeitsgrad</div>
                     <div class="info-card-value">Anfänger → Fortgeschritten</div>
                 </div>
-                <div class="info-card">
-                    <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">1-2 Wochen</div>
-                </div>
+                
             </div>
         </header>
 
@@ -66,7 +63,7 @@ Praktische Netzwerk-Administration unter Linux. Von Konfiguration bis zum Troubl
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-<h3>Phase 1: Netzwerk-Interface Grundlagen (Tag 1-2)</h3>
+<h3>Phase 1: Netzwerk-Interface Grundlagen</h3>
 <ul>
 <li class="unchecked">Interfaces auflisten: <code>ip link show</code>, <code>ifconfig</code></li>
 <li class="unchecked">Interface-Informationen: <code>ethtool eth0</code></li>
@@ -75,7 +72,7 @@ Praktische Netzwerk-Administration unter Linux. Von Konfiguration bis zum Troubl
 <li class="unchecked"><code>/etc/netplan/</code> Verzeichnis verstehen</li>
 </ul>
 
-<h3>Phase 2: Statische IP-Konfiguration (Tag 3-4)</h3>
+<h3>Phase 2: Statische IP-Konfiguration</h3>
 <ul>
 <li class="unchecked">Netplan YAML-Format kennenlernen</li>
 <li class="unchecked">Statische IP einrichten:</li>
@@ -97,7 +94,7 @@ addresses: [8.8.8.8, 8.8.4.4]</code></pre>
 <li class="unchecked">Persistent Einstellungen überprüfen</li>
 </ul>
 
-<h3>Phase 3: DHCP-Konfiguration (Tag 5)</h3>
+<h3>Phase 3: DHCP-Konfiguration</h3>
 <ul>
 <li class="unchecked">DHCP aktivieren: <code>dhcp4: true</code></li>
 <li class="unchecked">DHCP-Lease prüfen: <code>dhclient -v</code></li>
@@ -105,7 +102,7 @@ addresses: [8.8.8.8, 8.8.4.4]</code></pre>
 <li class="unchecked">DHCP-Fallbacks konfigurieren</li>
 </ul>
 
-<h3>Phase 4: DNS-Konfiguration (Tag 6-7)</h3>
+<h3>Phase 4: DNS-Konfiguration</h3>
 <ul>
 <li class="unchecked">Nameserver-Konfiguration (Netplan)</li>
 <li class="unchecked"><code>/etc/resolv.conf</code> verstehen (wird oft auto-generiert)</li>
@@ -120,7 +117,7 @@ host google.com</code></pre>
 <li class="unchecked">Beschädigte DNS-Einträge debuggen</li>
 </ul>
 
-<h3>Phase 5: Routing & Gateway (Tag 8)</h3>
+<h3>Phase 5: Routing & Gateway</h3>
 <ul>
 <li class="unchecked">Routing-Tabelle anzeigen: <code>ip route show</code></li>
 <li class="unchecked">Default-Gateway verstehen</li>
@@ -132,7 +129,7 @@ host google.com</code></pre>
 <li class="unchecked">Traceroute-Pfade nachverfolgern</li>
 </ul>
 
-<h3>Phase 6: Netzwerk-Troubleshooting (Tag 9-10)</h3>
+<h3>Phase 6: Netzwerk-Troubleshooting</h3>
 <ul>
 <li class="unchecked">Basis-Diagnose-Tools:</li>
 </ul>
@@ -151,7 +148,7 @@ netstat / ss</code></pre>
 <li class="unchecked">Duplikate IPs</li>
 </ul>
 
-<h3>Phase 7: Fortgeschrittene Diagnose (Tag 11-12)</h3>
+<h3>Phase 7: Fortgeschrittene Diagnose</h3>
 <ul>
 <li class="unchecked">ARP-Table: <code>arp -a</code>, <code>ip neigh show</code></li>
 <li class="unchecked">Socket-Status: <code>ss -tlnp</code></li>

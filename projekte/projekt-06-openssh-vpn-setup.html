@@ -19,10 +19,7 @@
                     <div class="info-card-label">Schwierigkeitsgrad</div>
                     <div class="info-card-value">Fortgeschritten</div>
                 </div>
-                <div class="info-card">
-                    <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">2-3 Wochen</div>
-                </div>
+                
             </div>
         </header>
 
@@ -66,7 +63,7 @@ Sichere Remote-Zugriff auf Systeme. Von SSH-Hardening bis zur Einrichtung von VP
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-<h3>Phase 1: SSH Erweiterte Konfiguration (Tag 1-3)</h3>
+<h3>Phase 1: SSH Erweiterte Konfiguration</h3>
 <ul>
 <li class="unchecked">SSH-Key-Paare mit verschiedenen Algorithmen:</li>
 </ul>
@@ -87,7 +84,7 @@ Port 2222</code></pre>
 <li class="unchecked">Key-Rotation implementieren</li>
 </ul>
 
-<h3>Phase 2: SSH Server Hardening (Tag 4-5)</h3>
+<h3>Phase 2: SSH Server Hardening</h3>
 <ul>
 <li class="unchecked"><code>/etc/ssh/sshd_config</code> optimieren:</li>
 </ul>
@@ -106,7 +103,7 @@ MaxSessions 10</code></pre>
 <li class="unchecked">Syntax prüfen: <code>sudo sshd -t</code></li>
 </ul>
 
-<h3>Phase 3: SSH-Tunneling & Port-Forwarding (Tag 6-7)</h3>
+<h3>Phase 3: SSH-Tunneling & Port-Forwarding</h3>
 <ul>
 <li class="unchecked">Local Port Forwarding (Port auf Remote-System zugreifen):</li>
 </ul>
@@ -124,7 +121,7 @@ MaxSessions 10</code></pre>
 <li class="unchecked">Anwendungsfall: Sichere Datenbank-Zugriffe</li>
 </ul>
 
-<h3>Phase 4: Certificate-based Authentication (Tag 8)</h3>
+<h3>Phase 4: Certificate-based Authentication</h3>
 <ul>
 <li class="unchecked">SSH CA (Certificate Authority) Setup</li>
 <li class="unchecked">Host-Keys mit Zertifikat signieren</li>
@@ -133,7 +130,7 @@ MaxSessions 10</code></pre>
 <li class="unchecked">Zertifikat-Revocation-Listen (optional)</li>
 </ul>
 
-<h3>Phase 5: OpenVPN Installation & Setup (Tag 9-11)</h3>
+<h3>Phase 5: OpenVPN Installation & Setup</h3>
 <strong>Oder WireGuard als Alternative</strong>
 
 <h4>OpenVPN</h4>
@@ -152,7 +149,7 @@ MaxSessions 10</code></pre>
 <li class="unchecked">Server starten und testen</li>
 </ul>
 
-<h3>Phase 6: OpenVPN Clients (Tag 12)</h3>
+<h3>Phase 6: OpenVPN Clients</h3>
 <ul>
 <li class="unchecked">Client-Zertifikate generieren</li>
 <li class="unchecked">Client-Konfiguration erstellen (<code>.ovpn</code> Datei)</li>
@@ -161,7 +158,7 @@ MaxSessions 10</code></pre>
 <li class="unchecked">Logs analysieren</li>
 </ul>
 
-<h3>Phase 7: VPN Netzwerk-Segmentierung (Tag 13)</h3>
+<h3>Phase 7: VPN Netzwerk-Segmentierung</h3>
 <ul>
 <li class="unchecked">VPN als Zugang zu Private-Network</li>
 <li class="unchecked">Routing konfigurieren (iroute, push routes)</li>
@@ -170,7 +167,7 @@ MaxSessions 10</code></pre>
 <li class="unchecked">Split-Tunneling vs. Full-Tunneling</li>
 </ul>
 
-<h3>Phase 8: WireGuard als Alternative (Tag 14)</h3>
+<h3>Phase 8: WireGuard als Alternative</h3>
 <ul>
 <li class="unchecked">WireGuard installieren: <code>sudo apt install wireguard</code></li>
 <li class="unchecked">Keys generieren: <code>wg genkey | tee private.key | wg pubkey > public.key</code></li>
@@ -179,7 +176,7 @@ MaxSessions 10</code></pre>
 <li class="unchecked">Performance-Vergleich mit OpenVPN</li>
 </ul>
 
-<h3>Phase 9: Monitoring & Troubleshooting (Tag 15)</h3>
+<h3>Phase 9: Monitoring & Troubleshooting</h3>
 <ul>
 <li class="unchecked">Aktive SSH-Sessions monitoring: <code>who</code>, <code>w</code>, <code>ss</code></li>
 <li class="unchecked">SSH-Logs analysieren: <code>/var/log/auth.log</code></li>

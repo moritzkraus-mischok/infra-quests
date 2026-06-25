@@ -19,10 +19,7 @@
                     <div class="info-card-label">Schwierigkeitsgrad</div>
                     <div class="info-card-value">Anfänger → Fortgeschritten</div>
                 </div>
-                <div class="info-card">
-                    <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">1-2 Wochen</div>
-                </div>
+                
             </div>
         </header>
 
@@ -67,7 +64,7 @@ Installation und Konfiguration eines sicheren Ubuntu Server-Systems von Grund au
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-<h3>Phase 1: Installation (Tag 1-2)</h3>
+<h3>Phase 1: Installation</h3>
 <ul>
 <li class="unchecked">Ubuntu Server ISO herunterladen</li>
 <li class="unchecked">VM/Server erstellen mit verschiedenen Partitionierungsoptionen testen</li>
@@ -78,7 +75,7 @@ Installation und Konfiguration eines sicheren Ubuntu Server-Systems von Grund au
 <li class="unchecked">Software-Auswahl (SSH-Server, build-essential)</li>
 </ul>
 
-<h3>Phase 2: Initiale Konfiguration (Tag 3-4)</h3>
+<h3>Phase 2: Initiale Konfiguration</h3>
 <ul>
 <li class="unchecked">Systemupdate durchführen: <code>sudo apt update && sudo apt upgrade</code></li>
 <li class="unchecked">Hostname setzen: <code>/etc/hostname</code>, <code>/etc/hosts</code></li>
@@ -87,7 +84,7 @@ Installation und Konfiguration eines sicheren Ubuntu Server-Systems von Grund au
 <li class="unchecked">Root-Login per SSH deaktivieren</li>
 </ul>
 
-<h3>Phase 3: SSH-Hardening (Tag 5-6)</h3>
+<h3>Phase 3: SSH-Hardening</h3>
 <ul>
 <li class="unchecked">SSH-Key-Pair generieren (RSA 4096 oder Ed25519)</li>
 <li class="unchecked">Public Key in <code>~/.ssh/authorized_keys</code> eintragen</li>
@@ -99,7 +96,7 @@ Installation und Konfiguration eines sicheren Ubuntu Server-Systems von Grund au
 <li class="unchecked">SSH-Dienst neu starten und testen</li>
 </ul>
 
-<h3>Phase 4: Firewall-Setup (Tag 7-8)</h3>
+<h3>Phase 4: Firewall-Setup</h3>
 <ul>
 <li class="unchecked">UFW aktivieren: <code>sudo ufw enable</code></li>
 <li class="unchecked">Regeln definieren:</li>
@@ -109,7 +106,7 @@ Installation und Konfiguration eines sicheren Ubuntu Server-Systems von Grund au
 <li class="unchecked">Firewall-Status überprüfen: <code>sudo ufw status verbose</code></li>
 </ul>
 
-<h3>Phase 5: Updates & Backups (Tag 9-10)</h3>
+<h3>Phase 5: Updates & Backups</h3>
 <ul>
 <li class="unchecked">Automatische Updates aktivieren:</li>
 </ul>
@@ -123,7 +120,7 @@ sudo dpkg-reconfigure -plow unattended-upgrades</code></pre>
 <li class="unchecked">Backup-Lösung testen (Recovery durchführen)</li>
 </ul>
 
-<h3>Phase 6: Sicherheits-Audits (Tag 11-12)</h3>
+<h3>Phase 6: Sicherheits-Audits</h3>
 <ul>
 <li class="unchecked">fail2ban installieren und konfigurieren</li>
 <li class="unchecked">Log-Datei analysieren: <code>/var/log/auth.log</code></li>

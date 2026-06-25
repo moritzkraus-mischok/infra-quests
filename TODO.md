@@ -1,0 +1,4 @@
+- [x] markdown code fences nach html code blöcke ändern (93 code blocks in 15 Dateien konvertiert)
+- [x] verschiebe die Projektdateien in einen eigenen Ordner `projekte´ (15 Dateien verschoben, alle Links aktualisiert)
+- [x] CSS in einen eigenen ordner extrahieren und in den dateien referenzieren
+- [ ] linien im Hintergrund des Skill-Trees die Abhängigkeiten anzeigen lassen

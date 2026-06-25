@@ -19,10 +19,7 @@
                     <div class="info-card-label">Schwierigkeitsgrad</div>
                     <div class="info-card-value">Fortgeschritten</div>
                 </div>
-                <div class="info-card">
-                    <div class="info-card-label">Dauer</div>
-                    <div class="info-card-value">2-3 Wochen</div>
-                </div>
+                
             </div>
         </header>
 
@@ -68,7 +65,7 @@ Aufbau und Verwaltung eines produktiven DNS-Servers. DNS ist eine kritische Infr
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
-<h3>Phase 1: BIND Installation & Grundlagen (Tag 1-2)</h3>
+<h3>Phase 1: BIND Installation & Grundlagen</h3>
 <ul>
 <li class="unchecked">BIND9 installieren: <code>sudo apt install bind9 bind9-utils</code></li>
 <li class="unchecked">BIND Architektur verstehen (Authoritative, Recursive, Caching)</li>
@@ -82,7 +79,7 @@ Aufbau und Verwaltung eines produktiven DNS-Servers. DNS ist eine kritische Infr
 dig
 host</code></pre>
 
-<h3>Phase 2: Zone-Datei erstellen (Tag 3-4)</h3>
+<h3>Phase 2: Zone-Datei erstellen</h3>
 <ul>
 <li class="unchecked">Zone-Datei Syntax verstehen</li>
 <li class="unchecked">Example Zone für <code>example.com</code> erstellen:</li>
@@ -118,7 +115,7 @@ mail      IN      A       192.168.1.20
 <li class="unchecked">SOA (Start of Authority)</li>
 </ul>
 
-<h3>Phase 3: BIND Zones konfigurieren (Tag 5-6)</h3>
+<h3>Phase 3: BIND Zones konfigurieren</h3>
 <ul>
 <li class="unchecked"><code>/etc/bind/named.conf.local</code> editieren:</li>
 </ul>
@@ -133,7 +130,7 @@ file "/etc/bind/zones/db.example.com";
 <li class="unchecked">Zone-Transfer testen: <code>dig @localhost example.com</code></li>
 </ul>
 
-<h3>Phase 4: Reverse DNS Zones (Tag 7)</h3>
+<h3>Phase 4: Reverse DNS Zones</h3>
 <ul>
 <li class="unchecked">Reverse Zone für Subnetz erstellen (z.B. 1.168.192.in-addr.arpa)</li>
 <li class="unchecked">Reverse DNS Records (PTR)</li>
@@ -147,7 +144,7 @@ file "/etc/bind/zones/db.example.com";
 <li class="unchecked">Reverse Zone in named.conf.local</li>
 </ul>
 
-<h3>Phase 5: DNS Records in Praxis (Tag 8-9)</h3>
+<h3>Phase 5: DNS Records in Praxis</h3>
 <ul>
 <li class="unchecked">Mail-Setup (MX Records)</li>
 <li class="unchecked">SPF Records für Mail-Sicherheit</li>
@@ -163,7 +160,7 @@ file "/etc/bind/zones/db.example.com";
 <li class="unchecked">ALIAS Records (wenn supported)</li>
 </ul>
 
-<h3>Phase 6: DNSSEC (Day 10-11)</h3>
+<h3>Phase 6: DNSSEC</h3>
 <ul>
 <li class="unchecked">DNSSEC Konzepte verstehen (KSK, ZSK)</li>
 <li class="unchecked">DNSSEC aktivieren für Zone:</li>
@@ -178,7 +175,7 @@ sudo dnssec-keygen -a RSASHA256 -b 1024 example.com</code></pre>
 <pre><code class="language-bash">dig +dnssec example.com
 delv @localhost example.com</code></pre>
 
-<h3>Phase 7: Recursive DNS & Caching (Tag 12)</h3>
+<h3>Phase 7: Recursive DNS & Caching</h3>
 <ul>
 <li class="unchecked">Recursive Queries konfigurieren (falls gewünscht)</li>
 <li class="unchecked">Forwarders definieren:</li>
@@ -192,7 +189,7 @@ delv @localhost example.com</code></pre>
 <li class="unchecked">ACLs für Recursive Queries (nicht offen zur Welt!)</li>
 </ul>
 
-<h3>Phase 8: Logging & Troubleshooting (Tag 13-14)</h3>
+<h3>Phase 8: Logging & Troubleshooting</h3>
 <ul>
 <li class="unchecked">DNS Logging aktivieren:</li>
 </ul>
@@ -214,7 +211,7 @@ category default { default_file; };
 <li class="unchecked">Permission-Probleme</li>
 </ul>
 
-<h3>Phase 9: Monitoring & Automation (Tag 15)</h3>
+<h3>Phase 9: Monitoring & Automation</h3>
 <ul>
 <li class="unchecked">BIND Status überwachen</li>
 <li class="unchecked">Automated Zone-Updates (Dynamic DNS, optional)</li>
