@@ -1,0 +1,18 @@
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "http://127.0.0.1:8787"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(python3 generate_html.py)",
+      "Bash(grep -E \"\\\\.html$\")",
+      "Bash(awk '{print $9, $5}')",
+      "Bash(git add *)",
+      "Bash(git commit -m 'Füge Status-Icons hinzu: noch nicht gestartet, gestartet, abgeschlossen *)",
+      "Bash(git checkout *)",
+      "Bash(git merge *)",
+      "Bash(python3 /home/moritzkraus/.claude/jobs/17951901/tmp/add_task_scripts.py)",
+      "Bash(git commit -m 'Mache Aufgaben-Checkboxen durch Klick abhakbar *)"
+    ]
+  }
+}

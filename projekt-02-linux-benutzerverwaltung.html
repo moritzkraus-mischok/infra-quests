@@ -365,5 +365,49 @@
             <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
         </footer>
     </div>
+    <script>
+        // Initialize task checkboxes
+        function initializeTaskCheckboxes() {
+            const projectId = 'projekt-02';
+            const checkedTasks = JSON.parse(localStorage.getItem(`${projectId}-tasks`) || '{}');
+
+            document.querySelectorAll('li.unchecked, li.checked').forEach((li, index) => {
+                const taskId = `task-${index}`;
+                const text = li.textContent.trim();
+
+                // Restore checked state from localStorage
+                if (checkedTasks[taskId]) {
+                    li.classList.remove('unchecked');
+                    li.classList.add('checked');
+                }
+
+                // Make clickable
+                li.style.cursor = 'pointer';
+                li.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    toggleTask(projectId, taskId, li);
+                });
+            });
+        }
+
+        function toggleTask(projectId, taskId, element) {
+            const checkedTasks = JSON.parse(localStorage.getItem(`${projectId}-tasks`) || '{}');
+
+            if (element.classList.contains('unchecked')) {
+                element.classList.remove('unchecked');
+                element.classList.add('checked');
+                checkedTasks[taskId] = true;
+            } else {
+                element.classList.remove('checked');
+                element.classList.add('unchecked');
+                delete checkedTasks[taskId];
+            }
+
+            localStorage.setItem(`${projectId}-tasks`, JSON.stringify(checkedTasks));
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', initializeTaskCheckboxes);
+    </script>
 </body>
 </html>
