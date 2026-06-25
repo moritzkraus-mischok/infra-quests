@@ -351,6 +351,43 @@ Infrastructure as Code mit Ansible. Automatisierung von Konfiguration, Deploymen
         <section class="section">
             <h2 class="section-title">📝 Aufgaben & Phasen</h2>
             <div class="content-box">
+<h3>Phase 0: VM-Initialisierung mit Cloud-Init (Tag 0 - Vorbereitung)</h3>
+<p>Bevor Ansible zum Einsatz kommt: VMs automatisch mit cloud-init initialisieren. Dies spart Zeit und zeigt "Infrastructure as Code" auf der ersten Schicht.</p>
+
+<h4>Cloud-Init User-Data für Ansible-Nodes</h4>
+<pre><code class="language-yaml">#cloud-config
+hostname: managed-node-1
+package_update: true
+package_upgrade: true
+
+packages:
+  - openssh-server
+  - python3
+  - python3-pip
+  - sudo
+
+users:
+  - name: ansible-user
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1... your-public-key
+
+runcmd:
+  - systemctl enable ssh
+  - systemctl restart ssh</code></pre>
+
+<h4>Praktische Schritte</h4>
+<ul>
+<li class="unchecked">Cloud-Init User-Data schreiben (für Control Node + 3 Managed Nodes)</li>
+<li class="unchecked">VMs mit cloud-init hochfahren (z.B. KVM/VirtualBox)</li>
+<li class="unchecked">Automatische Netzwerk-Konfiguration überprüfen</li>
+<li class="unchecked">SSH-Konnektivität von Control Node zu allen Managed Nodes testen</li>
+</ul>
+
+<p><strong>Ergebnis:</strong> 3-4 VMs sind vorbereitet, mit Python installiert, SSH-Keys konfiguriert → Ansible kann direkt arbeiten.</p>
+
+<hr/>
+
 <h3>Phase 1: Ansible Installation & Setup (Tag 1-2)</h3>
 <ul>
 <li class="unchecked">Ansible installieren: <code>sudo apt install ansible</code></li>
@@ -528,12 +565,74 @@ server&lt;em&gt;name {{ server&lt;/em&gt;name }};
 </div>
         </section>
 
+        <!-- Integration: Cloud-Init + Ansible -->
+        <section class="section">
+            <h2 class="section-title">🚀 Integration: Cloud-Init + Ansible</h2>
+            <div class="content-box">
+<p>Eine typische produktive Workflow kombiniert beide Tools:</p>
+<ol>
+<li><strong>Cloud-Init (Phase 0):</strong> Server-Initialisierung (OS-Updates, Basis-Pakete, SSH-Keys)</li>
+<li><strong>Ansible (Phase 1+):</strong> Komplexe Konfiguration (Services, Apps, Monitoring)</li>
+</ol>
+
+<h4>Praktisches Beispiel</h4>
+<pre><code class="language-bash"># 1. VMs mit cloud-init starten (automatisch)
+# 2. Von Ansible konfigurieren
+ansible-playbook -i inventory.ini site.yml
+
+# 3. Neue Server hinzufügen: Wieder mit cloud-init + Ansible</code></pre>
+
+<p><strong>Vorteil:</strong> Cloud-init ist immutable (VM ist nach Init fertig), Ansible ist idempotent (kann mehrfach laufen, gleich Ergebnis).</p>
+</div>
+        </section>
+
+        <!-- Hands-On Labs -->
+        <section class="section">
+            <h2 class="section-title">💡 Hands-On Labs</h2>
+            <div class="content-box">
+<h4>Lab 1: Basis Web-Server Setup</h4>
+<ul>
+<li>3 Nodes mit verschiedenen Rollen</li>
+<li>Ansible Role für Nginx</li>
+<li>Firewall-Konfiguration via Ansible</li>
+<li>SSL-Zertifikate deployen</li>
+</ul>
+
+<h4>Lab 2: Multi-Tier Application</h4>
+<ul>
+<li>Web, App, Database Tier</li>
+<li>Jede Tier separate Role</li>
+<li>Configuration Management</li>
+<li>Secrets mit Vault</li>
+</ul>
+
+<h4>Lab 3: Rolling Updates & Maintenance</h4>
+<ul>
+<li>Update Playbooks</li>
+<li>Health-Check Tasks</li>
+<li>Graceful Restarts</li>
+<li>Monitoring Integration</li>
+</ul>
+</div>
+        </section>
+
+        <!-- Trainer-Tipps -->
+        <section class="section">
+            <h2 class="section-title">💡 Trainer-Tipps</h2>
+            <div class="content-box">
+<ul>
+<li>Beginnen Sie mit Ad-hoc Commands bevor Sie Playbooks schreiben</li>
+<li>Zeigen Sie Idempotenz: Playbooks 2x ausführen sollte gleich sein</li>
+<li>Demonstrieren Sie <code>--check</code> Mode für sichere Deployments</li>
+<li>Lassen Sie Umschüler mit Jinja2 Templates spielen</li>
+</ul>
+</div>
+        </section>
+
         <!-- Ressourcen -->
         <section class="section">
             <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
             <div class="content-box">
-& Dokumentation
-
 <h3>Wichtige Dateien</h3>
 <ul>
 <li><code>/etc/ansible/ansible.cfg</code> - Config</li>

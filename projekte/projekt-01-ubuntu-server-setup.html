@@ -416,12 +416,127 @@ sudo dpkg-reconfigure -plow unattended-upgrades</code></pre>
 </div>
         </section>
 
+        <!-- Bewertungskriterien -->
+        <section class="section">
+            <h2 class="section-title">✅ Bewertungskriterien</h2>
+            <div class="content-box">
+<ul>
+<li><strong>Installation:</strong> System läuft stabil, alle Partitionen richtig</li>
+<li><strong>Netzwerk:</strong> Statische IP eingestellt, Konnektivität hergestellt</li>
+<li><strong>SSH:</strong> Passwort-Login deaktiviert, nur Key-Auth aktiv</li>
+<li><strong>Firewall:</strong> Alle Regeln dokumentiert und funktionsfähig</li>
+<li><strong>Backups:</strong> Automated Backup läuft, Recovery getestet</li>
+<li><strong>Dokumentation:</strong> Alle Schritte dokumentiert, Screenshots bei wichtigen Konfigurationen</li>
+</ul>
+</div>
+        </section>
+
+        <!-- Sicherheits-Checklist -->
+        <section class="section">
+            <h2 class="section-title">🔐 Sicherheits-Checklist</h2>
+            <div class="content-box">
+<ul>
+<li class="unchecked">Root-Konto deaktivieren (nur sudo verwenden)</li>
+<li class="unchecked">SSH auf Non-Standard-Port</li>
+<li class="unchecked">Firewall aktiv mit restriktiven Rules</li>
+<li class="unchecked">Regelmäßige Updates aktiviert</li>
+<li class="unchecked">fail2ban gegen Brute-Force aktiv</li>
+<li class="unchecked">Backups vorhanden und getestet</li>
+<li class="unchecked">Logs regelmäßig überprüft</li>
+</ul>
+</div>
+        </section>
+
+        <!-- Cloud-Init Alternative -->
+        <section class="section">
+            <h2 class="section-title">🚀 Alternative: Cloud-Init Automatisierung</h2>
+            <div class="content-box">
+<p>Cloud-init ermöglicht vollautomatische Server-Initialisierung. Dies ist eine Vorschau auf Infrastructure as Code (wird in Projekt 10 & 13 vertieft).</p>
+
+<h4>Cloud-Init User-Data Script</h4>
+<p>Statt manueller Schritte: Ein User-Data-Skript für automatisiertes Setup:</p>
+<pre><code class="language-yaml">#cloud-config
+hostname: ubuntu-server
+fqdn: ubuntu-server.local
+
+# System Updates
+package_update: true
+package_upgrade: true
+
+packages:
+  - openssh-server
+  - vim
+  - curl
+  - ufw
+  - fail2ban
+
+# Network Configuration
+network:
+  version: 2
+  ethernets:
+    eth0:
+      dhcp4: false
+      addresses:
+        - 192.168.1.100/24
+      gateway4: 192.168.1.1
+      nameservers:
+        addresses: [8.8.8.8, 8.8.4.4]
+
+# SSH Key Setup
+ssh_authorized_keys:
+  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5... user@localhost
+
+ssh_config:
+  Port: 2222
+  PermitRootLogin: "no"
+  PasswordAuthentication: "no"
+  PubkeyAuthentication: "yes"
+
+# Firewall Configuration
+runcmd:
+  - ufw enable
+  - ufw allow 2222/tcp
+  - systemctl restart ssh
+  - systemctl enable fail2ban
+  - fail2ban-client start
+
+# User Management
+users:
+  - name: ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5... user@localhost</code></pre>
+
+<h4>Praktische Übung: Cloud-Init Lab</h4>
+<ul>
+<li class="unchecked">User-Data-Skript schreiben</li>
+<li class="unchecked">VM mit cloud-init initialisieren (z.B. in KVM/VirtualBox)</li>
+<li class="unchecked">Automatische Konfiguration vs. manuelle Konfiguration vergleichen</li>
+<li class="unchecked">Time-Savings messen</li>
+</ul>
+
+<p><strong>Hinweis:</strong> Cloud-init wird in Projekten 10 & 13 intensiver eingesetzt.</p>
+</div>
+        </section>
+
+        <!-- Trainer-Tipps -->
+        <section class="section">
+            <h2 class="section-title">💡 Trainer-Tipps</h2>
+            <div class="content-box">
+<ul>
+<li>Lassen Sie die Umschüler zuerst in einer VM arbeiten, bevor sie auf einem echten Server praktizieren</li>
+<li>Fordern Sie eine "Recovery Übung" ein: Server bewusst beschädigen und reparieren lassen</li>
+<li>Ergänzen Sie mit Hands-On Security-Tests: Nmap-Scan vor/nach Hardening</li>
+<li>Diskutieren Sie Trade-offs: Sicherheit vs. Usability (z.B. Port-Änderung kann Connectivity-Probleme verursachen)</li>
+<li><strong>Optionale Erweiterung:</strong> Vergleichen Sie Projekt 1 manuell mit cloud-init: Wie viel Zeit sparen Sie?</li>
+</ul>
+</div>
+        </section>
+
         <!-- Ressourcen -->
         <section class="section">
             <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
             <div class="content-box">
-& Dokumentation
-
 <h3>Offizielle Dokumentation</h3>
 <ul>
 <li>Ubuntu Server Guide: https://ubuntu.com/server/docs</li>

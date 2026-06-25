@@ -381,6 +381,20 @@ Integrationsprojekt, das mehrere Fähigkeiten kombiniert. Aufbau einer komplette
 <li class="unchecked"><strong>Virtualisierung / Bare Metal:</strong></li>
 <li class="unchecked">Hypervisor (KVM/Proxmox)</li>
 <li class="unchecked">Netzwerk-Segmentierung</li>
+<li class="unchecked"><strong>Cloud-Init für Server-Automatisierung:</strong></li>
+<li class="unchecked">Cloud-Init Templates für verschiedene Server-Typen erstellen</li>
+<li class="unchecked">User-Data-Skripte für:
+<ul>
+<li class="unchecked">FreeIPA Server</li>
+<li class="unchecked">Datei-Server (Samba/NFS)</li>
+<li class="unchecked">Web-Server</li>
+<li class="unchecked">Datenbank-Server</li>
+<li class="unchecked">Monitoring/Backup Server</li>
+</ul>
+</li>
+<li class="unchecked">Automatisierte Netzwerk-Konfiguration per cloud-init</li>
+<li class="unchecked">SSH-Key Management via cloud-init</li>
+<li class="unchecked">Initial Ansible-Run via cloud-init (runcmd)</li>
 </ul>
 
 <ul>
@@ -458,6 +472,14 @@ Integrationsprojekt, das mehrere Fähigkeiten kombiniert. Aufbau einer komplette
 
 <h3>Phase 5: Automation & Verwaltung (Tag 17-19)</h3>
 <ul>
+<li class="unchecked"><strong>Cloud-Init + Ansible Workflow:</strong></li>
+<li class="unchecked">Cloud-Init User-Data-Skripte für alle Server-Typen</li>
+<li class="unchecked">Automatische VM-Erstellung mit cloud-init</li>
+<li class="unchecked">Ansible Playbooks für detaillierte Konfiguration nach cloud-init</li>
+<li class="unchecked">Integration: cloud-init ruft Ansible Playbooks auf (via runcmd)</li>
+</ul>
+
+<ul>
 <li class="unchecked"><strong>Ansible für Configuration Management:</strong></li>
 <li class="unchecked">Playbooks für jeden Service-Typ</li>
 <li class="unchecked">Automatische Provisioning</li>
@@ -469,6 +491,7 @@ Integrationsprojekt, das mehrere Fähigkeiten kombiniert. Aufbau einer komplette
 <li class="unchecked">Automated Testing</li>
 <li class="unchecked">Blue-Green Deployments</li>
 <li class="unchecked">Rollback-Pläne</li>
+<li class="unchecked">Cloud-Init Templates in Pipeline integriert</li>
 </ul>
 
 <h3>Phase 6: Dokumentation (Tag 20-22)</h3>
@@ -581,6 +604,101 @@ Integrationsprojekt, das mehrere Fähigkeiten kombiniert. Aufbau einer komplette
 │   FreeIPA      │ Fileserver     │ Backup  │
 │   (Auth)       │ (NAS/Samba)    │ Storage │
 └─────────┘      └─────────┘      └─────────┘</code></pre>
+</div>
+        </section>
+
+        <!-- Bewertungskriterien -->
+        <section class="section">
+            <h2 class="section-title">✅ Bewertungskriterien</h2>
+            <div class="content-box">
+<h4>Funktionale Kriterien</h4>
+<ul>
+<li class="unchecked">Alle definierten Services laufen</li>
+<li class="unchecked">Users können sich authentifizieren</li>
+<li class="unchecked">Datei-Zugriff funktioniert zuverlässig</li>
+<li class="unchecked">Backups werden regelmäßig durchgeführt</li>
+<li class="unchecked">Monitoring und Alerting funktionieren</li>
+</ul>
+
+<h4>Qualitäts-Kriterien</h4>
+<ul>
+<li class="unchecked">System stabil über längeren Zeitraum</li>
+<li class="unchecked">Performance akzeptabel (&lt; 2sec Response)</li>
+<li class="unchecked">Security-Best-Practices befolgt</li>
+<li class="unchecked">Redundanz wo nötig</li>
+</ul>
+
+<h4>Dokumentations-Kriterien</h4>
+<ul>
+<li class="unchecked">Infrastruktur-Diagramme vorhanden</li>
+<li class="unchecked">Runbooks für wichtige Prozesse</li>
+<li class="unchecked">Troubleshooting-Guides</li>
+<li class="unchecked">DR-Dokumentation</li>
+</ul>
+
+<h4>Wartbarkeits-Kriterien</h4>
+<ul>
+<li class="unchecked">Ansible-Playbooks für Automation</li>
+<li class="unchecked">Dokumentierte Prozesse</li>
+<li class="unchecked">Monitoring-Alerts funktionieren</li>
+<li class="unchecked">Change-Management-Prozess definiert</li>
+</ul>
+</div>
+        </section>
+
+        <!-- Sicherheits-Checklist -->
+        <section class="section">
+            <h2 class="section-title">🔐 Sicherheits-Checklist</h2>
+            <div class="content-box">
+<ul>
+<li class="unchecked">VPN für Remote-Worker</li>
+<li class="unchecked">Firewall-Regeln implementiert</li>
+<li class="unchecked">User-Passwörter verschlüsselt</li>
+<li class="unchecked">TLS für alle Web-Services</li>
+<li class="unchecked">Regelmäßige Backups</li>
+<li class="unchecked">Security-Updates aktuell</li>
+<li class="unchecked">Logging für Audit-Trail</li>
+</ul>
+</div>
+        </section>
+
+        <!-- Hands-On Implementation -->
+        <section class="section">
+            <h2 class="section-title">💡 Hands-On Implementation</h2>
+            <div class="content-box">
+<h4>Team-Struktur für Projekt</h4>
+<ul>
+<li><strong>Architektur-Team:</strong> Überblick & Planung, Cloud-Init Templates designen</li>
+<li><strong>Infrastructure-Team:</strong> Cloud-Init Automation, VM-Provisioning</li>
+<li><strong>Security-Team:</strong> Firewall, VPN, Compliance, SSH-Key Management</li>
+<li><strong>Services-Team:</strong> Datenbank, Mail, Web (Ansible Playbooks)</li>
+<li><strong>Ops-Team:</strong> Monitoring, Backups, DR</li>
+<li><strong>Dokumentation-Team:</strong> Runbooks, Policies, Cloud-Init Examples</li>
+</ul>
+
+<h4>Iterativer Aufbau</h4>
+<ol>
+<li><strong>Sprint 1:</strong> Basis-Infrastruktur (FreeIPA, Fileserver)</li>
+<li><strong>Sprint 2:</strong> Sicherheitsservices (Firewall, VPN, Mail)</li>
+<li><strong>Sprint 3:</strong> Monitoring und Backup</li>
+<li><strong>Sprint 4:</strong> Zusätzliche Services, Automation</li>
+<li><strong>Sprint 5:</strong> Testing, Dokumentation, Optimierung</li>
+<li><strong>Sprint 6:</strong> Go-Live und Support</li>
+</ol>
+</div>
+        </section>
+
+        <!-- Trainer-Tipps -->
+        <section class="section">
+            <h2 class="section-title">💡 Trainer-Tipps</h2>
+            <div class="content-box">
+<ul>
+<li>Setzen Sie realistische Business-Anforderungen</li>
+<li>Lassen Sie Teams zusammenarbeiten</li>
+<li>Simulieren Sie echte Probleme (Server-Ausfall, Datenverlust)</li>
+<li>Fordern Sie Entscheidungen basierend auf Trade-offs ein</li>
+<li>Betonen Sie Dokumentation und Support</li>
+</ul>
 </div>
         </section>
 
