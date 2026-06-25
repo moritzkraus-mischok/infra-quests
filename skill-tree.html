@@ -66,21 +66,21 @@
 
     <script>
         const projects = [
-            { id: 1, title: "Ubuntu Server Setup", deps: [], tier: 0, x: 380, y: 80 },
-            { id: 2, title: "Linux Benutzerverwaltung", deps: [1], tier: 1, x: 40, y: 340 },
-            { id: 3, title: "Netzwerk Grundlagen", deps: [1], tier: 1, x: 240, y: 340 },
-            { id: 4, title: "LAMP/LEMP Stack", deps: [1], tier: 1, x: 440, y: 340 },
-            { id: 5, title: "Samba NFS Freigaben", deps: [2, 3], tier: 2, x: 40, y: 600 },
-            { id: 6, title: "OpenSSH VPN Setup", deps: [3], tier: 2, x: 240, y: 600 },
-            { id: 7, title: "Monitoring & Logging", deps: [4], tier: 2, x: 440, y: 600 },
-            { id: 8, title: "Docker Container", deps: [1], tier: 1, x: 640, y: 340 },
-            { id: 9, title: "BIND DNS", deps: [3], tier: 2, x: 640, y: 600 },
-            { id: 10, title: "Ansible Automatisierung", deps: [1], tier: 1, x: 840, y: 340 },
-            { id: 11, title: "FreeIPA Samba AD", deps: [2, 5], tier: 2, x: 840, y: 600 },
-            { id: 12, title: "Backup & Disaster Recovery", deps: [4, 5, 10], tier: 3, x: 240, y: 1160 },
-            { id: 13, title: "Unternehmens-Infrastruktur", deps: [5, 9, 10, 11], tier: 3, x: 440, y: 1160 },
-            { id: 14, title: "Netzwerk Virtualisierung", deps: [3, 8], tier: 2, x: 240, y: 880 },
-            { id: 15, title: "Scripting Projekt", deps: [1, 10], tier: 2, x: 440, y: 880 }
+            { id: 1, title: "Ubuntu Server Setup", description: "Grundlegende Installation und Konfiguration eines Ubuntu-Servers", deps: [], tier: 0, x: 380, y: 80 },
+            { id: 2, title: "Linux Benutzerverwaltung", description: "Verwaltung von Benutzerkonten, Gruppen und Zugriffsberechtigung", deps: [1], tier: 1, x: 40, y: 340 },
+            { id: 3, title: "Netzwerk Grundlagen", description: "Netzwerkkonfiguration, IP-Adressen und grundlegende Routing-Konzepte", deps: [1], tier: 1, x: 240, y: 340 },
+            { id: 4, title: "LAMP/LEMP Stack", description: "Webserver mit Apache/Nginx, PHP und MySQL/MariaDB einrichten", deps: [1], tier: 1, x: 440, y: 340 },
+            { id: 5, title: "Samba NFS Freigaben", description: "Netzwerkfreigaben und Dateisystem-Verwaltung im lokalen Netz", deps: [2, 3], tier: 2, x: 40, y: 600 },
+            { id: 6, title: "OpenSSH VPN Setup", description: "Sichere Remote-Verbindungen und Virtual Private Network Konfiguration", deps: [3], tier: 2, x: 240, y: 600 },
+            { id: 7, title: "Monitoring & Logging", description: "Systemüberwachung, Performance-Analyse und zentrale Log-Verwaltung", deps: [4], tier: 2, x: 440, y: 600 },
+            { id: 8, title: "Docker Container", description: "Containerisierung von Anwendungen und Microservices mit Docker", deps: [1], tier: 1, x: 640, y: 340 },
+            { id: 9, title: "BIND DNS", description: "Aufbau und Betrieb eines DNS-Servers mit BIND", deps: [3], tier: 2, x: 640, y: 600 },
+            { id: 10, title: "Ansible Automatisierung", description: "Automatisierung von IT-Infrastruktur und Konfigurationsverwaltung", deps: [1], tier: 1, x: 840, y: 340 },
+            { id: 11, title: "FreeIPA Samba AD", description: "Zentralisierte Identitätsverwaltung und Active Directory Integration", deps: [2, 5], tier: 2, x: 840, y: 600 },
+            { id: 12, title: "Backup & Disaster Recovery", description: "Backup-Strategien, Wiederherstellung und Business Continuity Planning", deps: [4, 5, 10], tier: 3, x: 240, y: 1160 },
+            { id: 13, title: "Unternehmens-Infrastruktur", description: "Integrierte IT-Infrastruktur-Lösung für produktive Unternehmensumgebungen", deps: [5, 9, 10, 11], tier: 3, x: 440, y: 1160 },
+            { id: 14, title: "Netzwerk Virtualisierung", description: "Virtuelle Netzwerke, Bridging und erweiterte Netzwerk-Management-Techniken", deps: [3, 8], tier: 2, x: 240, y: 880 },
+            { id: 15, title: "Scripting Projekt", description: "Automatisierung durch Shell-Scripting und Python-Programmierung", deps: [1, 10], tier: 2, x: 440, y: 880 }
         ];
 
         const container = document.getElementById('skillsContainer');
@@ -162,6 +162,7 @@
             tooltip.innerHTML = `
                 <div class="tooltip-title">${project.title}</div>
                 <div class="tooltip-content">
+                    <p style="margin: 8px 0 12px 0; font-size: 13px; color: #b0b0b0;">${project.description}</p>
                     <strong>Level:</strong> Tier ${project.tier + 1}<br>
                     <strong>${deps}</strong>
                 </div>
