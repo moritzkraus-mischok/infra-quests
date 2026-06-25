@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt 06: OpenSSH & VPN Setup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+            color: #e0e0e0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(0deg, transparent 24%, rgba(100, 200, 255, 0.05) 25%, rgba(100, 200, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(100, 200, 255, 0.05) 75%, rgba(100, 200, 255, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(100, 200, 255, 0.05) 25%, rgba(100, 200, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(100, 200, 255, 0.05) 75%, rgba(100, 200, 255, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            padding: 40px;
+            background: linear-gradient(180deg, rgba(10, 14, 39, 0.9) 0%, rgba(26, 31, 58, 0.8) 100%);
+            border-bottom: 2px solid rgba(0, 255, 150, 0.2);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, #00ff9f, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 255, 159, 0.3);
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            color: rgba(150, 180, 255, 0.7);
+            letter-spacing: 1px;
+        }
+
+        .project-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            background: rgba(0, 255, 159, 0.05);
+            border: 1px solid rgba(0, 255, 159, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .info-card-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: #00ff9f;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .info-card-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: #e0e0e0;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .section {
+            margin: 50px 0;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #00ccff;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ccff, transparent);
+        }
+
+        .section-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #00ff9f;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .subtitle-md {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            color: #ffaa00;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            margin: 15px 0;
+            line-height: 1.8;
+            font-size: 14px;
+            color: #d0d0d0;
+        }
+
+        ul {
+            list-style: none;
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 13px;
+            color: #c0c0c0;
+            line-height: 1.6;
+        }
+
+        li:before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #00ff9f;
+            font-weight: bold;
+        }
+
+        li.unchecked:before,
+        li.checked:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #00ff9f;
+            border-radius: 3px;
+        }
+
+        li.checked:before {
+            content: '✓';
+            background: rgba(0, 255, 159, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff9f;
+            font-size: 12px;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 3px solid #00ff9f;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: #00ff9f;
+            line-height: 1.4;
+        }
+
+        code {
+            background: rgba(0, 255, 159, 0.1);
+            color: #00ff9f;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+        }
+
+        a {
+            color: #00ccff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: #00ff9f;
+            text-shadow: 0 0 10px rgba(0, 255, 159, 0.5);
+        }
+
+        .content-box {
+            background: linear-gradient(135deg, rgba(0, 204, 255, 0.05) 0%, rgba(0, 255, 159, 0.05) 100%);
+            border: 1px solid rgba(0, 255, 159, 0.2);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 15px 30px;
+            background: linear-gradient(90deg, #00ff9f, #00ccff);
+            color: #0a0e27;
+            text-decoration: none;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        .nav-link:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 159, 0.5);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(0, 204, 255, 0.2);
+            color: rgba(200, 200, 200, 0.7);
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+            .section-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+
+    <div class="container">
+        <header>
+            <h1>🔐 OPENSSH & VPN SETUP</h1>
+            <div class="subtitle">PROJEKT 06 • SYSTEMADMINISTRATION</div>
+
+            <div class="project-info">
+                <div class="info-card">
+                    <div class="info-card-label">Schwierigkeitsgrad</div>
+                    <div class="info-card-value">Fortgeschritten</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-label">Dauer</div>
+                    <div class="info-card-value">2-3 Wochen</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Projektbeschreibung -->
+        <section class="section">
+            <h2 class="section-title">📋 Projektbeschreibung</h2>
+            <div class="content-box">
+                Sichere Remote-Zugriff auf Systeme. Von SSH-Hardening bis zur Einrichtung von VPN-Netzwerken für sichere Datenübertragung.
+            </div>
+        </section>
+
+        <!-- Lernziele -->
+        <section class="section">
+            <h2 class="section-title">🎯 Lernziele</h2>
+            <div class="content-box">
+                - SSH erweiterte Konfiguration und Sicherheit<br>- SSH-Tunnel und Port-Forwarding<br>- VPN-Grundlagen (OpenVPN oder WireGuard)<br>- Netzwerk-Segmentierung mit VPNs<br>- Certificate-based Authentication<br>- Monitoring von Remote-Sessions
+            </div>
+        </section>
+
+        <!-- Anforderungen -->
+        <section class="section">
+            <h2 class="section-title">🔧 Anforderungen</h2>
+            <div class="content-box">
+                - Ubuntu Server 22.04 LTS (mind. 2 Systeme)<br>- OpenSSH installiert<br>- Grundverständnis: PKI, Netzwerk, Kryptographie<br>- VPN-Testumgebung (mehrere VMs)
+            </div>
+        </section>
+
+        <!-- Aufgaben -->
+        <section class="section">
+            <h2 class="section-title">📝 Aufgaben & Phasen</h2>
+            <div class="content-box">
+                ### Phase 1: SSH Erweiterte Konfiguration (Tag 1-3)<br>- [ ] SSH-Key-Paare mit verschiedenen Algorithmen:<br>  ```bash<br>  ssh-keygen -t ed25519  # Modern, 256-bit<br>  ssh-keygen -t rsa -b 4096  # Traditional, 4096-bit<br>  ```<br>- [ ] SSH-Config lokal für einfachere Verbindungen:<br>  ```<br>  Host server1<br>    HostName 192.168.1.10<br>    User alice<br>    IdentityFile ~/.ssh/server1_key<br>    Port 2222<br>  ```<br>- [ ] SSH-Agent für Key-Management<br>- [ ] SSH-Key-Passphrases<br>- [ ] Multiple Keys pro User<br>- [ ] Key-Rotation implementieren<br><br>### Phase 2: SSH Server Hardening (Tag 4-5)<br>- [ ] `/etc/ssh/sshd_config` optimieren:<br>  ```<br>  Port 2222<br>  PermitRootLogin no<br>  PasswordAuthentication no<br>  PubkeyAuthentication yes<br>  X11Forwarding no<br>  MaxAuthTries 3<br>  LoginGraceTime 1m<br>  MaxSessions 10<br>  ```<br>- [ ] AllowUsers / DenyUsers konfigurieren<br>- [ ] Match-Blöcke für conditional Config<br>- [ ] Fail2ban Integration<br>- [ ] Syntax prüfen: `sudo sshd -t`<br><br>### Phase 3: SSH-Tunneling & Port-Forwarding (Tag 6-7)<br>- [ ] Local Port Forwarding (Port auf Remote-System zugreifen):<br>  ```bash<br>  ssh -L 8080:localhost:80 user@remote.com<br>  ```<br>- [ ] Remote Port Forwarding (Remote-Port auf Local-System):<br>  ```bash<br>  ssh -R 8080:localhost:80 user@remote.com<br>  ```<br>- [ ] Dynamic Port Forwarding (SOCKS Proxy):<br>  ```bash<br>  ssh -D 1080 user@remote.com<br>  ```<br>- [ ] Persistente SSH-Tunnel mit systemd<br>- [ ] Anwendungsfall: Sichere Datenbank-Zugriffe<br><br>### Phase 4: Certificate-based Authentication (Tag 8)<br>- [ ] SSH CA (Certificate Authority) Setup<br>- [ ] Host-Keys mit Zertifikat signieren<br>- [ ] User-Zertifikate ausstellen<br>- [ ] Zertifikat-Validierung auf Server<br>- [ ] Zertifikat-Revocation-Listen (optional)<br><br>### Phase 5: OpenVPN Installation & Setup (Tag 9-11)<br>**Oder WireGuard als Alternative**<br><br>#### OpenVPN<br>- [ ] OpenVPN installieren: `sudo apt install openvpn easy-rsa`<br>- [ ] PKI (Public Key Infrastructure) aufbauen:<br>  ```bash<br>  /usr/share/easy-rsa/easyrsa init-pki<br>  /usr/share/easy-rsa/easyrsa build-ca<br>  /usr/share/easy-rsa/easyrsa gen-req server<br>  /usr/share/easy-rsa/easyrsa sign-req server server<br>  ```<br>- [ ] OpenVPN-Server konfigurieren (`/etc/openvpn/server.conf`)<br>- [ ] Netzwerk-Einstellungen (10.8.0.0/24)<br>- [ ] TLS-Authentication für DDoS-Schutz<br>- [ ] Server starten und testen<br><br>### Phase 6: OpenVPN Clients (Tag 12)<br>- [ ] Client-Zertifikate generieren<br>- [ ] Client-Konfiguration erstellen (`.ovpn` Datei)<br>- [ ] Mehrere Clients verbinden<br>- [ ] Verbindungsstabilität testen<br>- [ ] Logs analysieren<br><br>### Phase 7: VPN Netzwerk-Segmentierung (Tag 13)<br>- [ ] VPN als Zugang zu Private-Network<br>- [ ] Routing konfigurieren (iroute, push routes)<br>- [ ] Firewall-Regeln für VPN-Clients<br>- [ ] DNS über VPN pushen<br>- [ ] Split-Tunneling vs. Full-Tunneling<br><br>### Phase 8: WireGuard als Alternative (Tag 14)<br>- [ ] WireGuard installieren: `sudo apt install wireguard`<br>- [ ] Keys generieren: `wg genkey | tee private.key | wg pubkey > public.key`<br>- [ ] Interface konfigurieren (`wg0`)<br>- [ ] Clients hinzufügen<br>- [ ] Performance-Vergleich mit OpenVPN<br><br>### Phase 9: Monitoring & Troubleshooting (Tag 15)<br>- [ ] Aktive SSH-Sessions monitoring: `who`, `w`, `ss`<br>- [ ] SSH-Logs analysieren: `/var/log/auth.log`<br>- [ ] OpenVPN-Clients monitoring: `openvpn-status.log`<br>- [ ] VPN-Connectivity testen: `ping`, `traceroute`, `mtr`<br>- [ ] Häufige Probleme:<br>  - [ ] Authentifizierung fehlgeschlagen<br>  - [ ] Routing-Probleme<br>  - [ ] DNS nicht auflösend in VPN<br>  - [ ] Intermittent Connections
+            </div>
+        </section>
+
+        <!-- Ressourcen -->
+        <section class="section">
+            <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
+            <div class="content-box">
+                & Dokumentation<br><br>### Wichtige Dateien<br>- `/etc/ssh/sshd_config` - SSH Server Config<br>- `~/.ssh/config` - SSH Client Config<br>- `/etc/openvpn/server.conf` - OpenVPN Server Config<br>- `/etc/wireguard/wg0.conf` - WireGuard Config (wenn genutzt)<br><br>### Wichtige Befehle<br>```bash<br># SSH<br>ssh-keygen -t ed25519<br>ssh-copy-id -i ~/.ssh/id_ed25519.pub user@host<br>ssh -L 8080:localhost:80 user@host<br><br># OpenVPN<br>openvpn --config /etc/openvpn/server.conf<br>openvpn --config client.ovpn<br><br># WireGuard<br>sudo wg-quick up wg0<br>sudo wg show<br>wg-quick strip wg0 | tee wg0.conf<br><br># Monitoring<br>who<br>w<br>ss -tlnp | grep ssh<br>cat /var/log/auth.log | grep ssh<br>```
+            </div>
+        </section>
+
+        <!-- Deliverables -->
+        <section class="section">
+            <h2 class="section-title">📋 Deliverables</h2>
+            <div class="content-box">
+                1. **SSH-Dokumentation:** Konfigurationen und Best-Practices<br>2. **VPN-Setup-Guide:** Schritt-für-Schritt Anleitung<br>3. **Client-Konfigurationen:** Ready-to-use Dateien für Clients<br>4. **Troubleshooting-Guide:** Häufige Probleme und Lösungen<br>5. **Monitoring-Setup:** Log-Analyse und Alerts
+            </div>
+        </section>
+
+        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+
+        <footer>
+            <p>Projekt 06: OpenSSH & VPN Setup | Skill Tree Umschüler-Projekte</p>
+            <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
+        </footer>
+    </div>
+</body>
+</html>

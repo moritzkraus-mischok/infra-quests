@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt 01: Ubuntu Server Setup & Hardening</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+            color: #e0e0e0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(0deg, transparent 24%, rgba(100, 200, 255, 0.05) 25%, rgba(100, 200, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(100, 200, 255, 0.05) 75%, rgba(100, 200, 255, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(100, 200, 255, 0.05) 25%, rgba(100, 200, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(100, 200, 255, 0.05) 75%, rgba(100, 200, 255, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            padding: 40px;
+            background: linear-gradient(180deg, rgba(10, 14, 39, 0.9) 0%, rgba(26, 31, 58, 0.8) 100%);
+            border-bottom: 2px solid rgba(0, 255, 150, 0.2);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, #00ff9f, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 255, 159, 0.3);
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            color: rgba(150, 180, 255, 0.7);
+            letter-spacing: 1px;
+        }
+
+        .project-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            background: rgba(0, 255, 159, 0.05);
+            border: 1px solid rgba(0, 255, 159, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .info-card-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: #00ff9f;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .info-card-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: #e0e0e0;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .section {
+            margin: 50px 0;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #00ccff;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ccff, transparent);
+        }
+
+        .section-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #00ff9f;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .subtitle-md {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            color: #ffaa00;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            margin: 15px 0;
+            line-height: 1.8;
+            font-size: 14px;
+            color: #d0d0d0;
+        }
+
+        ul {
+            list-style: none;
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 13px;
+            color: #c0c0c0;
+            line-height: 1.6;
+        }
+
+        li:before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #00ff9f;
+            font-weight: bold;
+        }
+
+        li.unchecked:before,
+        li.checked:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #00ff9f;
+            border-radius: 3px;
+        }
+
+        li.checked:before {
+            content: '✓';
+            background: rgba(0, 255, 159, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff9f;
+            font-size: 12px;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 3px solid #00ff9f;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: #00ff9f;
+            line-height: 1.4;
+        }
+
+        code {
+            background: rgba(0, 255, 159, 0.1);
+            color: #00ff9f;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+        }
+
+        a {
+            color: #00ccff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: #00ff9f;
+            text-shadow: 0 0 10px rgba(0, 255, 159, 0.5);
+        }
+
+        .content-box {
+            background: linear-gradient(135deg, rgba(0, 204, 255, 0.05) 0%, rgba(0, 255, 159, 0.05) 100%);
+            border: 1px solid rgba(0, 255, 159, 0.2);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 15px 30px;
+            background: linear-gradient(90deg, #00ff9f, #00ccff);
+            color: #0a0e27;
+            text-decoration: none;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        .nav-link:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 159, 0.5);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(0, 204, 255, 0.2);
+            color: rgba(200, 200, 200, 0.7);
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+            .section-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+
+    <div class="container">
+        <header>
+            <h1>⚡ UBUNTU SERVER SETUP & HARDENING</h1>
+            <div class="subtitle">PROJEKT 01 • SYSTEMADMINISTRATION</div>
+
+            <div class="project-info">
+                <div class="info-card">
+                    <div class="info-card-label">Schwierigkeitsgrad</div>
+                    <div class="info-card-value">Anfänger → Fortgeschritten</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-label">Dauer</div>
+                    <div class="info-card-value">1-2 Wochen</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Projektbeschreibung -->
+        <section class="section">
+            <h2 class="section-title">📋 Projektbeschreibung</h2>
+            <div class="content-box">
+                Installation und Konfiguration eines sicheren Ubuntu Server-Systems von Grund auf. Dieses Projekt vermittelt die Fundamentals der Linux-Systemadministration und Best Practices für Server-Sicherheit.
+            </div>
+        </section>
+
+        <!-- Lernziele -->
+        <section class="section">
+            <h2 class="section-title">🎯 Lernziele</h2>
+            <div class="content-box">
+                - Sichere Installation und Partitionierung von Ubuntu Server<br>- Grundlegende Systemkonfiguration und Bootloader-Management<br>- SSH-Zugriff konfigurieren und absichern<br>- Firewall-Regeln mit UFW verstehen und anwenden<br>- Software-Updates und Patch-Management durchführen<br>- Automatisierte Backups mit rsync einrichten
+            </div>
+        </section>
+
+        <!-- Anforderungen -->
+        <section class="section">
+            <h2 class="section-title">🔧 Anforderungen</h2>
+            <div class="content-box">
+                - VirtualBox/KVM VM oder physischer Server<br>- Ubuntu Server 22.04 LTS oder aktueller<br>- Mind. 20GB Speicher<br>- Internetzugang<br>- Texteditor (nano, vim)
+            </div>
+        </section>
+
+        <!-- Aufgaben -->
+        <section class="section">
+            <h2 class="section-title">📝 Aufgaben & Phasen</h2>
+            <div class="content-box">
+                ### Phase 1: Installation (Tag 1-2)<br>- [ ] Ubuntu Server ISO herunterladen<br>- [ ] VM/Server erstellen mit verschiedenen Partitionierungsoptionen testen<br>  - [ ] Standard LVM<br>  - [ ] Custom Partitionierung<br>- [ ] Systemsprache, Tastaturlayout, Zeitzone konfigurieren<br>- [ ] Netzwerk-Einstellungen vornehmen<br>- [ ] Software-Auswahl (SSH-Server, build-essential)<br><br>### Phase 2: Initiale Konfiguration (Tag 3-4)<br>- [ ] Systemupdate durchführen: `sudo apt update && sudo apt upgrade`<br>- [ ] Hostname setzen: `/etc/hostname`, `/etc/hosts`<br>- [ ] Statische IP-Adresse konfigurieren (netplan)<br>- [ ] Sudo-Benutzer erstellen (nicht als root arbeiten)<br>- [ ] Root-Login per SSH deaktivieren<br><br>### Phase 3: SSH-Hardening (Tag 5-6)<br>- [ ] SSH-Key-Pair generieren (RSA 4096 oder Ed25519)<br>- [ ] Public Key in `~/.ssh/authorized_keys` eintragen<br>- [ ] SSH-Config anpassen:<br>  - [ ] Port ändern (z.B. 2222 statt 22)<br>  - [ ] PermitRootLogin no<br>  - [ ] PasswordAuthentication no<br>  - [ ] PubkeyAuthentication yes<br>- [ ] SSH-Dienst neu starten und testen<br><br>### Phase 4: Firewall-Setup (Tag 7-8)<br>- [ ] UFW aktivieren: `sudo ufw enable`<br>- [ ] Regeln definieren:<br>  - [ ] SSH-Port erlauben (neuer Port)<br>  - [ ] HTTP/HTTPS öffnen (falls Web-Service später)<br>  - [ ] Logging aktivieren<br>- [ ] Firewall-Status überprüfen: `sudo ufw status verbose`<br><br>### Phase 5: Updates & Backups (Tag 9-10)<br>- [ ] Automatische Updates aktivieren:<br>  ```bash<br>  sudo apt install unattended-upgrades<br>  sudo dpkg-reconfigure -plow unattended-upgrades<br>  ```<br>- [ ] Cron-Job für automatische Backups:<br>  ```bash<br>  0 2 * * * rsync -av /home/ /backup/home/ --delete<br>  ```<br>- [ ] Backup-Lösung testen (Recovery durchführen)<br><br>### Phase 6: Sicherheits-Audits (Tag 11-12)<br>- [ ] fail2ban installieren und konfigurieren<br>- [ ] Log-Datei analysieren: `/var/log/auth.log`<br>- [ ] Sicherheits-Checklist durchgehen (siehe unten)
+            </div>
+        </section>
+
+        <!-- Ressourcen -->
+        <section class="section">
+            <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
+            <div class="content-box">
+                & Dokumentation<br><br>### Offizielle Dokumentation<br>- Ubuntu Server Guide: https://ubuntu.com/server/docs<br>- UFW Dokumentation: https://help.ubuntu.com/community/UFW<br>- SSH Best Practices: https://man7.org/linux/man-pages/man5/sshd_config.5.html<br><br>### Wichtige Konfigurationsdateien<br>- `/etc/ssh/sshd_config` - SSH Server Config<br>- `/etc/ufw/` - Firewall Rules<br>- `/etc/hostname` - Hostname<br>- `/etc/netplan/` - Netzwerk-Konfiguration<br>- `/etc/apt/apt.conf.d/50unattended-upgrades` - Auto-Updates<br><br>### Nützliche Befehle<br>```bash<br># System-Info<br>uname -a<br>lsb_release -a<br>df -h<br><br># Netzwerk<br>ip a show<br>netplan apply<br>systemctl restart networking<br><br># SSH<br>ssh -i ~/.ssh/id_ed25519 -p 2222 user@server<br>sudo systemctl restart ssh<br><br># Firewall<br>sudo ufw status numbered<br>sudo ufw allow 2222/tcp<br>```
+            </div>
+        </section>
+
+        <!-- Deliverables -->
+        <section class="section">
+            <h2 class="section-title">📋 Deliverables</h2>
+            <div class="content-box">
+                1. **Dokumentation:** Installationsanleitung mit Screenshots<br>2. **Konfigurationsdateien:** Backup der wichtigsten Config-Files<br>3. **Runbook:** Schritt-für-Schritt Wiederherstellungsanleitung<br>4. **Checklisten:** Security-Hardening Checklist
+            </div>
+        </section>
+
+        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+
+        <footer>
+            <p>Projekt 01: Ubuntu Server Setup & Hardening | Skill Tree Umschüler-Projekte</p>
+            <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
+        </footer>
+    </div>
+</body>
+</html>

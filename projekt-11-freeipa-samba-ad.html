@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt 11: FreeIPA / Samba AD - Enterprise Identity Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+            color: #e0e0e0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(0deg, transparent 24%, rgba(100, 200, 255, 0.05) 25%, rgba(100, 200, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(100, 200, 255, 0.05) 75%, rgba(100, 200, 255, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(100, 200, 255, 0.05) 25%, rgba(100, 200, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(100, 200, 255, 0.05) 75%, rgba(100, 200, 255, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            padding: 40px;
+            background: linear-gradient(180deg, rgba(10, 14, 39, 0.9) 0%, rgba(26, 31, 58, 0.8) 100%);
+            border-bottom: 2px solid rgba(0, 255, 150, 0.2);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, #00ff9f, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 255, 159, 0.3);
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            color: rgba(150, 180, 255, 0.7);
+            letter-spacing: 1px;
+        }
+
+        .project-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            background: rgba(0, 255, 159, 0.05);
+            border: 1px solid rgba(0, 255, 159, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .info-card-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: #00ff9f;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .info-card-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: #e0e0e0;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .section {
+            margin: 50px 0;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #00ccff;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ccff, transparent);
+        }
+
+        .section-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #00ff9f;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .subtitle-md {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            color: #ffaa00;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            margin: 15px 0;
+            line-height: 1.8;
+            font-size: 14px;
+            color: #d0d0d0;
+        }
+
+        ul {
+            list-style: none;
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 13px;
+            color: #c0c0c0;
+            line-height: 1.6;
+        }
+
+        li:before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #00ff9f;
+            font-weight: bold;
+        }
+
+        li.unchecked:before,
+        li.checked:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #00ff9f;
+            border-radius: 3px;
+        }
+
+        li.checked:before {
+            content: '✓';
+            background: rgba(0, 255, 159, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff9f;
+            font-size: 12px;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 3px solid #00ff9f;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: #00ff9f;
+            line-height: 1.4;
+        }
+
+        code {
+            background: rgba(0, 255, 159, 0.1);
+            color: #00ff9f;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+        }
+
+        a {
+            color: #00ccff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: #00ff9f;
+            text-shadow: 0 0 10px rgba(0, 255, 159, 0.5);
+        }
+
+        .content-box {
+            background: linear-gradient(135deg, rgba(0, 204, 255, 0.05) 0%, rgba(0, 255, 159, 0.05) 100%);
+            border: 1px solid rgba(0, 255, 159, 0.2);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 15px 30px;
+            background: linear-gradient(90deg, #00ff9f, #00ccff);
+            color: #0a0e27;
+            text-decoration: none;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        .nav-link:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 159, 0.5);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(0, 204, 255, 0.2);
+            color: rgba(200, 200, 200, 0.7);
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+            .section-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+
+    <div class="container">
+        <header>
+            <h1>🏢 FREEIPA / SAMBA AD - ENTERPRISE IDENTITY MANAGEMENT</h1>
+            <div class="subtitle">PROJEKT 11 • SYSTEMADMINISTRATION</div>
+
+            <div class="project-info">
+                <div class="info-card">
+                    <div class="info-card-label">Schwierigkeitsgrad</div>
+                    <div class="info-card-value">Fortgeschritten → Expert</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-label">Dauer</div>
+                    <div class="info-card-value">3-4 Wochen</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Projektbeschreibung -->
+        <section class="section">
+            <h2 class="section-title">📋 Projektbeschreibung</h2>
+            <div class="content-box">
+                Zentralisierte Benutzer- und Authentifizierungsverwaltung für Unix/Linux Netzwerke. Alternative zu Microsoft Active Directory mit Open Source Tools.
+            </div>
+        </section>
+
+        <!-- Lernziele -->
+        <section class="section">
+            <h2 class="section-title">🎯 Lernziele</h2>
+            <div class="content-box">
+                - FreeIPA Grundlagen und Setup<br>- LDAP Directory Service<br>- Kerberos Authentication<br>- Zentrale Benutzer-Verwaltung<br>- Samba AD (Samba Active Directory) als AD-Alternative<br>- Berechtigungen und Policies<br>- Integration mit Clients<br>- Häufige Probleme beheben
+            </div>
+        </section>
+
+        <!-- Anforderungen -->
+        <section class="section">
+            <h2 class="section-title">🔧 Anforderungen</h2>
+            <div class="content-box">
+                - Ubuntu Server 22.04 LTS oder CentOS (FreeIPA auf RHEL besser)<br>- Min. 4GB RAM, 20GB Disk für FreeIPA Server<br>- Client-VMs für Joining zum Verzeichnis<br>- Grundverständnis: LDAP, Kerberos, Active Directory Konzepte
+            </div>
+        </section>
+
+        <!-- Aufgaben -->
+        <section class="section">
+            <h2 class="section-title">📝 Aufgaben & Phasen</h2>
+            <div class="content-box">
+                ### Phase 1: FreeIPA Installation & Setup (Tag 1-3)<br>- [ ] Voraussetzungen prüfen (DNS, Hostname)<br>- [ ] FreeIPA installieren: `sudo apt install freeipa-server freeipa-server-trust-ad`<br>- [ ] Installation durchführen: `sudo ipa-server-install`<br>  ```<br>  Realm: EXAMPLE.COM<br>  Directory Manager password: (starkes Passwort)<br>  IPA admin password: (starkes Passwort)<br>  ```<br>- [ ] Installation verifizieren<br>- [ ] IPA Web UI zugreifen (https://ipa.example.com)<br>- [ ] LDAP-Backend verstehen<br>- [ ] Kerberos KDC konfiguriert<br><br>### Phase 2: FreeIPA Benutzer & Gruppen (Tag 4-5)<br>- [ ] Admin-Benutzer kennenlernen<br>- [ ] Neue Benutzer erstellen:<br>  ```bash<br>  ipa user-add alice --first=Alice --last=Smith --email=alice@example.com<br>  ipa user-add bob --first=Bob --last=Jones<br>  ```<br>- [ ] Benutzer-Passwörter setzen<br>- [ ] Benutzer deaktivieren/aktivieren<br>- [ ] Gruppen erstellen:<br>  ```bash<br>  ipa group-add developers --desc="Development Team"<br>  ipa group-add-member developers --users=alice,bob<br>  ```<br>- [ ] Nested Groups<br>- [ ] Benutzer-Policies (Passwort-Ablauf, etc.)<br><br>### Phase 3: LDAP & Kerberos Verständnis (Tag 6-7)<br>- [ ] LDAP Directory-Struktur verstehen<br>- [ ] LDAP Queries durchführen:<br>  ```bash<br>  ldapsearch -H ldap://ipa.example.com -x -b "dc=example,dc=com"<br>  ```<br>- [ ] Kerberos Tickets anzeigen: `klist`<br>- [ ] TGT (Ticket Granting Ticket) verstehen<br>- [ ] Kinit für Authentifizierung:<br>  ```bash<br>  kinit alice@EXAMPLE.COM<br>  ```<br>- [ ] Kerberos Service Principals<br>- [ ] Cross-Realm Trust (optional)<br><br>### Phase 4: Linux Clients zu FreeIPA joinen (Tag 8-9)<br>- [ ] FreeIPA Client-Tools installieren<br>- [ ] Client zu FreeIPA Domain joinen:<br>  ```bash<br>  sudo apt install freeipa-client<br>  sudo ipa-client-install --domain=example.com --realm=EXAMPLE.COM --mkhomedir<br>  ```<br>- [ ] Nss-ldap für Benutzer-Auflösung<br>- [ ] PAM für Login-Authentifizierung<br>- [ ] Auto Home Directory Erstellung bei Login<br>- [ ] SSSD (System Security Services Daemon) Konfiguration<br>- [ ] Test: Mit FreeIPA-User einloggen<br><br>### Phase 5: Samba AD Alternative (Tag 10-12)<br>- [ ] Samba AD Unterschied zu Samba klassisch<br>- [ ] Samba AD als Domain Controller:<br>  ```bash<br>  sudo apt install samba-dsdb-modules samba-vfs-modules samba-testsuite<br>  samba-tool domain provision --use-rfc2307 --realm EXAMPLE.COM --domain EXAMPLE<br>  ```<br>- [ ] Samba als Kerberos KDC<br>- [ ] Windows Client Joining (optional)<br>- [ ] Benutzer in Samba AD verwalten:<br>  ```bash<br>  samba-tool user create alice Password123!<br>  samba-tool group add developers<br>  samba-tool group addmembers developers alice,bob<br>  ```<br>- [ ] Berechtigungen in Samba AD<br><br>### Phase 6: Berechtigungen & Policies (Tag 13-14)<br>- [ ] FreeIPA/Samba Berechtigungen verstehen<br>- [ ] Sudo-Regeln in FreeIPA:<br>  ```bash<br>  ipa sudorule-add "Allow developers to sudo"<br>  ipa sudorule-add-host "Allow developers to sudo" --hosts=web1<br>  ipa sudorule-add-user "Allow developers to sudo" --users=alice,bob<br>  ipa sudorule-add-allow-command "Allow developers to sudo" --allow-cmds=/usr/bin/systemctl<br>  ```<br>- [ ] Host-basierte Zugriffskontrolle (HBAC)<br>- [ ] Passwort-Policies<br>- [ ] Account Lockout Policies<br><br>### Phase 7: Integration mit Services (Tag 15-16)<br>- [ ] Postfix mit LDAP-Authentifizierung<br>- [ ] Apache mit Kerberos Auth<br>- [ ] Samba File Shares mit Domain-Benutzer<br>- [ ] SSH Public Key Management über FreeIPA<br>- [ ] Web-Anwendungen mit LDAP-Auth<br><br>### Phase 8: Backup & Disaster Recovery (Tag 17)<br>- [ ] FreeIPA Backup durchführen:<br>  ```bash<br>  sudo ipa-backup<br>  ```<br>- [ ] Restore durchführen<br>- [ ] LDAP-Dumps für Backup<br>- [ ] Kerberos DB Backup<br><br>### Phase 9: Troubleshooting & Monitoring (Tag 18)<br>- [ ] Häufige Probleme:<br>  - [ ] Benutzer kann sich nicht anmelden<br>  - [ ] Kerberos Ticket-Probleme<br>  - [ ] SSSD Caching Issues<br>  - [ ] LDAP Connection Errors<br>- [ ] sssd-debuglog für Debugging<br>- [ ] LDAP Queries für Verifikation<br>- [ ] Kerberos KDC Logs: `/var/log/krb5kdc.log`
+            </div>
+        </section>
+
+        <!-- Ressourcen -->
+        <section class="section">
+            <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
+            <div class="content-box">
+                & Dokumentation<br><br>### Wichtige Dateien<br>- `/etc/ipa/` - FreeIPA Config<br>- `/etc/sssd/sssd.conf` - SSSD Config<br>- `/etc/krb5.conf` - Kerberos Config<br>- `/etc/samba/smb.conf` - Samba Config (wenn genutzt)<br><br>### Wichtige Befehle<br>```bash<br># FreeIPA<br>ipa user-add, ipa user-list, ipa user-del<br>ipa group-add, ipa group-add-member<br>ipa sudorule-add, ipa hbactest<br><br># Kerberos<br>kinit user@REALM<br>klist<br>kdestroy<br><br># LDAP<br>ldapsearch, ldapmodify<br>getent passwd alice<br><br># Samba<br>samba-tool user add, samba-tool group add<br>samba-tool domain demote (wenn Migration)<br>```<br><br>### Wichtige Links<br>- https://www.freeipa.org<br>- https://wiki.samba.org/index.php/Samba4<br>- Kerberos: https://web.mit.edu/kerberos/
+            </div>
+        </section>
+
+        <!-- Deliverables -->
+        <section class="section">
+            <h2 class="section-title">📋 Deliverables</h2>
+            <div class="content-box">
+                1. **Installation Guide:** FreeIPA/Samba AD Setup<br>2. **Client-Join Guide:** Anleitung für Clients<br>3. **Policies & Rules:** Dokumentierte Sudo-Rules, HBAC<br>4. **Troubleshooting:** Common Issues & Solutions<br>5. **Backup & Recovery:** Disaster Recovery Procedures
+            </div>
+        </section>
+
+        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+
+        <footer>
+            <p>Projekt 11: FreeIPA / Samba AD - Enterprise Identity Management | Skill Tree Umschüler-Projekte</p>
+            <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt 08: Docker & Container-Orchestration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+            color: #e0e0e0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(0deg, transparent 24%, rgba(100, 200, 255, 0.05) 25%, rgba(100, 200, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(100, 200, 255, 0.05) 75%, rgba(100, 200, 255, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(100, 200, 255, 0.05) 25%, rgba(100, 200, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(100, 200, 255, 0.05) 75%, rgba(100, 200, 255, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            padding: 40px;
+            background: linear-gradient(180deg, rgba(10, 14, 39, 0.9) 0%, rgba(26, 31, 58, 0.8) 100%);
+            border-bottom: 2px solid rgba(0, 255, 150, 0.2);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, #00ff9f, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 255, 159, 0.3);
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            color: rgba(150, 180, 255, 0.7);
+            letter-spacing: 1px;
+        }
+
+        .project-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            background: rgba(0, 255, 159, 0.05);
+            border: 1px solid rgba(0, 255, 159, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .info-card-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: #00ff9f;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .info-card-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: #e0e0e0;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .section {
+            margin: 50px 0;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #00ccff;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ccff, transparent);
+        }
+
+        .section-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #00ff9f;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .subtitle-md {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            color: #ffaa00;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            margin: 15px 0;
+            line-height: 1.8;
+            font-size: 14px;
+            color: #d0d0d0;
+        }
+
+        ul {
+            list-style: none;
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 13px;
+            color: #c0c0c0;
+            line-height: 1.6;
+        }
+
+        li:before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #00ff9f;
+            font-weight: bold;
+        }
+
+        li.unchecked:before,
+        li.checked:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #00ff9f;
+            border-radius: 3px;
+        }
+
+        li.checked:before {
+            content: '✓';
+            background: rgba(0, 255, 159, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff9f;
+            font-size: 12px;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 3px solid #00ff9f;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: #00ff9f;
+            line-height: 1.4;
+        }
+
+        code {
+            background: rgba(0, 255, 159, 0.1);
+            color: #00ff9f;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+        }
+
+        a {
+            color: #00ccff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: #00ff9f;
+            text-shadow: 0 0 10px rgba(0, 255, 159, 0.5);
+        }
+
+        .content-box {
+            background: linear-gradient(135deg, rgba(0, 204, 255, 0.05) 0%, rgba(0, 255, 159, 0.05) 100%);
+            border: 1px solid rgba(0, 255, 159, 0.2);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 15px 30px;
+            background: linear-gradient(90deg, #00ff9f, #00ccff);
+            color: #0a0e27;
+            text-decoration: none;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        .nav-link:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 159, 0.5);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(0, 204, 255, 0.2);
+            color: rgba(200, 200, 200, 0.7);
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+            .section-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+
+    <div class="container">
+        <header>
+            <h1>🐳 DOCKER & CONTAINER-ORCHESTRATION</h1>
+            <div class="subtitle">PROJEKT 08 • SYSTEMADMINISTRATION</div>
+
+            <div class="project-info">
+                <div class="info-card">
+                    <div class="info-card-label">Schwierigkeitsgrad</div>
+                    <div class="info-card-value">Fortgeschritten → Expert</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-label">Dauer</div>
+                    <div class="info-card-value">3-4 Wochen</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Projektbeschreibung -->
+        <section class="section">
+            <h2 class="section-title">📋 Projektbeschreibung</h2>
+            <div class="content-box">
+                Containerisierung von Anwendungen mit Docker und Grundlagen der Orchestration. Ein modernes, essentielles Skill für DevOps und Systemintegration.
+            </div>
+        </section>
+
+        <!-- Lernziele -->
+        <section class="section">
+            <h2 class="section-title">🎯 Lernziele</h2>
+            <div class="content-box">
+                - Docker Installation und Grundlagen<br>- Dockerfile schreiben und Images bauen<br>- Container lifecycle verwalten<br>- Docker Volumes und Networking<br>- Docker Compose für Multi-Container Apps<br>- Kubernetes Grundlagen (Microk8s)<br>- Registry und Image Management<br>- Container Security
+            </div>
+        </section>
+
+        <!-- Anforderungen -->
+        <section class="section">
+            <h2 class="section-title">🔧 Anforderungen</h2>
+            <div class="content-box">
+                - Ubuntu Server 22.04 LTS oder Desktop<br>- Min. 8GB RAM, 40GB Disk<br>- Docker installiert<br>- Grundverständnis: Linux, Netzwerk
+            </div>
+        </section>
+
+        <!-- Aufgaben -->
+        <section class="section">
+            <h2 class="section-title">📝 Aufgaben & Phasen</h2>
+            <div class="content-box">
+                ### Phase 1: Docker Grundlagen (Tag 1-3)<br>- [ ] Docker installieren: `sudo apt install docker.io`<br>- [ ] Docker Daemon verstehen<br>- [ ] Container vs. Images<br>- [ ] Images pullen: `docker pull ubuntu`<br>- [ ] Containers laufen lassen: `docker run -it ubuntu bash`<br>- [ ] Container Lifecycle: create, start, stop, remove<br>- [ ] Docker CLI Befehle:<br>  ```bash<br>  docker ps, docker images, docker logs<br>  docker exec, docker inspect, docker stats<br>  ```<br>- [ ] Container-Ressourcen limitieren (CPU, Memory)<br><br>### Phase 2: Dockerfile schreiben (Tag 4-6)<br>- [ ] Dockerfile Syntax verstehen<br>- [ ] Base Images wählen<br>- [ ] Application in Container packen<br>- [ ] Multi-Stage Builds<br>- [ ] Layer Caching verstehen<br>- [ ] Beispiel: Python Flask App in Docker<br>  ```dockerfile<br>  FROM python:3.9-slim<br>  WORKDIR /app<br>  COPY requirements.txt .<br>  RUN pip install -r requirements.txt<br>  COPY . .<br>  CMD ["python", "app.py"]<br>  ```<br>- [ ] Image bauen: `docker build -t myapp:1.0 .`<br>- [ ] Image optimieren (Größe reduzieren)<br>- [ ] Best Practices (Non-root user, .dockerignore)<br><br>### Phase 3: Docker Volumes & Networking (Tag 7-8)<br>- [ ] Volumes erstellen und mounten:<br>  ```bash<br>  docker volume create mydata<br>  docker run -v mydata:/data ubuntu<br>  ```<br>- [ ] Bind Mounts für Development<br>- [ ] Volume-Typen verstehen (named, anonymous, bind)<br>- [ ] Docker Networks:<br>  - [ ] Bridge (default)<br>  - [ ] Host<br>  - [ ] Overlay (für Swarm)<br>- [ ] Container-zu-Container Kommunikation<br>- [ ] Port-Mapping: `-p 8080:80`<br><br>### Phase 4: Docker Compose (Tag 9-11)<br>- [ ] docker-compose.yml schreiben<br>- [ ] Services definieren (Web, DB, Cache)<br>- [ ] Environment Variables<br>- [ ] Volumes in Compose<br>- [ ] Networks in Compose<br>- [ ] Example Stack:<br>  ```yaml<br>  version: '3'<br>  services:<br>    web:<br>      build: .<br>      ports:<br>        - "8080:5000"<br>      environment:<br>        - DB_HOST=db<br>    db:<br>      image: postgres:13<br>      environment:<br>        - POSTGRES_PASSWORD=secret<br>      volumes:<br>        - db_data:/var/lib/postgresql/data<br>  volumes:<br>    db_data:<br>  ```<br>- [ ] `docker-compose up/down`<br>- [ ] Logs aggregieren: `docker-compose logs`<br>- [ ] Services skalieren: `docker-compose up --scale web=3`<br><br>### Phase 5: Docker Registry & Security (Tag 12-13)<br>- [ ] Docker Hub Account erstellen<br>- [ ] Images pushen: `docker push username/image:tag`<br>- [ ] Private Registry (optional: Registry Helm Chart)<br>- [ ] Image Security:<br>  - [ ] Minimal Base Images<br>  - [ ] Non-root User in Container<br>  - [ ] Image Scanning (Trivy)<br>  - [ ] Secrets Management<br>- [ ] Docker Security Best Practices<br><br>### Phase 6: Kubernetes Grundlagen mit Microk8s (Tag 14-16)<br>- [ ] Microk8s installieren: `snap install microk8s --classic`<br>- [ ] Kubernetes Architektur verstehen (Master, Nodes, Pods)<br>- [ ] Pod YAML schreiben:<br>  ```yaml<br>  apiVersion: v1<br>  kind: Pod<br>  metadata:<br>    name: myapp<br>  spec:<br>    containers:<br>    - name: app<br>      image: myapp:1.0<br>      ports:<br>      - containerPort: 5000<br>  ```<br>- [ ] Deployments erstellen (für Pod-Replicas)<br>- [ ] Services exposieren (ClusterIP, NodePort, LoadBalancer)<br>- [ ] kubectl Befehle:<br>  ```bash<br>  kubectl apply -f deployment.yaml<br>  kubectl get pods, kubectl logs, kubectl describe<br>  kubectl scale deployment myapp --replicas=3<br>  ```<br>- [ ] Persistent Volumes in K8s<br><br>### Phase 7: Praxisprojekt: Microservices (Tag 17-20)<br>- [ ] 3-4 Microservices entwickeln:<br>  - [ ] Frontend (Nginx/HTML)<br>  - [ ] API Service (Python/Node)<br>  - [ ] Database (Postgres)<br>  - [ ] Cache (Redis)<br>- [ ] Dockerfiles für jeden Service<br>- [ ] docker-compose.yml für Development<br>- [ ] Kubernetes Manifests für Production<br>- [ ] Service-Discovery<br>- [ ] Health-Checks und Restarts
+            </div>
+        </section>
+
+        <!-- Ressourcen -->
+        <section class="section">
+            <h2 class="section-title">📚 Ressourcen & Dokumentation</h2>
+            <div class="content-box">
+                & Dokumentation<br><br>### Wichtige Dateien<br>- `Dockerfile` - Container Definition<br>- `docker-compose.yml` - Multi-Container Definition<br>- `k8s-deployment.yaml` - Kubernetes Deployment<br>- `.dockerignore` - Files ausschließen vom Build<br><br>### Wichtige Befehle<br>```bash<br># Docker<br>docker build -t image:tag .<br>docker run -d --name container image:tag<br>docker ps, docker logs, docker exec<br>docker volume create, docker network create<br><br># Docker Compose<br>docker-compose up -d<br>docker-compose down<br>docker-compose logs -f<br><br># Kubernetes<br>kubectl create deployment myapp --image=myapp:1.0<br>kubectl expose deployment myapp --port=80 --type=NodePort<br>kubectl scale deployment myapp --replicas=3<br>kubectl get all<br>```
+            </div>
+        </section>
+
+        <!-- Deliverables -->
+        <section class="section">
+            <h2 class="section-title">📋 Deliverables</h2>
+            <div class="content-box">
+                1. **Dockerfiles:** Für jede Anwendung<br>2. **docker-compose.yml:** Vollständiger Stack<br>3. **Kubernetes Manifests:** Deployments, Services<br>4. **Security Audit:** Image Security Report<br>5. **Betriebshandbuch:** Wie man Apps deployt, scaled, updatet
+            </div>
+        </section>
+
+        <a href="skill-tree.html" class="nav-link">← Zurück zur Skill Tree</a>
+
+        <footer>
+            <p>Projekt 08: Docker & Container-Orchestration | Skill Tree Umschüler-Projekte</p>
+            <p>Erstellt: 2026 | Projektstand: In Arbeit</p>
+        </footer>
+    </div>
+</body>
+</html>

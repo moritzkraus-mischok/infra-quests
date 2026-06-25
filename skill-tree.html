@@ -511,6 +511,33 @@
                 }, i * 50);
             });
         });
+
+        // Click to navigate to project details
+        document.querySelectorAll('.skill-node').forEach(node => {
+            node.addEventListener('click', () => {
+                const projectId = parseInt(node.dataset.id);
+                const projectLinks = {
+                    1: 'projekt-01-ubuntu-server-setup.html',
+                    2: 'projekt-02-linux-benutzerverwaltung.html',
+                    3: 'projekt-03-netzwerk-grundlagen.html',
+                    4: 'projekt-04-lamp-lemp-stack.html',
+                    5: 'projekt-05-samba-nfs-freigaben.html',
+                    6: 'projekt-06-openssh-vpn-setup.html',
+                    7: 'projekt-07-monitoring-logging.html',
+                    8: 'projekt-08-docker-container.html',
+                    9: 'projekt-09-bind-dns.html',
+                    10: 'projekt-10-ansible-automatisierung.html',
+                    11: 'projekt-11-freeipa-samba-ad.html',
+                    12: 'projekt-12-backup-disaster-recovery.html',
+                    13: 'projekt-13-unternehmens-infrastruktur.html',
+                    14: 'projekt-14-netzwerk-virtualisierung.html',
+                    15: 'projekt-15-scripting-projekt.html'
+                };
+                if (projectLinks[projectId]) {
+                    window.location.href = projectLinks[projectId];
+                }
+            });
+        });
     </script>
 </body>
 </html>
