@@ -470,3 +470,41 @@ path.connection {
 .canvas-wrapper::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #00ccff, #ff00ff);
 }
+
+/* Footer */
+.app-footer {
+    padding: 16px 40px;
+    background: linear-gradient(180deg, rgba(26, 31, 58, 0.8) 0%, rgba(10, 14, 39, 0.9) 100%);
+    border-top: 1px solid rgba(0, 255, 150, 0.2);
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.app-footer a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #00ff9f;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    border: 1px solid rgba(0, 255, 159, 0.3);
+    border-radius: 6px;
+    background: rgba(0, 255, 159, 0.05);
+}
+
+.app-footer a:hover {
+    color: #00ccff;
+    border-color: rgba(0, 204, 255, 0.6);
+    background: rgba(0, 204, 255, 0.1);
+    box-shadow: 0 0 15px rgba(0, 204, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.github-icon {
+    font-size: 16px;
+}
